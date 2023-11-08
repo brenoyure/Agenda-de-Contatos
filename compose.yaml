@@ -1,0 +1,44 @@
+services:
+  agendadb:
+    build:
+      context: ./db
+    networks:
+      - br.albatross.agenda-bridged-network
+    volumes:
+      - br.albatross.agenda-db-vol:/var/lib/mysql
+    image: ${AGENDA_DB_IMAGE_NAME}
+    container_name: ${AGENDADB_MYSQL_CONTAINER}
+    restart: always
+
+  agendaapp:
+    build:
+      context: ./app
+      args:
+        - AGENDADB_MYSQL_CONTAINER=${AGENDADB_MYSQL_CONTAINER}
+        - AGENDADB_MYSQL_USER=${AGENDADB_MYSQL_USER}
+        - AGENDADB_MYSQL_PASSWORD=${AGENDADB_MYSQL_PASSWORD}
+        - AGENDADB_MYSQL_DATABASE_NAME=${AGENDADB_MYSQL_DATABASE_NAME}
+    image: ${AGENDA_APP_IMAGE_NAME}
+    container_name: ${AGENDA_APP_CONTAINER_NAME}
+    volumes:
+      - br.albatross.agenda-app-vol:/opt/jboss/wildfly/standalone:rw
+    networks:
+      - br.albatross.agenda-bridged-network
+    restart: always
+    ports:
+      - ${AGENDA_APP_EXPOSED_PORT}:8080
+
+    depends_on: 
+      agendadb:
+        condition: service_started
+
+volumes:
+  br.albatross.agenda-app-vol:
+    name: br.albatross.agenda-app-vol
+
+  br.albatross.agenda-db-vol:
+    name: br.albatross.agenda-db-vol
+
+networks:
+  br.albatross.agenda-bridged-network:
+    name: br.albatross.agenda-bridged-network
