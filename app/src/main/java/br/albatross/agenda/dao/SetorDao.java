@@ -26,7 +26,7 @@ public class SetorDao {
 
 	public List<Setor> listar() {
 		return entityManager
-				.createQuery("SELECT s FROM Setor s", Setor.class)
+				.createQuery("SELECT s FROM Setor s ORDER BY s.sigla ASC", Setor.class)
 				.getResultList();
 	}
 
