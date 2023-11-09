@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>
+	   <ui:insert name="titulo"></ui:insert>
+	</title>
+</h:head>
+
+<h:body>
+
+    <div>
+
+        <nav>
+            <ul>
+                <li>
+                    <h:link outcome="index" value="Consulta" />
+                </li>
+                <li>
+                    <h:link outcome="cadastroUnidadeAdmin" value="Cadastro de Unidades" />
+                </li>
+                <li>
+                    <h:link outcome="cadastroSetor" value="Cadastro de Setor" />
+                </li>
+                <li>
+                    <h:link outcome="cadastroContato" value="Cadastro de Contatos" />
+                </li>
+            </ul>
+        </nav>    
+
+        <h2>
+            <ui:insert name="titulo"></ui:insert>
+        </h2>
+
+	    <div>
+	        <h:messages id="mensagens" />
+	        <ui:insert name="conteudo"></ui:insert>
+	    </div>
+
+    </div>
+
+</h:body>
+
+</html>
