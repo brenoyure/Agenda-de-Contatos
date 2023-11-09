@@ -22,7 +22,7 @@
 				</p:column>
 	
 				<p:column headerText="Setor" filterBy="#{contato.setor.sigla}" filterMatchMode="contains">
-					#{contato.setor.sigla}
+					<h:outputText value="#{contato.setor.sigla}" title="#{contato.setor.descricao}" />
 				</p:column>
 		
 				<p:column headerText="Andar" filterBy="#{contato.andar.nome}" filterMatchMode="startsWith">

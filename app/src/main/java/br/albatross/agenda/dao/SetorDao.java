@@ -17,6 +17,13 @@ public class SetorDao {
 		entityManager.persist(setor);
 	}
 
+	public boolean existePorSigla(String sigla) {
+		return entityManager
+				.createQuery("SELECT EXISTS (SELECT s FROM Setor s WHERE s.sigla = ?1)", Boolean.class)
+				.setParameter(1, sigla)
+				.getSingleResult();
+	}
+
 	public List<Setor> listar() {
 		return entityManager
 				.createQuery("SELECT s FROM Setor s", Setor.class)

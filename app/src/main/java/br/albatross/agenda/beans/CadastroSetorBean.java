@@ -1,7 +1,13 @@
 package br.albatross.agenda.beans;
 
-import br.albatross.agenda.dao.SetorDao;
+import java.util.List;
+
+import br.albatross.agenda.dao.UnidadeAdministrativaDao;
+import br.albatross.agenda.exceptions.SetorExistenteException;
 import br.albatross.agenda.models.Setor;
+import br.albatross.agenda.models.UnidadeAdministrativa;
+import br.albatross.agenda.services.SetorService;
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -18,25 +24,44 @@ public class CadastroSetorBean {
 	private FacesContext context;
 
 	@Inject
-	private SetorDao dao;
+	private SetorService service;
+
+	@Inject
+	private UnidadeAdministrativaDao unidadeAdminDao;
 
 	@Getter
-	private Setor setor = new Setor();
+	private List<UnidadeAdministrativa> unidadesAdministrativas;
+
+	@Getter
+	private Setor setor;
 
 	@Getter @Setter
 	private boolean continuarNestaTela = false;
 
+	@PostConstruct
+	void init() {
+		setor = new Setor();
+		unidadesAdministrativas = unidadeAdminDao.listar();
+	}
+
 	@Transactional
 	public String cadastrar() {
-		dao.persist(setor);
-		context.addMessage(null, new FacesMessage("Setor: " + setor.getSigla() + " cadastrado."));
+		try {
+			context.getExternalContext().getFlash().setKeepMessages(true);
+			service.salvar(setor);
+			context.addMessage(null, new FacesMessage("Setor: " + setor.getSigla() + " cadastrado."));
 
-		if (continuarNestaTela) {
+			if (continuarNestaTela) {
+				return context.getViewRoot().getViewId() + "?faces-redirect=true";
+			}
+
+			return "index?faces-redirect=true";
+
+		} catch (SetorExistenteException e) {
+			context.addMessage(null, new FacesMessage(e.getMessage()));
 			return context.getViewRoot().getViewId() + "?faces-redirect=true";
 		}
 
-		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "/?faces-redirect=true";
 	}
 
 }

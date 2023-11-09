@@ -3,11 +3,11 @@ package br.albatross.agenda.dao;
 import java.util.List;
 
 import br.albatross.agenda.models.Contato;
-import jakarta.ejb.Stateless;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
-@Stateless
+@RequestScoped
 public class ContatoDao {
 
 	@PersistenceContext

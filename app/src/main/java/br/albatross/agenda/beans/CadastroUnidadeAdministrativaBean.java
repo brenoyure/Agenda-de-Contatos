@@ -1,7 +1,5 @@
 package br.albatross.agenda.beans;
 
-import java.util.List;
-
 import br.albatross.agenda.dao.UnidadeAdministrativaDao;
 import br.albatross.agenda.models.UnidadeAdministrativa;
 import jakarta.enterprise.context.RequestScoped;
@@ -11,6 +9,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.transaction.Transactional;
 import lombok.Getter;
+import lombok.Setter;
 
 @Named @RequestScoped
 public class CadastroUnidadeAdministrativaBean {
@@ -24,15 +23,21 @@ public class CadastroUnidadeAdministrativaBean {
 	@Getter
 	private UnidadeAdministrativa unidadeAdmin = new UnidadeAdministrativa();
 
+	@Getter @Setter
+	private boolean continuarNestaTela = false;
+
 	@Transactional
 	public String cadastrar() {
 		dao.persist(unidadeAdmin);
-		context.addMessage(null, new FacesMessage(unidadeAdmin.getSigla() + " cadastrada."));
+		context.addMessage(null, new FacesMessage("Unidade " + unidadeAdmin.getSigla() + " cadastrada"));
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "/?faces-redirect=true";
+
+		if (continuarNestaTela) {
+			return context.getViewRoot().getViewId() + "?faces-redirect=true";
+		}
+
+		return "index?faces-redirect=true";
+		
 	}
 
-	public List<UnidadeAdministrativa> getUnidadesAdministrativas() {
-		return dao.listar(); 
-	}
 }
