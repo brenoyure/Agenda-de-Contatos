@@ -64,7 +64,7 @@ public class CadastroContatoBean {
 				return context.getViewRoot().getViewId() + "?faces-redirect=true";
 			}
 
-			return "index?faces-redirect=true";
+			return "consultaContatos?faces-redirect=true";
 
 		} catch (ContatoExistenteException e) {
 			context.addMessage(null, new FacesMessage(e.getMessage()));

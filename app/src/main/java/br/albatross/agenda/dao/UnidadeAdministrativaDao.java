@@ -17,6 +17,13 @@ public class UnidadeAdministrativaDao {
 		entityManager.persist(unidadeAdministrativa);
 	}
 
+	public boolean existePorSigla(String sigla) {
+		return entityManager
+					.createQuery("SELECT EXISTS(SELECT u FROM UnidadeAdministrativa u WHERE u.sigla = ?1)", Boolean.class)
+					.setParameter(1, sigla)
+					.getSingleResult();
+	}	
+
 	public List<UnidadeAdministrativa> listar() {
 		return entityManager
 				.createQuery("SELECT u FROM UnidadeAdministrativa u", UnidadeAdministrativa.class)

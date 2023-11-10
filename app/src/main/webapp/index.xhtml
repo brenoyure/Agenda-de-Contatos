@@ -1,35 +1,19 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<h:head /> 
+<ui:composition template="_template.xhtml">
 
-<h:body>
+    <ui:define name="titulo">Menu Principal - Agenda App</ui:define>
+    <ui:define name="conteudo">
 
-    <p:growl id="mensagens" />
+        <ui:include src="_navBarCadastroTemplate.xhtml" />
+        <ui:include src="_navBarConsultasTemplate.xhtml" />
 
-	<h:form>
-		<p:dataTable value="#{indexBean.contatos}" var="contato" rows="3" paginator="true" paginatorPosition="bottom" >
-			<f:facet name="header">Contatos</f:facet>
-				<p:column headerText="Nome" filterBy="#{contato.nome}" filterMatchMode="startsWith">
-					#{contato.nome}
-				</p:column>
-				<p:column headerText="Ramal" filterBy="#{contato.numero}" filterMatchMode="contains" >
-					<h:outputText value="#{contato.numero}" />
-				</p:column>
-	
-				<p:column headerText="Setor" filterBy="#{contato.setor.sigla}" filterMatchMode="contains">
-					<h:outputText value="#{contato.setor.sigla}" title="#{contato.setor.descricao}" />
-				</p:column>
-		
-				<p:column headerText="Andar" filterBy="#{contato.andar.nome}" filterMatchMode="startsWith">
-					#{contato.andar.nome}
-				</p:column>
-		</p:dataTable>
-	</h:form>
-</h:body>
+	</ui:define>
+
+</ui:composition>
 
 </html>
