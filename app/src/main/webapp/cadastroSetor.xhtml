@@ -8,7 +8,11 @@
 
     <ui:define name="titulo">Cadastro de Setor</ui:define>
     <ui:define name="conteudo">
-    
+
+    <f:metadata>
+        <f:viewParam name="setorId" value="#{cadastroSetorBean.setor.id}" />
+        <f:viewAction action="#{cadastroSetorBean.carregar(param.setorId)}" if="#{param.setorId != null}" />
+    </f:metadata>
 		<h:form id="formCadastroSetor">
 			<div>
 				<h:outputLabel for="inputText-setor-sigla" value="Sigla" />

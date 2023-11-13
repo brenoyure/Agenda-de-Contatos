@@ -12,7 +12,7 @@
     <p:growl id="mensagens" />
 
 	<h:form>
-		<p:dataTable value="#{indexBean.contatos}" var="contato" rows="3" paginator="true" paginatorPosition="bottom" >
+		<p:dataTable value="#{indexBean.contatos}" var="contato" rows="10" paginator="true" paginatorPosition="bottom" >
 			<f:facet name="header">Contatos</f:facet>
 				<p:column headerText="Nome" filterBy="#{contato.nome}" filterMatchMode="startsWith">
 					#{contato.nome}
@@ -28,6 +28,14 @@
 				<p:column headerText="Andar" filterBy="#{contato.andar.nome}" filterMatchMode="startsWith">
 					#{contato.andar.nome}
 				</p:column>
+
+				<p:column>
+				    <p:link includeViewParams="true" outcome="cadastroContato" >
+				        <h:outputText title="Editar" styleClass="ui-icon pi pi-pencil" />
+				        <f:param name="contatoId" value="#{contato.id}" />
+				    </p:link>
+				</p:column>
+
 		</p:dataTable>
 	</h:form>
 </h:body>

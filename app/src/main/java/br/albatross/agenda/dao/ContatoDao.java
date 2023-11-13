@@ -30,4 +30,8 @@ public class ContatoDao {
 				.getResultList();
 	}
 
+	public Contato buscarPorId(Number contatoId) {
+		return entityManager.find(Contato.class, contatoId);
+	}
+
 }

@@ -1,4 +1,4 @@
-package br.albatross.agenda.beans;
+package br.albatross.agenda.beans.cadastro;
 
 import java.util.List;
 
@@ -55,13 +55,19 @@ public class CadastroSetorBean {
 				return context.getViewRoot().getViewId() + "?faces-redirect=true";
 			}
 
-			return "index?faces-redirect=true";
+			return "consultaSetores?faces-redirect=true";
 
 		} catch (SetorExistenteException e) {
 			context.addMessage(null, new FacesMessage(e.getMessage()));
 			return context.getViewRoot().getViewId() + "?faces-redirect=true";
 		}
 
+	}
+
+	public void carregar(Short setorId) {
+		if (service.existePorId(setorId)) {
+			setor = service.carregar(setorId);
+		}
 	}
 
 }

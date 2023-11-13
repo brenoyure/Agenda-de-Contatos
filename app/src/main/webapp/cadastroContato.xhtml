@@ -9,6 +9,11 @@
     <ui:define name="titulo">Cadastro de Contato</ui:define>
 	<ui:define name="conteudo">
 
+    <f:metadata>
+        <f:viewParam name="contatoId" />
+        <f:viewAction action="#{cadastroContatoBean.carregar(param.contatoId)}" if="#{param.contatoId != null}" />
+    </f:metadata>	
+
 		<h:form id="formCadastroContato">
 			<div>
 				<h:outputLabel for="inputText-contato-nome" value="Nome" />

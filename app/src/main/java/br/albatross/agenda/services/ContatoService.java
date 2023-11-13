@@ -19,5 +19,9 @@ public class ContatoService {
 
 		dao.persist(contato);
 	}
+
+	public Contato buscarPorId(Number contatoId) {
+		return dao.buscarPorId(contatoId);
+	}
 	
 }

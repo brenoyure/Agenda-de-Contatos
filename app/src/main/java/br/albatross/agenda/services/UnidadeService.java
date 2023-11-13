@@ -1,5 +1,7 @@
 package br.albatross.agenda.services;
 
+import java.util.List;
+
 import br.albatross.agenda.dao.UnidadeAdministrativaDao;
 import br.albatross.agenda.exceptions.UnidadeExistenteException;
 import br.albatross.agenda.models.UnidadeAdministrativa;
@@ -19,6 +21,10 @@ public class UnidadeService {
 
 		dao.persist(unidadeAdministrativa);
 
+	}
+
+	public List<UnidadeAdministrativa> listar() {
+		return dao.listar();
 	}
 
 }

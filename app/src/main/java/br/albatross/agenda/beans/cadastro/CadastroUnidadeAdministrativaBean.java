@@ -1,4 +1,4 @@
-package br.albatross.agenda.beans;
+package br.albatross.agenda.beans.cadastro;
 
 import br.albatross.agenda.exceptions.UnidadeExistenteException;
 import br.albatross.agenda.models.UnidadeAdministrativa;
@@ -38,7 +38,7 @@ public class CadastroUnidadeAdministrativaBean {
 				return context.getViewRoot().getViewId() + "?faces-redirect=true";
 			}
 
-			return "index?faces-redirect=true";
+			return "consultaUnidadeAdmin?faces-redirect=true";
 
 		} catch (UnidadeExistenteException e) {
 			context.addMessage(null, new FacesMessage(e.getMessage()));

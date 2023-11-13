@@ -1,4 +1,4 @@
-package br.albatross.agenda.beans;
+package br.albatross.agenda.beans.cadastro;
 
 import java.util.List;
 
@@ -71,6 +71,10 @@ public class CadastroContatoBean {
 			return context.getViewRoot().getViewId() + "?faces-redirect=true";
 		}
 
+	}
+
+	public void carregar(Short contatoId) {
+		contato = service.buscarPorId(contatoId);
 	}
 
 }
