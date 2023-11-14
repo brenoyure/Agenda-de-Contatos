@@ -1,21 +1,21 @@
-package br.albatross.agenda.beans;
+package br.albatross.agenda.beans.consulta;
 
 import java.util.List;
 
-import br.albatross.agenda.dao.ContatoDao;
 import br.albatross.agenda.models.Contato;
+import br.albatross.agenda.services.ContatoService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 @Named @RequestScoped
-public class IndexBean {
+public class ConsultaContatosBean {
 
 	@Inject
-	private ContatoDao dao;
-	
+	private ContatoService service;
+
 	public List<Contato> getContatos() {
-		return dao.listar();
+		return service.listar();
 	}
 
 }

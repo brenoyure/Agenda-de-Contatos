@@ -5,14 +5,16 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:head /> 
+<h:head >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</h:head>
 
 <h:body>
 
     <p:growl id="mensagens" />
 
 	<h:form>
-		<p:dataTable value="#{indexBean.contatos}" var="contato" rows="10" paginator="true" paginatorPosition="bottom" >
+		<p:dataTable value="#{consultaContatosBean.contatos}" var="contato" rows="10" paginator="true" paginatorPosition="bottom" >
 			<f:facet name="header">Contatos</f:facet>
 				<p:column headerText="Nome" filterBy="#{contato.nome}" filterMatchMode="startsWith">
 					#{contato.nome}

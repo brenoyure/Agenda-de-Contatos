@@ -1,5 +1,7 @@
 package br.albatross.agenda.services;
 
+import java.util.List;
+
 import br.albatross.agenda.dao.ContatoDao;
 import br.albatross.agenda.exceptions.ContatoExistenteException;
 import br.albatross.agenda.models.Contato;
@@ -18,6 +20,10 @@ public class ContatoService {
 		}
 
 		dao.persist(contato);
+	}
+
+	public List<Contato> listar() {
+		return dao.listar();
 	}
 
 	public Contato buscarPorId(Number contatoId) {
