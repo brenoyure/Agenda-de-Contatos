@@ -16,11 +16,11 @@ public class SetorService {
 
 	public void salvar(Setor setor) throws SetorExistenteException {
 
+		if (dao.existePorSigla(setor.getSigla())) {
+			throw new SetorExistenteException(String.format("Setor com a Sigla informada '%s' já existente.", setor.getSigla()));
+		}		
+
 		if (setor.getId() == null) {
-			if (dao.existePorSigla(setor.getSigla())) {
-				throw new SetorExistenteException(String.format("Setor com a Sigla informada '%s' já existente.", setor.getSigla()));
-			}
-			
 			dao.persist(setor);
 		}
 

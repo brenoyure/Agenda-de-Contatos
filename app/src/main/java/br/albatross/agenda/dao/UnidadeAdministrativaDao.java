@@ -17,6 +17,17 @@ public class UnidadeAdministrativaDao {
 		entityManager.persist(unidadeAdministrativa);
 	}
 
+	public void atualizar(UnidadeAdministrativa unidadeAdministrativa) {
+		entityManager.merge(unidadeAdministrativa);
+	}
+
+	public boolean existePorId(Short unidadeAdministrativaId) {
+		return entityManager
+					.createQuery("SELECT EXISTS(SELECT u FROM UnidadeAdministrativa u WHERE u.id = ?1)", Boolean.class)
+					.setParameter(1, unidadeAdministrativaId)
+					.getSingleResult();
+	}
+
 	public boolean existePorSigla(String sigla) {
 		return entityManager
 					.createQuery("SELECT EXISTS(SELECT u FROM UnidadeAdministrativa u WHERE u.sigla = ?1)", Boolean.class)
@@ -28,6 +39,14 @@ public class UnidadeAdministrativaDao {
 		return entityManager
 				.createQuery("SELECT u FROM UnidadeAdministrativa u", UnidadeAdministrativa.class)
 				.getResultList();
+	}
+
+	public UnidadeAdministrativa carregar(Short id) {
+		return entityManager.find(UnidadeAdministrativa.class, id);
+	}
+
+	public void excluir (UnidadeAdministrativa unidadeAdministrativa) {
+		entityManager.remove(entityManager.getReference(UnidadeAdministrativa.class, unidadeAdministrativa.getId()));
 	}
 
 }

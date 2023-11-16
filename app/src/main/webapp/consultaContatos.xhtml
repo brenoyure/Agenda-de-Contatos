@@ -38,6 +38,12 @@
 				    </p:link>
 				</p:column>
 
+                <p:column>
+                    <p:commandLink action="#{consultaContatosBean.excluir(contato)}" >
+                        <h:outputText styleClass="ui-icon pi pi-trash" />
+                    </p:commandLink>
+                </p:column>
+
 		</p:dataTable>
 	</h:form>
 </h:body>

@@ -10,7 +10,7 @@
 	<ui:define name="conteudo">
 
     <f:metadata>
-        <f:viewParam name="contatoId" />
+        <f:viewParam name="contatoId" value="#{cadastroContatoBean.contato.id}" />
         <f:viewAction action="#{cadastroContatoBean.carregar(param.contatoId)}" if="#{param.contatoId != null}" />
     </f:metadata>	
 

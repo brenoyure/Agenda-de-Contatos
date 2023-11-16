@@ -15,11 +15,14 @@ public class ContatoService {
 	private ContatoDao dao;
 	
 	public void salvar(Contato contato) throws ContatoExistenteException {
-		if (dao.existePorNome(contato.getNome())) {
-			throw new ContatoExistenteException(String.format("Contato com o Nome informado '%s' já existente.", contato.getNome()));
+		if (contato.getId() == null) {
+			dao.persist(contato);
 		}
 
-		dao.persist(contato);
+		else {
+			dao.atualizar(contato);
+		}
+
 	}
 
 	public List<Contato> listar() {
@@ -28,6 +31,10 @@ public class ContatoService {
 
 	public Contato buscarPorId(Number contatoId) {
 		return dao.buscarPorId(contatoId);
+	}
+
+	public void excluir(Contato contato) {
+		dao.excluir(contato);
 	}
 	
 }

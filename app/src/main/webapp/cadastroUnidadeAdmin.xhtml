@@ -9,6 +9,11 @@
     <ui:define name="titulo">Cadastro de Unidade Administrativa</ui:define>
     <ui:define name="conteudo">
 
+    <f:metadata>
+        <f:viewParam name="unidadeId" value="#{cadastroUnidadeAdministrativaBean.unidadeAdmin.id}" />
+        <f:viewAction action="#{cadastroUnidadeAdministrativaBean.carregar(param.unidadeId)}" if="#{param.unidadeId != null}" />
+    </f:metadata>
+
 		<h:form id="formCadastroUnidadeAdmin" title="Formulário de Cadastro Administração Central">
 			<div>
 				<h:outputLabel for="inputText-unidadeAdmin-sigla" value="Sigla" />

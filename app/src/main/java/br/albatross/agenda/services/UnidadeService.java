@@ -19,12 +19,35 @@ public class UnidadeService {
 			throw new UnidadeExistenteException(String.format("Unidade com a sigla informada '%s' já existente.", unidadeAdministrativa.getSigla()));
 		}
 
-		dao.persist(unidadeAdministrativa);
+		if (unidadeAdministrativa.getId() == null) {
+			dao.persist(unidadeAdministrativa);
+		}
+		
+		else {
+			dao.atualizar(unidadeAdministrativa);
+		}
 
+
+	}
+
+	public void atualizar(UnidadeAdministrativa unidadeAdministrativa) {
+		dao.atualizar(unidadeAdministrativa);
 	}
 
 	public List<UnidadeAdministrativa> listar() {
 		return dao.listar();
+	}
+
+	public void excluir(UnidadeAdministrativa unidadeAdministrativa) {
+		dao.excluir(unidadeAdministrativa);
+	}
+
+	public boolean existePorId(Short unidadeId) {
+		return dao.existePorId(unidadeId);
+	}
+
+	public UnidadeAdministrativa carregar(Short unidadeId) {
+		return dao.carregar(unidadeId);
 	}
 
 }

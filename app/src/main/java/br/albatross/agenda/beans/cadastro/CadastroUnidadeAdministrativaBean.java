@@ -38,13 +38,19 @@ public class CadastroUnidadeAdministrativaBean {
 				return context.getViewRoot().getViewId() + "?faces-redirect=true";
 			}
 
-			return "consultaUnidadeAdmin?faces-redirect=true";
+			return "consultaUnidades?faces-redirect=true";
 
 		} catch (UnidadeExistenteException e) {
 			context.addMessage(null, new FacesMessage(e.getMessage()));
 			return context.getViewRoot().getViewId() + "?faces-redirect=true";
 		}
 		
+	}
+
+	public void carregar(Short unidadeId) {
+		if (service.existePorId(unidadeId)) {
+			unidadeAdmin = service.carregar(unidadeId);
+		}
 	}
 
 }

@@ -17,10 +17,21 @@ public class ContatoDao {
 		entityManager.persist(contato);
 	}
 
+	public void atualizar(Contato contato) {
+		entityManager.merge(contato);
+	}
+
 	public boolean existePorNome(String nome) {
 		return entityManager
 				.createQuery("SELECT EXISTS(SELECT c FROM Contato c WHERE c.nome = ?1)", Boolean.class)
 				.setParameter(1, nome)
+				.getSingleResult();
+	}
+	
+	public boolean existePorId(Short contatoId) {
+		return entityManager
+				.createQuery("SELECT EXISTS (SELECT c FROM Contato c WHERE c.id = ?1)", Boolean.class)
+				.setParameter(1, contatoId)
 				.getSingleResult();
 	}
 
@@ -33,5 +44,11 @@ public class ContatoDao {
 	public Contato buscarPorId(Number contatoId) {
 		return entityManager.find(Contato.class, contatoId);
 	}
+
+	public void excluir(Contato contato) {
+		entityManager.remove(entityManager.getReference(Contato.class, contato.getId()));
+	}
+
+
 
 }
