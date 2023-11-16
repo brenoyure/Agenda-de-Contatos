@@ -10,7 +10,7 @@
     <ui:define name="conteudo">
 
         <h:form >
-	        <h:dataTable value="#{consultaUnidadesBean.unidades}" var="unidade" >
+	        <h:dataTable styleClass="table table-striped" value="#{consultaUnidadesBean.unidades}" var="unidade" >
 	            <h:column >
 	                <f:facet name="header" >Sigla</f:facet>
 	                <h:outputText value="#{unidade.sigla}" />

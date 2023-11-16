@@ -14,31 +14,35 @@
         <f:viewAction action="#{cadastroUnidadeAdministrativaBean.carregar(param.unidadeId)}" if="#{param.unidadeId != null}" />
     </f:metadata>
 
-		<h:form id="formCadastroUnidadeAdmin" title="Formulário de Cadastro Administração Central">
-			<div>
-				<h:outputLabel for="inputText-unidadeAdmin-sigla" value="Sigla" />
+	    <h:panelGroup layout="block" styleClass="container" >
+
+			<h:form id="formCadastroUnidadeAdmin" title="Formulário de Cadastro Administração Central">
 				<div>
-					<h:inputText id="inputText-unidadeAdmin-sigla"	value="#{cadastroUnidadeAdministrativaBean.unidadeAdmin.sigla}"	required="true" requiredMessage="Sigla da Unidade Obrigatória" />
+					<h:outputLabel for="inputText-unidadeAdmin-sigla" value="Sigla" />
+					<div>
+						<h:inputText id="inputText-unidadeAdmin-sigla" value="#{cadastroUnidadeAdministrativaBean.unidadeAdmin.sigla}"	required="true" requiredMessage="Sigla da Unidade Obrigatória" />
+					</div>
 				</div>
-			</div>
 
-			<div>
-				<h:outputLabel for="inputText-unidadeAdmin-descricao" value="Descrição" />
 				<div>
-					<h:inputText id="inputText-unidadeAdmin-descricao" title="Descrição" value="#{cadastroUnidadeAdministrativaBean.unidadeAdmin.descricao}" />
+					<h:outputLabel for="inputText-unidadeAdmin-descricao" value="Descrição" />
+					<div>
+						<h:inputText id="inputText-unidadeAdmin-descricao" title="Descrição" value="#{cadastroUnidadeAdministrativaBean.unidadeAdmin.descricao}" />
+					</div>
 				</div>
-			</div>
 
-			<div>
-				<h:outputLabel value="Conitnuar Nesta Tela?" for="selectCheckBoxContinuar" />
-				<h:selectBooleanCheckbox id="selectCheckBoxContinuar" value="#{cadastroUnidadeAdministrativaBean.continuarNestaTela}" />
-			</div>
+				<div class="form-check" >
+					<h:outputLabel value="Continuar Nesta Tela?" for="selectCheckBoxContinuar" styleClass="form-check-label" />
+					<h:selectBooleanCheckbox id="selectCheckBoxContinuar" value="#{cadastroUnidadeAdministrativaBean.continuarNestaTela}" styleClass="form-check-input" />
+				</div>
 
-			<div>
-				<h:commandButton value="Cadastrar" action="#{cadastroUnidadeAdministrativaBean.cadastrar}" />
-			</div>
-
-		</h:form>
+				<div>
+					<h:commandButton value="Cadastrar" action="#{cadastroUnidadeAdministrativaBean.cadastrar}" styleClass="btn btn-primary" />
+				</div>
+	
+			</h:form>
+			
+		</h:panelGroup>
 	</ui:define>
 
 </ui:composition>
