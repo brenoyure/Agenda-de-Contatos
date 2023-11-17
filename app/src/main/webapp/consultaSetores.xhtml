@@ -34,15 +34,33 @@
 	                    <f:param name="setorId" value="#{setor.id}" />
 	                </h:link>
 	            </h:column>
-	
-	            <h:column>
-	                <f:facet name="header">Excluir</f:facet>
-	                <h:commandLink value="Excluir" action="#{consultaSetoresBean.excluir(setor)}" />
-	            </h:column>
-	
+
+                <h:column>
+                    <f:facet name="header">Excluir</f:facet>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#setorModal#{setor.id}">Excluir</button>
+                    <div class="modal fade" id="setorModal#{setor.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmação de Exclusão</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <h:outputText value="Confirmar Exclusão do Setor: #{setor.sigla} ?" />
+                          </div>
+                          <div class="modal-footer">
+                            <h:commandButton styleClass="btn btn-danger" action="#{consultaSetoresBean.excluir(setor)}" value="Confirmar Exclusão" />
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </h:column>
+
 	        </h:dataTable>
+
         </h:form>
-    
+
     </ui:define>
 
 </ui:composition>

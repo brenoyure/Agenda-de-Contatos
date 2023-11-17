@@ -17,17 +17,21 @@
 	    <h:panelGroup layout="block" styleClass="container" >
 
 			<h:form id="formCadastroUnidadeAdmin" title="Formulário de Cadastro Administração Central">
-				<div>
-					<h:outputLabel for="inputText-unidadeAdmin-sigla" value="Sigla" />
-					<div>
-						<h:inputText id="inputText-unidadeAdmin-sigla" value="#{cadastroUnidadeAdministrativaBean.unidadeAdmin.sigla}"	required="true" requiredMessage="Sigla da Unidade Obrigatória" />
+				<div class="row g-3 align-items-center">
+					<div class="col-auto">
+						<h:outputLabel styleClass="col-form-label" for="inputText-unidadeAdmin-sigla" value="Sigla" />
+					</div>
+					<div class="col-auto">
+						<h:inputText styleClass="form-control form-control-sm" id="inputText-unidadeAdmin-sigla" value="#{cadastroUnidadeAdministrativaBean.unidadeAdmin.sigla}"	required="true" requiredMessage="Sigla da Unidade Obrigatória" />
 					</div>
 				</div>
 
-				<div>
-					<h:outputLabel for="inputText-unidadeAdmin-descricao" value="Descrição" />
-					<div>
-						<h:inputText id="inputText-unidadeAdmin-descricao" title="Descrição" value="#{cadastroUnidadeAdministrativaBean.unidadeAdmin.descricao}" />
+				<div class="row g-3">
+					<div class="col-auto">
+						<h:outputLabel styleClass="col-form-label" for="inputText-unidadeAdmin-descricao" value="Descrição" />
+					</div>
+					<div class="col-auto">
+						<h:inputText styleClass="form-control form-control-sm" id="inputText-unidadeAdmin-descricao" title="Descrição" value="#{cadastroUnidadeAdministrativaBean.unidadeAdmin.descricao}" />
 					</div>
 				</div>
 
