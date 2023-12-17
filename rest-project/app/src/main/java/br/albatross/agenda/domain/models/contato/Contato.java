@@ -8,12 +8,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity @Cacheable 
+@Entity @Cacheable
 @Table(name = "contato")
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
@@ -35,11 +36,19 @@ public class Contato {
 	@Column(length = 10, unique = false, nullable = false)
 	private String andar;
 
-	public Contato(DadosParaCadastroDeNovoContatoDto dados) {
-		this.nome=dados.nome();
-		this.numero=dados.ramal();
-		this.setor=dados.setor();
-		this.andar=dados.andar();
+	public Contato(@Valid DadosParaCadastroDeNovoContatoDto dados) {
+		this.nome = dados.nome();
+		this.numero = dados.ramal();
+		this.setor = dados.setor();
+		this.andar = dados.andar();
+	}	
+
+	public Contato(@Valid DadosParaAtualizacaoDeContatoDto dados) {
+		this.id = dados.id();
+		this.nome = dados.nome();
+		this.numero = dados.ramal();
+		this.setor = dados.setor();
+		this.andar = dados.andar();
 	}
 
 }

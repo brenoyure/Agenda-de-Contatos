@@ -8,6 +8,10 @@ public record DadosParaListagemDeContatoDto(
 		String setor,
 		String andar
 
-	) {
+	)  {
+
+	public DadosParaListagemDeContatoDto(Contato contato) {
+		this(contato.getId(), contato.getNome(), contato.getNumero(), contato.getSetor(), contato.getAndar());
+	}
 
 }

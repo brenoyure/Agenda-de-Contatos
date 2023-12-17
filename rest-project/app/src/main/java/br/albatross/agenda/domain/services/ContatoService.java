@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import br.albatross.agenda.domain.dao.ContatoDao;
 import br.albatross.agenda.domain.models.contato.Contato;
+import br.albatross.agenda.domain.models.contato.DadosParaAtualizacaoDeContatoDto;
 import br.albatross.agenda.domain.models.contato.DadosParaCadastroDeNovoContatoDto;
 import br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -20,21 +21,25 @@ public class ContatoService {
 
 	@Transactional
 	public DadosParaListagemDeContatoDto salvar(@Valid DadosParaCadastroDeNovoContatoDto dados) {
-		Contato contato = new Contato(dados);
-		dao.persist(contato);
-		return new DadosParaListagemDeContatoDto(contato.getId(), contato.getNome(), contato.getNumero(), contato.getSetor(), contato.getAndar());
+		return dao.persist(new Contato(dados));
 	}
 
-	public List<DadosParaListagemDeContatoDto> listar(int pagina, int resultadosPorPagina) {
+	public List<DadosParaListagemDeContatoDto> listar(int pagina, byte resultadosPorPagina) {
 		return dao.listar(pagina, resultadosPorPagina);
 	}
 
-	public Optional<DadosParaListagemDeContatoDto> buscarPorId(int contatoId) {
+	public Optional<DadosParaListagemDeContatoDto> buscarPorId(short contatoId) {
 		return dao.buscarPorId(contatoId);
 	}
 
-	public void excluir(Contato contato) {
-		dao.excluir(contato);
+	@Transactional
+	public DadosParaListagemDeContatoDto atualizarCadastro(@Valid DadosParaAtualizacaoDeContatoDto dados) {
+		return new DadosParaListagemDeContatoDto(dao.atualizar(new Contato(dados)));
+	}
+
+	@Transactional
+	public void excluir(short id) {
+		dao.excluir(id);
 	}
 
 }

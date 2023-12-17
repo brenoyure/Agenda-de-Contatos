@@ -18,12 +18,13 @@ public class ContatoDao {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void persist(Contato contato) {
+	public DadosParaListagemDeContatoDto persist(Contato contato) {
 		entityManager.persist(contato);
+		return new DadosParaListagemDeContatoDto(contato);
 	}
 
-	public void atualizar(Contato contato) {
-		entityManager.merge(contato);
+	public Contato atualizar(Contato contato) {
+		return entityManager.merge(contato);
 	}
 
 	public boolean existePorNome(String nome) {
@@ -42,7 +43,7 @@ public class ContatoDao {
 				.getSingleResult();
 	}
 
-	public List<DadosParaListagemDeContatoDto> listar(int pagina, int resultadosPorPagina) {
+	public List<DadosParaListagemDeContatoDto> listar(int pagina, byte resultadosPorPagina) {
 		return entityManager
 				.createQuery("SELECT new br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto(c.id, c.nome, c.numero, c.setor, c.andar) FROM Contato c", DadosParaListagemDeContatoDto.class)
 				.setFirstResult((pagina * resultadosPorPagina) - resultadosPorPagina)
@@ -51,18 +52,18 @@ public class ContatoDao {
 				.getResultList();
 	}
 
-	public Optional<DadosParaListagemDeContatoDto> buscarPorId(int contatoId) {
+	public Optional<DadosParaListagemDeContatoDto> buscarPorId(short contatoId) {
 		try {
 			return Optional.ofNullable(entityManager
-					.createQuery("SELECT new br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto(c.id, c.nome, c.numero, c.setor, c.andar) FROM Contato c WHERE c.id = ?", DadosParaListagemDeContatoDto.class)
+					.createQuery("SELECT new br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto(c.id, c.nome, c.numero, c.setor, c.andar) FROM Contato c WHERE c.id = ?1", DadosParaListagemDeContatoDto.class)
 					.setParameter(1, contatoId)
 					.setHint(AvailableHints.HINT_CACHEABLE, true)
 					.getSingleResult());
 		} catch (NoResultException e) { return Optional.empty(); }
 	}
 
-	public void excluir(Contato contato) {
-		entityManager.remove(entityManager.getReference(Contato.class, contato.getId()));
+	public void excluir(short id) {
+		entityManager.remove(entityManager.getReference(Contato.class, id));
 	}
 
 }
