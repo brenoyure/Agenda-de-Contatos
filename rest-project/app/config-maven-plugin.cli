@@ -1,0 +1,9 @@
+
+### 1. Adicionando Módulo do MySQL ####
+module add --name=com.mysql --dependencies=jakarta.transaction.api,javax.api --resources=./mysql-connector-j-8.0.33.jar
+
+### 2. Adicionando DataSource no Subsystem ####
+/subsystem=datasources/jdbc-driver=mysql:add(driver-module-name=com.mysql, driver-xa-datasource-class-name=com.mysql.cj.jdbc.MysqlXADataSource)
+
+## 2.1 Adicionando os DataSources do sistema de chamados e dos textos prontos ####
+data-source add --name=AgendaDS --driver-name=mysql --jndi-name=java:jboss/datasources/AgendaDS --connection-url=jdbc:mysql://localhost:3308/agendadb --user-name=albatross18 --password=pass123 --enabled=true
