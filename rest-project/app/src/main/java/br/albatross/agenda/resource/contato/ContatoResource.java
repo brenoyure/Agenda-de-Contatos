@@ -7,6 +7,7 @@ import static jakarta.ws.rs.core.Response.Status.NO_CONTENT;
 import br.albatross.agenda.domain.models.contato.DadosParaAtualizacaoDeContatoDto;
 import br.albatross.agenda.domain.models.contato.DadosParaCadastroDeNovoContatoDto;
 import br.albatross.agenda.domain.services.ContatoService;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -22,6 +23,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
 
 @Path("/contato")
+@ApplicationScoped
 @Consumes(APPLICATION_JSON)
 @Produces(APPLICATION_JSON)
 public class ContatoResource {
