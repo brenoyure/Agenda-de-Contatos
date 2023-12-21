@@ -1,4 +1,4 @@
-const API = 'http://localhost:8080/agenda/contato'
+const API = `http://localhost:8080/agenda/contato`
 
 const myAppComponent = {
     data() {

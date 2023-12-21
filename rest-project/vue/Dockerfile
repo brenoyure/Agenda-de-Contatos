@@ -1,0 +1,10 @@
+FROM nginx
+
+WORKDIR /usr/share/nginx/html
+
+EXPOSE 8080:80
+
+ARG AGENDA_APP_REST_SERVICE
+
+COPY . .
+
