@@ -9,7 +9,6 @@ import br.albatross.agenda.domain.models.contato.Contato;
 import br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 
 @ApplicationScoped
@@ -58,15 +57,13 @@ public class ContatoDao {
 				.setHint(AvailableHints.HINT_CACHEABLE, true)
 				.getResultList();
 	}
-	
+
 	public Optional<DadosParaListagemDeContatoDto> buscarPorId(short contatoId) {
-		try {
-			return Optional.ofNullable(entityManager
+		return Optional.ofNullable(entityManager
 					.createQuery("SELECT new br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto(c.id, c.nome, c.numero, c.setor, c.andar) FROM Contato c WHERE c.id = ?1", DadosParaListagemDeContatoDto.class)
 					.setParameter(1, contatoId)
 					.setHint(AvailableHints.HINT_CACHEABLE, true)
 					.getSingleResult());
-		} catch (NoResultException e) { return Optional.empty(); }
 	}
 
 	public void excluir(short id) {

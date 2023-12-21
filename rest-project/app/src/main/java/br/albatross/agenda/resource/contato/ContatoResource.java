@@ -2,7 +2,6 @@ package br.albatross.agenda.resource.contato;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 import static jakarta.ws.rs.core.Response.Status.CREATED;
-import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
 import static jakarta.ws.rs.core.Response.Status.NO_CONTENT;
 
 import br.albatross.agenda.domain.models.contato.DadosParaAtualizacaoDeContatoDto;
@@ -54,7 +53,7 @@ public class ContatoResource {
 	@Path("/{id}")
 	public Response getContatoPeloId(@PathParam("id") short id) {
 		var contatoOptional = service.buscarPorId(id);
-		return contatoOptional.isEmpty() ? Response.status(NOT_FOUND).build() : Response.ok(contatoOptional.get()).build();
+		return Response.ok(contatoOptional.get()).build();
 	}
 
 	@PUT

@@ -1,6 +1,5 @@
 package br.albatross.agenda.domain.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import br.albatross.agenda.domain.dao.ContatoDao;
