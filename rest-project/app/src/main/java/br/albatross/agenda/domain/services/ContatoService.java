@@ -8,6 +8,7 @@ import br.albatross.agenda.domain.models.contato.Contato;
 import br.albatross.agenda.domain.models.contato.DadosParaAtualizacaoDeContatoDto;
 import br.albatross.agenda.domain.models.contato.DadosParaCadastroDeNovoContatoDto;
 import br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto;
+import br.albatross.agenda.domain.models.contato.Pagina;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -19,13 +20,18 @@ public class ContatoService {
 	@Inject
 	private ContatoDao dao;
 
+	@Inject
+	private ServicoDePaginacao servicoDePaginacao;
+
 	@Transactional
 	public DadosParaListagemDeContatoDto salvar(@Valid DadosParaCadastroDeNovoContatoDto dados) {
 		return dao.persist(new Contato(dados));
 	}
 
-	public List<DadosParaListagemDeContatoDto> listar(int pagina, byte resultadosPorPagina) {
-		return dao.listar(pagina, resultadosPorPagina);
+	public Pagina listaPaginada(int pagina, byte resultadosPorPagina) {
+		var listaDeContatos = dao.listar(pagina, resultadosPorPagina);
+		var totalDeContatos = dao.getTotal();
+		return servicoDePaginacao.getListagemPaginada(listaDeContatos, pagina, resultadosPorPagina, totalDeContatos);
 	}
 
 	public Optional<DadosParaListagemDeContatoDto> buscarPorId(short contatoId) {

@@ -3,10 +3,15 @@ const API = 'http://localhost:8080/agenda/contato'
 const myAppComponent = {
     data() {
         return {
+
+            /* Response Data will fetch this values */
             contatos: {},
             pagina: 1,
-            resultadosPorPagina: 5,
-            paginas: [1, 2, 3, 4]
+            resultadosPorPagina: 10,
+            totalDeContatos: null,
+            totalDePaginas: null,
+            /** END of Response Data */
+
         }
     },
 
@@ -18,12 +23,20 @@ const myAppComponent = {
                     resultadosPorPagina: this.resultadosPorPagina
                   }
             })
+
             .then((response) => {
-                this.contatos = response.data
+                this.contatos        =  response.data.listaDeContatos
+                this.totalDePaginas  =  response.data.totalDePaginas
+                this.totalDeContatos =  response.data.totalDeContatos
             })
+
             .catch((error) => {
                 console.log(error)
+                if (error.code == 'ERR_NETWORK') {
+                    alert(`Serviço REST Indisponível.\nNão foi possível se conectar à ${API}`)
+                }
             })
+
         },
 
         getContatos(pagina, resultadosPorPagina) {

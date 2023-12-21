@@ -12,6 +12,7 @@ import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -29,6 +30,9 @@ public class ContatoResource {
 	@Inject
 	private ContatoService service;
 
+	private static final String FIRST_PAGE = "1";
+	private static final String DEFAULT_RESULTS_PER_PAGE = "5";
+
 	@POST
 	public Response cadastrarNovoContato(@Valid DadosParaCadastroDeNovoContatoDto dados) {
 		var novoCadastro = service.salvar(dados);
@@ -39,8 +43,8 @@ public class ContatoResource {
 	}
 
 	@GET
-	public Response listarContatos(@QueryParam("pagina") int pagina, @QueryParam("resultadosPorPagina") byte resultadosPorPagina) {
-		var listaDeContatos = service.listar(pagina, resultadosPorPagina);
+	public Response listarContatos(@QueryParam("pagina") @DefaultValue(FIRST_PAGE) int pagina, @QueryParam("resultadosPorPagina") @DefaultValue(DEFAULT_RESULTS_PER_PAGE) byte resultadosPorPagina) {
+		var listaDeContatos = service.listaPaginada(pagina, resultadosPorPagina);
 		return Response
 				.ok(listaDeContatos)
 				.build();

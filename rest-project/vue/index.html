@@ -29,16 +29,21 @@
               <tfoot>
                 <nav aria-label="Paginaçāo da Tabela de Contatos">
                   <ul class="pagination pagination-sm">
-                    <li v-for="pagina in paginas" >
+                    <li v-for="pagina in totalDePaginas" >
                       <span class="page-link" @click="getContatos(pagina, resultadosPorPagina)">{{ pagina }}</span>
                     </li>
                   </ul>
                 </nav>
                 <div>
                   <select v-model="resultadosPorPagina" @change="getContatos(pagina, resultadosPorPagina)">
-                    <option value="3">3</option>
                     <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
                   </select>
+                </div>
+                <div v-if="contatos.length && contatos.length != resultadosPorPagina">
+                  <label>Resultados nesta Página {{ contatos.length }}</label>
                 </div>
               </tfoot>
             </table>

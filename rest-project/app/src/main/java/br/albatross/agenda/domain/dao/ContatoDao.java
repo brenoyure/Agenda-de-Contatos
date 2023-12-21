@@ -43,6 +43,13 @@ public class ContatoDao {
 				.getSingleResult();
 	}
 
+	public long getTotal() {
+		return entityManager
+				.createQuery("SELECT COUNT (c) FROM Contato c", Long.class)
+				.setHint(AvailableHints.HINT_CACHEABLE, true)
+				.getSingleResult();
+	}
+
 	public List<DadosParaListagemDeContatoDto> listar(int pagina, byte resultadosPorPagina) {
 		return entityManager
 				.createQuery("SELECT new br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto(c.id, c.nome, c.numero, c.setor, c.andar) FROM Contato c", DadosParaListagemDeContatoDto.class)
@@ -51,7 +58,7 @@ public class ContatoDao {
 				.setHint(AvailableHints.HINT_CACHEABLE, true)
 				.getResultList();
 	}
-
+	
 	public Optional<DadosParaListagemDeContatoDto> buscarPorId(short contatoId) {
 		try {
 			return Optional.ofNullable(entityManager
