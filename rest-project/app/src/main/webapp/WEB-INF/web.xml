@@ -14,7 +14,8 @@
 	   <web-resource-collection>
 	       <web-resource-name>Crud de Contatos</web-resource-name>
 	       <description>Crud de Contatos</description>
-	       <url-pattern>/contato</url-pattern>
+	       <url-pattern>/contato/*</url-pattern>
+	       <http-method-omission>GET</http-method-omission>
 	   </web-resource-collection>
 	   <auth-constraint>
 	       <role-name>ADMIN</role-name>
@@ -24,6 +25,11 @@
     <security-role>
        <description>Usuários da Administração</description>
        <role-name>ADMIN</role-name>
+    </security-role>
+
+    <security-role>
+       <description>Usuários Comuns</description>
+       <role-name>USER</role-name>
     </security-role>
 
     <context-param>

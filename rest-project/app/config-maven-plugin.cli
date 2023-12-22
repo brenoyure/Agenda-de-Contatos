@@ -25,3 +25,19 @@ data-source add --name=AgendaDS --driver-name=mysql --jndi-name=java:jboss/datas
 
 ## 3.5 Criando o App Security Domain no Subsystem do Undertow ###
 /subsystem=undertow/application-security-domain=agendaHttpSD:add(http-authentication-factory=agenda-http-auth)
+
+
+## Security Logging ###
+#/subsystem=logging/logger=org.jboss.security:add(level=ALL)
+
+#/subsystem=logging/logger=org.jboss.as.security:add(level=ALL)
+
+#/subsystem=logging/logger=org.picketbox:add(level=ALL)
+
+#/subsystem=logging/logger=org.jboss.as.domain.management.security:add(level=ALL)
+
+#/subsystem=logging/logger=org.wildfly.security:add(level=ALL)
+
+#/subsystem=logging/logger=org.wildfly.elytron:add(level=ALL)
+
+#/subsystem=logging/console-handler=CONSOLE:write-attribute(name=level, value=ALL)
