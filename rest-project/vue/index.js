@@ -21,7 +21,8 @@ const myAppComponent = {
                 params: {
                     pagina: this.pagina,
                     resultadosPorPagina: this.resultadosPorPagina
-                  }
+                },
+
             })
 
             .then((response) => {
@@ -32,9 +33,7 @@ const myAppComponent = {
 
             .catch((error) => {
                 console.log(error)
-                if (error.code == 'ERR_NETWORK') {
-                    alert(`Serviço REST Indisponível.\nNão foi possível se conectar à ${API}`)
-                }
+                this.tratarErro(error)
             })
 
         },
@@ -43,6 +42,18 @@ const myAppComponent = {
             this.pagina = pagina
             this.resultadosPorPagina = resultadosPorPagina
             this.fetchApi()
+        },
+
+        tratarErro(error) {
+            if (error.response) {
+                if (error.response.status == 403) {
+                    alert(`Usuário não Possui Autorização para Acessar esta URL\nErro: '${error.response.status}': ${error.response.data}`)
+                }
+            }
+
+            if (error.code == 'ERR_NETWORK') {
+                alert(`Serviço REST Indisponível.\nNão foi possível se conectar à ${API}`)
+            }
         }
     },
 

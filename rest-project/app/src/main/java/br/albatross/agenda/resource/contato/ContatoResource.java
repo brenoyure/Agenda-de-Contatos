@@ -7,6 +7,7 @@ import static jakarta.ws.rs.core.Response.Status.NO_CONTENT;
 import br.albatross.agenda.domain.models.contato.DadosParaAtualizacaoDeContatoDto;
 import br.albatross.agenda.domain.models.contato.DadosParaCadastroDeNovoContatoDto;
 import br.albatross.agenda.domain.services.ContatoService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -26,6 +27,7 @@ import jakarta.ws.rs.core.Response;
 @ApplicationScoped
 @Consumes(APPLICATION_JSON)
 @Produces(APPLICATION_JSON)
+@RolesAllowed("ADMIN")
 public class ContatoResource {
 
 	@Inject
@@ -44,6 +46,7 @@ public class ContatoResource {
 	}
 
 	@GET
+	@RolesAllowed({"USER", "ADMIN"})
 	public Response listarContatos(@QueryParam("pagina") @DefaultValue(FIRST_PAGE) int pagina, @QueryParam("resultadosPorPagina") @DefaultValue(DEFAULT_RESULTS_PER_PAGE) byte resultadosPorPagina) {
 		var listaDeContatos = service.listaPaginada(pagina, resultadosPorPagina);
 		return Response
@@ -53,6 +56,7 @@ public class ContatoResource {
 
 	@GET
 	@Path("/{id}")
+	@RolesAllowed({"USER", "ADMIN"})
 	public Response getContatoPeloId(@PathParam("id") short id) {
 		var contatoOptional = service.buscarPorId(id);
 		return Response.ok(contatoOptional.get()).build();

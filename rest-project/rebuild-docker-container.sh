@@ -1,7 +1,7 @@
 #!/bin/bash
 docker compose down agendarestservice
 
-docker volume rm br.albatross.agenda-app-vol
+./rebuild-war-file.sh
 
 docker compose build agendarestservice
 

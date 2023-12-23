@@ -2,16 +2,8 @@
 
 docker compose down
 
-docker volume rm br.albatross.agenda-app-vol
-
-docker compose build
-
+docker compose build agendadb
 docker compose up -d agendadb
 
-./provide-mysql-jar.sh
-
-cd app/;
-mvn clean package;
-cd ..
-
-docker compose up -d;
+./rebuild-war-file.sh
+docker compose up -d agendarestservice;
