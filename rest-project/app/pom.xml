@@ -40,6 +40,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.2</version>
+        </dependency>      
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
@@ -64,7 +70,7 @@
 				</configuration>
 			</plugin>
 
-			<!-- Execute 'mvn clean package wildfly:dev' to run the application. -->
+            <!-- Execute 'mvn clean package wildfly:dev' to run the application. -->
 			<plugin>
 				<groupId>org.wildfly.plugins</groupId>
 				<artifactId>wildfly-maven-plugin</artifactId>
@@ -75,7 +81,7 @@
 					<offline>true</offline>
 					<resolveExpressions>true</resolveExpressions>
                     <scripts>
-                        <script>${project.basedir}/config-maven-plugin.cli</script>
+                        <script>${project.basedir}/config-maven-plugin.cli</script>-->
                     </scripts>
 				</configuration>
 			</plugin>

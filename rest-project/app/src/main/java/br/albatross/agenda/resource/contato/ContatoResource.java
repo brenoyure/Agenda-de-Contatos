@@ -1,15 +1,24 @@
 package br.albatross.agenda.resource.contato;
 
+import static jakarta.ws.rs.core.HttpHeaders.CONTENT_DISPOSITION;
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
+import static jakarta.ws.rs.core.Response.status;
 import static jakarta.ws.rs.core.Response.Status.CREATED;
 import static jakarta.ws.rs.core.Response.Status.NO_CONTENT;
 
+import java.io.File;
+import java.io.IOException;
+
 import br.albatross.agenda.domain.models.contato.DadosParaAtualizacaoDeContatoDto;
 import br.albatross.agenda.domain.models.contato.DadosParaCadastroDeNovoContatoDto;
+import br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto;
+import br.albatross.agenda.domain.models.contato.DadosParaPesquisaDeContatosDto;
 import br.albatross.agenda.domain.services.ContatoService;
+import br.albatross.agenda.domain.services.GeradorDeArquivo;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -33,6 +42,9 @@ public class ContatoResource {
 	@Inject
 	private ContatoService service;
 
+	@Inject
+	private GeradorDeArquivo<DadosParaListagemDeContatoDto> gerador;
+
 	private static final String FIRST_PAGE = "1";
 	private static final String DEFAULT_RESULTS_PER_PAGE = "5";
 
@@ -46,9 +58,31 @@ public class ContatoResource {
 	}
 
 	@GET
+	@Path("/docx")
+	@Transactional
+	@Produces("application/msword")
+	public Response gerarDOCX(DadosParaPesquisaDeContatosDto dados) throws IOException {
+		var contatos = service.listarTodos(dados);
+		File file = gerador.gerar(contatos);
+		return status(CREATED)
+				.header(CONTENT_DISPOSITION, "attachment; filename=\"agenda.docx\"")
+				.entity(file)
+				.build();
+	}
+
+	@GET
 	@RolesAllowed({"USER", "ADMIN"})
 	public Response listarContatos(@QueryParam("pagina") @DefaultValue(FIRST_PAGE) int pagina, @QueryParam("resultadosPorPagina") @DefaultValue(DEFAULT_RESULTS_PER_PAGE) byte resultadosPorPagina) {
 		var listaDeContatos = service.listaPaginada(pagina, resultadosPorPagina);
+		return Response
+				.ok(listaDeContatos)
+				.build();
+	}
+
+	@GET
+	@RolesAllowed({"USER", "ADMIN"})
+	public Response listarContatos(@QueryParam("pagina") @DefaultValue(FIRST_PAGE) int pagina, @QueryParam("resultadosPorPagina") @DefaultValue(DEFAULT_RESULTS_PER_PAGE) byte resultadosPorPagina, DadosParaPesquisaDeContatosDto dadosParaPesquisa) {
+		var listaDeContatos = service.listaPaginada(pagina, resultadosPorPagina, dadosParaPesquisa);
 		return Response
 				.ok(listaDeContatos)
 				.build();
