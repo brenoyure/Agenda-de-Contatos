@@ -44,6 +44,10 @@ public class ContatoService {
 	public List<DadosParaListagemDeContatoDto> listarTodos(DadosParaPesquisaDeContatosDto dados) {
 		return dao.listarTodos(dados);
 	}
+	
+	public List<DadosParaListagemDeContatoDto> listarTodos() {
+		return dao.listarTodos();
+	}
 
 	public Optional<DadosParaListagemDeContatoDto> buscarPorId(short contatoId) {
 		return dao.buscarPorId(contatoId);

@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -20,8 +21,10 @@ import jakarta.inject.Inject;
 @RequestScoped
 public class GerarAgendaDocx implements GeradorDeArquivo<DadosParaListagemDeContatoDto> {
 
-	private static final byte RAMAL_SUBSTRING = 6;
 	private static final String RGB_COLOR_ALTERNATING_CELL = "A0A0A0";
+
+	private static final String DOC_PARENT_PATH = System.getProperty("user.home");
+	private static final String AGENDA_DOCX_FILE_NAME = "agenda " + UUID.randomUUID().toString() + ".docx";
 
 	@Inject
 	private XwpfTableService tableService;
@@ -29,11 +32,14 @@ public class GerarAgendaDocx implements GeradorDeArquivo<DadosParaListagemDeCont
 	public File gerar(List<DadosParaListagemDeContatoDto> contatos) throws IOException {
 		try (XWPFDocument doc = new XWPFDocument()) {
 
-			File file = new File(System.getProperty("user.home"), "agenda.docx");
-
-			XWPFTable table = tableService.createPageCenterAlignedXwpfTable(doc);
-
+			File file = new File(DOC_PARENT_PATH, AGENDA_DOCX_FILE_NAME);
 			int i = 0;
+
+			tableService.writeAndarInTheBlankPage(doc, contatos.get(i).andar());
+			doc.createParagraph().setPageBreak(true);
+
+			XWPFTable table = tableService.createNewPageWithANewCenterAlignedXwpfTable(doc);
+
 
 			for (var contato : contatos) {
 				XWPFTableRow  row        =  table.createRow();
@@ -42,26 +48,16 @@ public class GerarAgendaDocx implements GeradorDeArquivo<DadosParaListagemDeCont
 				XWPFTableCell cellSetor  =  row.createCell();
 				XWPFTableCell cellAndar  =  row.createCell();
 
-				if (i % 2 == 0) {
-					cellNome.setColor(RGB_COLOR_ALTERNATING_CELL);
-					cellNumero.setColor(RGB_COLOR_ALTERNATING_CELL);
-					cellSetor.setColor(RGB_COLOR_ALTERNATING_CELL);
-					cellAndar.setColor(RGB_COLOR_ALTERNATING_CELL);
-				}
+				tableService.alternateCellColor(i, RGB_COLOR_ALTERNATING_CELL, cellNome, cellNumero, cellSetor, cellAndar);
 
 				tableService.createCellAlignedParagraph(doc, cellNome, contato.nome(), ParagraphAlignment.CENTER);
-				tableService.createCellAlignedParagraph(doc, cellNumero, (contato.ramal().substring(RAMAL_SUBSTRING)), ParagraphAlignment.CENTER);
+				tableService.createCellAlignedParagraph(doc, cellNumero, (contato.ramal().substring(contato.ramal().length() - 4)), ParagraphAlignment.CENTER);
 				tableService.createCellAlignedParagraph(doc, cellSetor, contato.setor(), ParagraphAlignment.CENTER);
 				tableService.createCellAlignedParagraph(doc, cellAndar, contato.andar(), ParagraphAlignment.CENTER);
 
 				i++;
 
-				if (i != contatos.size()) {
-					if (!contatos.get(i).andar().equals(contatos.get(i-1).andar())) {
-						table = tableService.createNewPageAndTableWhenAndarChanges(doc, contatos, i);
-					}
-
-				}
+				table = tableService.createNewPageAndNewTableWhenAndarChanges(contatos, doc, table, i);
 
 			}
 

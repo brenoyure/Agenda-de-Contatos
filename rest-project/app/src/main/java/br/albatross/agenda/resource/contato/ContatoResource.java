@@ -71,6 +71,19 @@ public class ContatoResource {
 	}
 
 	@GET
+	@Path("/docx")
+	@Transactional
+	@Produces("application/msword")
+	public Response gerarDOCX() throws IOException {
+		var contatos = service.listarTodos();
+		File file = gerador.gerar(contatos);
+		return status(CREATED)
+				.header(CONTENT_DISPOSITION, "attachment; filename=\"agenda.docx\"")
+				.entity(file)
+				.build();
+	}
+
+	@GET
 	@RolesAllowed({"USER", "ADMIN"})
 	public Response listarContatos(@QueryParam("pagina") @DefaultValue(FIRST_PAGE) int pagina, @QueryParam("resultadosPorPagina") @DefaultValue(DEFAULT_RESULTS_PER_PAGE) byte resultadosPorPagina) {
 		var listaDeContatos = service.listaPaginada(pagina, resultadosPorPagina);

@@ -18,6 +18,8 @@ import jakarta.enterprise.context.RequestScoped;
 @RequestScoped
 public class XwpfTableService {
 
+	private static final short CONTATOS_TABLE_WIDTH = 8000;
+	private static final byte ANDAR_IN_BLANK_PAGE_FONT_SIZE = 32;
 	private static final String RGB_TABLE_HEADER_COLOR = "66B2FF";
 
 	public XWPFParagraph createCellAlignedParagraph(XWPFDocument doc, XWPFTableCell cell, String text, ParagraphAlignment paragraphAlignment) {
@@ -54,25 +56,48 @@ public class XwpfTableService {
 		createCellAlignedBoldParagraph(doc, headerAndarCell, "Andar", ParagraphAlignment.CENTER);
 	}
 
-	public XWPFTable createPageCenterAlignedXwpfTable(XWPFDocument document) {
+	public XWPFTable createNewPageWithANewCenterAlignedXwpfTable(XWPFDocument document) {
 		XWPFTable table = document.createTable();
-		table.setWidth(8000);
+		table.setWidth(CONTATOS_TABLE_WIDTH);
 		table.setTableAlignment(CENTER);
 		createXwpfTableHeaders(document, table);
 		return table;
 	}
 
+	public XWPFTable createNewPageAndNewTableWhenAndarChanges(List<DadosParaListagemDeContatoDto> contatos, XWPFDocument doc, XWPFTable table, int iterator) {
+		if (iterator != contatos.size()) {
+			if (!contatos.get(iterator).andar().equals(contatos.get(iterator-1).andar())) {
+				table = createNewPageAndTableWhenAndarChanges(doc, contatos, iterator);
+			}
+		}
+
+		return table;
+	}
+
+	public void alternateCellColor(int iterator, String color, XWPFTableCell... cells) {
+		for (var cell : cells) {
+			if (iterator % 2 == 0) {
+				cell.setColor(color);
+			}
+		}
+	}	
+
 	public XWPFTable createNewPageAndTableWhenAndarChanges(XWPFDocument doc, List<DadosParaListagemDeContatoDto> contatos, int iterator) {
 		doc.createParagraph().setPageBreak(true);
+		writeAndarInTheBlankPage(doc, contatos.get(iterator).andar());
+		doc.createParagraph().setPageBreak(true);
+		return createNewPageWithANewCenterAlignedXwpfTable(doc);
+	}
+
+	public void writeAndarInTheBlankPage(XWPFDocument doc, String andar) {
 		XWPFParagraph paragraph = doc.createParagraph();
 		paragraph.setAlignment(ParagraphAlignment.CENTER);
 		XWPFRun run = paragraph.createRun();
-		run.setFontSize(32);
+		run.setFontSize(ANDAR_IN_BLANK_PAGE_FONT_SIZE);
 		run.setBold(true);
 		run.setCapitalized(true);
-		run.setText(contatos.get(iterator).andar());
-		doc.createParagraph().setPageBreak(true);
-		return createPageCenterAlignedXwpfTable(doc);
+		run.setText(andar);
+//		doc.createParagraph().setPageBreak(true);
 	}
 
 }

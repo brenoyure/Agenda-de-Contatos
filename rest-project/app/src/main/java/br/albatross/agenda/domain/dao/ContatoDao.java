@@ -4,11 +4,10 @@ import static br.albatross.agenda.domain.models.contato.Contato_.andar;
 import static br.albatross.agenda.domain.models.contato.Contato_.nome;
 import static br.albatross.agenda.domain.models.contato.Contato_.numero;
 import static br.albatross.agenda.domain.models.contato.Contato_.setor;
+import static org.hibernate.jpa.HibernateHints.HINT_CACHEABLE;
 
 import java.util.List;
 import java.util.Optional;
-
-import org.hibernate.jpa.AvailableHints;
 
 import br.albatross.agenda.domain.models.contato.Contato;
 import br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto;
@@ -39,40 +38,46 @@ public class ContatoDao {
 		return entityManager
 				.createQuery("SELECT EXISTS(SELECT c FROM Contato c WHERE c.nome = ?1)", Boolean.class)
 				.setParameter(1, nome)
-				.setHint(AvailableHints.HINT_CACHEABLE, true)
+				.setHint(HINT_CACHEABLE, true)
 				.getSingleResult();
 	}
-	
+
 	public boolean existePorId(Short contatoId) {
 		return entityManager
 				.createQuery("SELECT EXISTS (SELECT c FROM Contato c WHERE c.id = ?1)", Boolean.class)
 				.setParameter(1, contatoId)
-				.setHint(AvailableHints.HINT_CACHEABLE, true)
+				.setHint(HINT_CACHEABLE, true)
 				.getSingleResult();
 	}
 
 	public long getTotal() {
 		return entityManager
 				.createQuery("SELECT COUNT (c) FROM Contato c", Long.class)
-				.setHint(AvailableHints.HINT_CACHEABLE, true)
+				.setHint(HINT_CACHEABLE, true)
 				.getSingleResult();
 	}
 
+	public List<DadosParaListagemDeContatoDto> listarTodos() {
+		return entityManager
+				.createQuery("SELECT new br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto(c) FROM Contato c ORDER BY c.andar, c.setor ASC", DadosParaListagemDeContatoDto.class)
+				.setHint(HINT_CACHEABLE, true)
+				.getResultList();
+	}
+
 	public List<DadosParaListagemDeContatoDto> listarTodos(DadosParaPesquisaDeContatosDto dados) {
-		var cb = entityManager.getCriteriaBuilder();
-		var cq = cb.createQuery(DadosParaListagemDeContatoDto.class);
-		var contato = cq.from(Contato.class);
+		var cb      =  entityManager.getCriteriaBuilder();
+		var cq      =  cb.createQuery(DadosParaListagemDeContatoDto.class);
+		var contato =  cq.from(Contato.class);
 
 		cq.select(cb.construct(DadosParaListagemDeContatoDto.class, contato));
-
-		var andPredicate = fetchAndPredicate(cb, contato, dados);
-		cq.where(andPredicate);
+		cq.where(fetchAndPredicate(cb, contato, dados));
 
 		cq.orderBy(cb.asc(contato.get(andar)));
+		cq.orderBy(cb.asc(contato.get(setor)));
 
 		return entityManager
 				.createQuery(cq)
-				.setHint(AvailableHints.HINT_CACHEABLE, true)
+				.setHint(HINT_CACHEABLE, true)
 				.getResultList();
 	}
 
@@ -81,7 +86,7 @@ public class ContatoDao {
 				.createQuery("SELECT new br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto(c.id, c.nome, c.numero, c.setor, c.andar) FROM Contato c", DadosParaListagemDeContatoDto.class)
 				.setFirstResult((pagina * resultadosPorPagina) - resultadosPorPagina)
 				.setMaxResults(resultadosPorPagina)
-				.setHint(AvailableHints.HINT_CACHEABLE, true)
+				.setHint(HINT_CACHEABLE, true)
 				.getResultList();
 	}
 
@@ -99,7 +104,7 @@ public class ContatoDao {
 				.createQuery(cq)
 				.setFirstResult((pagina * resultadosPorPagina) - resultadosPorPagina)
 				.setMaxResults(resultadosPorPagina)
-				.setHint(AvailableHints.HINT_CACHEABLE, true)
+				.setHint(HINT_CACHEABLE, true)
 				.getResultList();
 	}
 
@@ -107,7 +112,7 @@ public class ContatoDao {
 		return Optional.ofNullable(entityManager
 					.createQuery("SELECT new br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto(c.id, c.nome, c.numero, c.setor, c.andar) FROM Contato c WHERE c.id = ?1", DadosParaListagemDeContatoDto.class)
 					.setParameter(1, contatoId)
-					.setHint(AvailableHints.HINT_CACHEABLE, true)
+					.setHint(HINT_CACHEABLE, true)
 					.getSingleResult());
 	}
 
