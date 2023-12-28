@@ -11,12 +11,23 @@
     <div class="container-md">
         <h1>Contatos</h1>
         <div id="myapp">
+            <div id="agenda-download-container">
+              <a href="http://localhost:8080/agenda/contato/docx" style="text-decoration: none;" download="agenda.docx">
+                <img src="https://img.icons8.com/plasticine/100/download.png" alt="Download">Baixar Agenda
+              </a>
+            </div>
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Nome</th>
-                  <th>Ramal</th>
-                  <th>Setor</th>
+                  <th>
+                    <label>Nome</label>
+                  </th>
+                  <th>
+                    <label>Ramal</label>
+                  </th>
+                  <th>
+                    <label>Setor</label>
+                  </th>
                 </tr>
               </thead>
               <tbody class="table-striped">
@@ -30,12 +41,13 @@
                 <nav aria-label="Paginaçāo da Tabela de Contatos">
                   <ul class="pagination pagination-sm">
                     <li v-for="pagina in totalDePaginas" >
-                      <span class="page-link" @click="getContatos(pagina, resultadosPorPagina)">{{ pagina }}</span>
+                      <label class="page-link" @click="getContatos(pagina, resultadosPorPagina)">{{ pagina }}</span>
                     </li>
                   </ul>
                 </nav>
-                <div>
-                  <select v-model="resultadosPorPagina" @change="getContatos(pagina, resultadosPorPagina)">
+                <div style="width: 158px">
+                  <label for="select-resultados-por-pagina">Resultados por Página</label>
+                  <select v-model="resultadosPorPagina" id="select-resultados-por-pagina" class="form-select" @change="getContatos(pagina, resultadosPorPagina)">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="15">15</option>

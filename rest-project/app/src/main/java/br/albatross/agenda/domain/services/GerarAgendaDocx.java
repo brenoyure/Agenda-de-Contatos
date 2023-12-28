@@ -6,7 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
-import java.util.UUID;
+
+import static java.io.File.createTempFile;
+import static java.lang.String.format;
+import static java.util.UUID.randomUUID;
 
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -23,8 +26,10 @@ public class GerarAgendaDocx implements GeradorDeArquivo<DadosParaListagemDeCont
 
 	private static final String RGB_COLOR_ALTERNATING_CELL = "A0A0A0";
 
-	private static final String DOC_PARENT_PATH = System.getProperty("user.home");
-	private static final String AGENDA_DOCX_FILE_NAME = "agenda " + UUID.randomUUID().toString() + ".docx";
+	// private static final String DOC_PARENT_PATH = System.getProperty("user.home");
+	private static final String AGENDA_DOCX_FILE_NAME = format("agenda %s ", randomUUID().toString());
+	private static final String AGENDA_DOCX_FILE_EXTESION = ".docx";
+	// private static final String AGENDA_DOCX_FILE_NAME = "agenda " + UUID.randomUUID().toString() + ".docx";
 
 	@Inject
 	private XwpfTableService tableService;
@@ -32,7 +37,7 @@ public class GerarAgendaDocx implements GeradorDeArquivo<DadosParaListagemDeCont
 	public File gerar(List<DadosParaListagemDeContatoDto> contatos) throws IOException {
 		try (XWPFDocument doc = new XWPFDocument()) {
 
-			File file = new File(DOC_PARENT_PATH, AGENDA_DOCX_FILE_NAME);
+			File file = createTempFile(AGENDA_DOCX_FILE_NAME, AGENDA_DOCX_FILE_EXTESION);
 			int i = 0;
 
 			tableService.writeAndarInTheBlankPage(doc, contatos.get(i).andar());
