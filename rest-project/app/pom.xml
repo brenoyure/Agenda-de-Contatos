@@ -21,6 +21,7 @@
 		<compiler-plugin.version>3.11.0</compiler-plugin.version>
 		<war-plugin.version>3.3.2</war-plugin.version>
 		<wildfly-plugin.version>4.2.1.Final</wildfly-plugin.version>
+		<wildfly.elytron.version>2.2.2.Final</wildfly.elytron.version>
 		<lombok.version>1.18.30</lombok.version>
 	</properties>
 
@@ -43,13 +44,20 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>4.1.2</version>
-        </dependency>      
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.wildfly.security</groupId>
+            <artifactId>wildfly-elytron</artifactId>
+            <version>${wildfly.elytron.version}</version>
+            <scope>provided</scope>
         </dependency>
 
 	</dependencies>
