@@ -5,6 +5,7 @@ import br.albatross.agenda.domain.models.usuario.DadosBasicosDoUsuarioParaExibic
 import br.albatross.agenda.domain.models.usuario.DadosParaCriacaoDeUsuarioDto;
 import br.albatross.agenda.domain.models.usuario.Role;
 import br.albatross.agenda.domain.models.usuario.Usuario;
+import br.albatross.agenda.infra.UsuarioExistenteException;
 import br.albatross.agenda.infra.security.password.PasswordService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -21,6 +22,9 @@ public class UsuarioService {
 
 	@Transactional
 	public DadosBasicosDoUsuarioParaExibicaoDto criarNovoUsuario(DadosParaCriacaoDeUsuarioDto dados) {
+		if (verificarSeUsuarioExistePorNome(dados.nomeDoUsuario())) {
+			throw new UsuarioExistenteException();
+		}
 		Usuario usuario = new Usuario();
 		usuario.setUsername(dados.nomeDoUsuario());
 		usuario.setPassword(passwordService.generateHashing(dados.senha()));
@@ -28,6 +32,10 @@ public class UsuarioService {
 		Role userRoleReference = dao.getReferenceById(userRoleId);
 		usuario.setRole(userRoleReference);
 		return dao.criarNovoUsuario(usuario);
+	}
+
+	public boolean verificarSeUsuarioExistePorNome(String nomeDoUsuario) {
+		return dao.existsByUsername(nomeDoUsuario);
 	}
 
 }

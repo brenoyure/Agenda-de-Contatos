@@ -2,6 +2,7 @@ package br.albatross.agenda.domain.models.usuario;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import lombok.Setter;
 @Entity @Table(name = "role")
 @EqualsAndHashCode(of = "id")
 @Getter @Setter
+@Cacheable
 public class Role {
 
 	@Id	@GeneratedValue(strategy = IDENTITY)
