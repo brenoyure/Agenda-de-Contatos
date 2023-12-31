@@ -21,6 +21,9 @@ data-source add --name=AgendaDS --driver-name=mysql --jndi-name=java:jboss/datas
 ## 3.3 Criando o Security Domain ####
 /subsystem=elytron/security-domain=agendaSD:add(realms=[{realm=agenda-jdbc-realm,role-decoder=attribute-to-role}],default-realm=agenda-jdbc-realm,permission-mapper=default-permission-mapper)
 
+## 3.3.1 Definindo o realm do ApplicationDomain para o agenda-jdbc-realm para a autenticação funcionar na presença de EJBs no projeto ###
+#/subsystem=elytron/security-domain=ApplicationDomain:write-attribute(name=realms,value=[{realm=agenda-jdbc-realm,role-decoder=attribute-to-role}])
+
 ## 3.4 Criando a Http Authentication Factory ####
 /subsystem=elytron/http-authentication-factory=agenda-http-auth:add(http-server-mechanism-factory=global,security-domain=agendaSD,mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=agenda-jdbc-realm}]}])
 
