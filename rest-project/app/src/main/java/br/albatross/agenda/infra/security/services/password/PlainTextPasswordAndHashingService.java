@@ -13,9 +13,9 @@ import org.wildfly.security.password.interfaces.SimpleDigestPassword;
 import org.wildfly.security.password.spec.ClearPasswordSpec;
 import org.wildfly.security.password.spec.HashPasswordSpec;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
 
-@ApplicationScoped
+@RequestScoped
 public class PlainTextPasswordAndHashingService implements PasswordService {
 
 	private static final String ALGORITHM = "SHA-512";
