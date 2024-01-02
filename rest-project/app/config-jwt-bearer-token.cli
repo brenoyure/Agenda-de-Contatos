@@ -1,12 +1,13 @@
+embed-server --server-config=standalone.xml
+
 ### 1. Adicionando Módulo do MySQL ####
-module add --name=com.mysql --dependencies=jakarta.transaction.api,javax.api --resources=./mysql-connector-j-8.0.33.jar
+module add --name=com.mysql --dependencies=jakarta.transaction.api,javax.api --resources=/tmp/mysql-connector-j-8.0.33.jar
 
 ### 2. Adicionando DataSource no Subsystem ####
 /subsystem=datasources/jdbc-driver=mysql:add(driver-module-name=com.mysql, driver-xa-datasource-class-name=com.mysql.cj.jdbc.MysqlXADataSource)
 
 ## 2.1 Adicionando os DataSources do sistema de chamados e dos textos prontos ####
-data-source add --name=AgendaDS --driver-name=mysql --jndi-name=java:jboss/datasources/AgendaDS --connection-url=jdbc:mysql://localhost:3306/agendadb --user-name=root --password=Bl@ck0511 --enabled=true
-
+data-source add --name=AgendaDS --driver-name=mysql --jndi-name=java:jboss/datasources/AgendaDS --connection-url=jdbc:mysql://${env.AGENDADB_MYSQL_CONTAINER}:3306/${env.AGENDADB_MYSQL_DATABASE_NAME} --user-name=${env.AGENDADB_MYSQL_USER} --password=${env.AGENDADB_MYSQL_PASSWORD} --enabled=true
 
 ### Autenticação ###
 
@@ -18,7 +19,7 @@ data-source add --name=AgendaDS --driver-name=mysql --jndi-name=java:jboss/datas
 ## 4.1 Criando o Token Realm
 /subsystem=elytron/token-realm=agenda-jwt-realm:add(jwt={issuer=["Albatross18"], audience=["Agenda Rest Service API"], key-store=agenda-jwt-key-store, certificate="agenda-jwt-auth"}, principal-claim="sub")
 
-### 4.2 Criando Role Decoder ###
+## 4.2 Criando Role Decoder ##
 /subsystem=elytron/simple-role-decoder=attribute-to-role:add(attribute=Roles)
 
 ## 4.2 Criando o Security Domain
@@ -44,3 +45,5 @@ data-source add --name=AgendaDS --driver-name=mysql --jndi-name=java:jboss/datas
 /subsystem=logging/logger=org.wildfly.elytron:add(level=ALL)
 
 /subsystem=logging/console-handler=CONSOLE:write-attribute(name=level, value=ALL)
+
+stop-embedded-server
