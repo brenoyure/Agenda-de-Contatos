@@ -11,20 +11,39 @@ data-source add --name=AgendaDS --driver-name=mysql --jndi-name=java:jboss/datas
 
 ### Autenticação ###
 
-### 3.1 Criando o JDBC-Realm para recuperar a senha e a role do usuário ####
-#/subsystem=elytron/jdbc-realm=agenda-jdbc-realm:add(principal-query=[{data-source=AgendaDS,sql="SELECT u.password AS 'password', r.nome AS 'role' FROM usuario u INNER JOIN role r ON u.fk_role_id=r.id WHERE u.username = ?", clear-password-mapper={password-index=1},attribute-mapping=[{index=2,to=Roles}]}]
-/subsystem=elytron/jdbc-realm=agenda-jdbc-realm:add(principal-query=[{data-source=AgendaDS,sql="SELECT u.password AS 'password', r.nome AS 'role' FROM usuario u INNER JOIN role r ON u.fk_role_id=r.id WHERE u.username = ?", simple-digest-mapper={password-index=1, algorithm=simple-digest-sha-512, hash-encoding=base64},attribute-mapping=[{index=2,to=Roles}]}]
+## 3.1 Criando a KeyStore
+/subsystem=elytron/key-store=agenda-jwt-key-store:add(type="PKCS12", relative-to="jboss.server.config.dir", path="agenda.jwt.keystore", credential-reference={clear-text="secret"})
+/subsystem=elytron/key-store=agenda-jwt-key-store:generate-key-pair(alias=agenda-jwt-auth, algorithm=RSA, key-size=2048, credential-reference={clear-text=secret}, distinguished-name="CN=localhost")
+/subsystem=elytron/key-store=agenda-jwt-key-store:store
 
-### 3.2 Criando Role Decoder ###
+## 4.1 Criando o Token Realm
+/subsystem=elytron/token-realm=agenda-jwt-realm:add(jwt={issuer=["Albatross18"], audience=["Agenda.Rest.Service.API"], key-store=agenda-jwt-key-store, certificate="agenda-jwt-auth"}, principal-claim="sub")
+
+## 4.2 Criando Role Decoder
 /subsystem=elytron/simple-role-decoder=attribute-to-role:add(attribute=Roles)
 
-## 3.3 Criando o Security Domain ####
-/subsystem=elytron/security-domain=agendaSD:add(realms=[{realm=agenda-jdbc-realm,role-decoder=attribute-to-role}],default-realm=agenda-jdbc-realm,permission-mapper=default-permission-mapper)
+## 4.2 Criando o Security Domain
+/subsystem=elytron/security-domain=agendaJwtSD:add(realms=[{realm=agenda-jwt-realm,role-decoder=attribute-to-role}], permission-mapper=default-permission-mapper, default-realm=agenda-jwt-realm)
 
-## 3.4 Criando a Http Authentication Factory ####
-/subsystem=elytron/http-authentication-factory=agenda-http-auth:add(http-server-mechanism-factory=global,security-domain=agendaSD,mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=agenda-jdbc-realm}]}])
+## 4.3 Criando a Http Authentication Factory ####
+/subsystem=elytron/http-authentication-factory=agenda-jwt-http-auth:add(security-domain=agendaJwtSD, http-server-mechanism-factory=global, mechanism-configurations=[{mechanism-name="BEARER_TOKEN", mechanism-realm-configurations=[{realm-name="agenda-jwt-realm"}]}])
 
-## 3.5 Criando o App Security Domain no Subsystem do Undertow ###
-/subsystem=undertow/application-security-domain=agendaHttpSD:add(http-authentication-factory=agenda-http-auth)
+## 4.4 Criando o App Security Domain no Subsystem do Undertow ###
+/subsystem=undertow/application-security-domain=agendaHttpSD:add(http-authentication-factory=agenda-jwt-http-auth)
+
+## Security Logging ###
+#/subsystem=logging/logger=org.jboss.security:add(level=ALL)
+
+#/subsystem=logging/logger=org.jboss.as.security:add(level=ALL)
+
+#/subsystem=logging/logger=org.picketbox:add(level=ALL)
+
+#/subsystem=logging/logger=org.jboss.as.domain.management.security:add(level=ALL)
+
+#/subsystem=logging/logger=org.wildfly.security:add(level=ALL)
+
+#/subsystem=logging/logger=org.wildfly.elytron:add(level=ALL)
+
+#/subsystem=logging/console-handler=CONSOLE:write-attribute(name=level, value=ALL)
 
 stop-embedded-server

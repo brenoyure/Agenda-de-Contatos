@@ -2,7 +2,6 @@ FROM mysql:8.0.33
 
 WORKDIR /docker-entrypoint-initdb.d
 
-ENV TZ=America/Fortaleza
 ENV MYSQL_RANDOM_ROOT_PASSWORD=yes
 ENV MYSQL_ALLOW_EMPTY_PASSWORD=no
 
