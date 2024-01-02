@@ -5,8 +5,8 @@ import br.albatross.agenda.domain.models.usuario.DadosBasicosDoUsuarioParaExibic
 import br.albatross.agenda.domain.models.usuario.DadosParaCriacaoDeUsuarioDto;
 import br.albatross.agenda.domain.models.usuario.Role;
 import br.albatross.agenda.domain.models.usuario.Usuario;
-import br.albatross.agenda.infra.UsuarioExistenteException;
-import br.albatross.agenda.infra.security.password.PasswordService;
+import br.albatross.agenda.infra.security.exceptions.UsuarioExistenteException;
+import br.albatross.agenda.infra.security.services.password.PasswordService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

@@ -1,4 +1,4 @@
-package br.albatross.agenda.infra;
+package br.albatross.agenda.infra.security.exceptions;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 import static jakarta.ws.rs.core.Response.status;

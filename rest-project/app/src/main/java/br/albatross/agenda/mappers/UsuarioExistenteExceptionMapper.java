@@ -3,7 +3,7 @@ package br.albatross.agenda.mappers;
 import static jakarta.ws.rs.core.Response.status;
 import static jakarta.ws.rs.core.Response.Status.BAD_REQUEST;
 
-import br.albatross.agenda.infra.UsuarioExistenteException;
+import br.albatross.agenda.infra.security.exceptions.UsuarioExistenteException;
 import jakarta.json.Json;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;

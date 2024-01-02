@@ -1,4 +1,4 @@
-package br.albatross.agenda.infra.security.password;
+package br.albatross.agenda.infra.security.services.password;
 
 public interface PasswordService {
 

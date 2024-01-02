@@ -1,4 +1,4 @@
-package br.albatross.agenda.infra.security.password;
+package br.albatross.agenda.infra.security.services.password;
 
 import static org.wildfly.security.password.PasswordFactory.getInstance;
 import static org.wildfly.security.password.interfaces.SimpleDigestPassword.ALGORITHM_SIMPLE_DIGEST_SHA_512;

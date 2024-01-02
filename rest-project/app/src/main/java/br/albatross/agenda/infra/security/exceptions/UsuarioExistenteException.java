@@ -1,4 +1,4 @@
-package br.albatross.agenda.infra;
+package br.albatross.agenda.infra.security.exceptions;
 
 public class UsuarioExistenteException extends RuntimeException {
 
