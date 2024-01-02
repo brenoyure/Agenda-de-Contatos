@@ -7,11 +7,11 @@ import java.util.List;
 import br.albatross.agenda.domain.models.usuario.DadosBasicosDoUsuarioParaExibicaoDto;
 import br.albatross.agenda.domain.models.usuario.Role;
 import br.albatross.agenda.domain.models.usuario.Usuario;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
-@ApplicationScoped
+@RequestScoped
 public class UsuarioDao {
 
 	@PersistenceContext
