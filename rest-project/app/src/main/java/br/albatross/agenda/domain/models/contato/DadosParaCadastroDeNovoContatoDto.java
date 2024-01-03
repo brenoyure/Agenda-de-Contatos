@@ -10,10 +10,11 @@ public record DadosParaCadastroDeNovoContatoDto(
 		String nome,
 
 //		@Pattern(regexp = "\\d{10,13}")
+		@Size(min = 10, max = 13)
 		String ramal,
 
 		@NotBlank
-		@Size(max = 50)
+		@Size(min = 2, max = 50)
 		String setor,
 
 		@NotBlank

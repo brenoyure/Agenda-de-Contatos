@@ -1,11 +1,11 @@
-package br.albatross.agenda.infra.security.exceptions;
+package br.albatross.agenda.infra.security.resource;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 import static jakarta.ws.rs.core.Response.status;
 import static jakarta.ws.rs.core.Response.Status.CREATED;
 
 import br.albatross.agenda.domain.models.usuario.DadosParaCriacaoDeUsuarioDto;
-import br.albatross.agenda.domain.services.UsuarioService;
+import br.albatross.agenda.infra.security.services.UsuarioService;
 import jakarta.annotation.security.DenyAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;

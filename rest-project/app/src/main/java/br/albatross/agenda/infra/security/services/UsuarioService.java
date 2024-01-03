@@ -1,4 +1,4 @@
-package br.albatross.agenda.domain.services;
+package br.albatross.agenda.infra.security.services;
 
 import br.albatross.agenda.domain.dao.UsuarioDao;
 import br.albatross.agenda.domain.models.usuario.DadosBasicosDoUsuarioParaExibicaoDto;
