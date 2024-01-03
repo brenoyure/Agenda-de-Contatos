@@ -9,6 +9,7 @@ import br.albatross.agenda.infra.security.services.JwtTokenService;
 import br.albatross.agenda.infra.security.services.LoginService;
 import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -28,7 +29,7 @@ public class LoginResource {
 	private JwtTokenService tokenService;
 
 	@POST
-	public Response logarUsuario(Credenciais credenciais) {
+	public Response logarUsuario(@Valid Credenciais credenciais) {
 		var dto = service.logar(credenciais);
 		return dto != null ? 
 						Response
