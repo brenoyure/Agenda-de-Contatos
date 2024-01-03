@@ -5,8 +5,8 @@ import static jakarta.ws.rs.core.Response.Status.CREATED;
 import static jakarta.ws.rs.core.Response.Status.UNAUTHORIZED;
 
 import br.albatross.agenda.infra.security.credentials.Credenciais;
-import br.albatross.agenda.infra.security.services.JwtTokenService;
 import br.albatross.agenda.infra.security.services.LoginService;
+import br.albatross.agenda.infra.security.services.jwt.JwtTokenService;
 import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
