@@ -6,17 +6,14 @@ import static jakarta.ws.rs.core.Response.status;
 import static jakarta.ws.rs.core.Response.Status.CREATED;
 import static jakarta.ws.rs.core.Response.Status.NO_CONTENT;
 
-import java.io.File;
 import java.io.IOException;
 
 import org.jboss.resteasy.annotations.cache.Cache;
 
 import br.albatross.agenda.domain.models.contato.DadosParaAtualizacaoDeContatoDto;
 import br.albatross.agenda.domain.models.contato.DadosParaCadastroDeNovoContatoDto;
-import br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto;
 import br.albatross.agenda.domain.models.contato.DadosParaPesquisaDeContatosDto;
 import br.albatross.agenda.domain.services.ContatoService;
-import br.albatross.agenda.domain.services.GeradorDeArquivo;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -45,9 +42,6 @@ public class ContatoResource {
 	@Inject
 	private ContatoService service;
 
-	@Inject
-	private GeradorDeArquivo<DadosParaListagemDeContatoDto> gerador;
-
 	private static final String FIRST_PAGE = "1";
 	private static final String DEFAULT_RESULTS_PER_PAGE = "5";
 
@@ -65,11 +59,9 @@ public class ContatoResource {
 	@Transactional
 	@Produces("application/msword")
 	public Response gerarDOCX(DadosParaPesquisaDeContatosDto dados) throws IOException {
-		var contatos = service.listarTodos(dados);
-		File file = gerador.gerar(contatos);
 		return status(CREATED)
 				.header(CONTENT_DISPOSITION, "attachment; filename=\"agenda.docx\"")
-				.entity(file)
+				.entity(service.gerarDOCX(dados))
 				.build();
 	}
 
@@ -78,11 +70,9 @@ public class ContatoResource {
 	@Transactional
 	@Produces("application/msword")
 	public Response gerarDOCX() throws IOException {
-		var contatos = service.listarTodos();
-		File file = gerador.gerar(contatos);
 		return status(CREATED)
 				.header(CONTENT_DISPOSITION, "attachment; filename=\"agenda.docx\"")
-				.entity(file)
+				.entity(service.gerarDOCX())
 				.build();
 	}
 
@@ -114,6 +104,7 @@ public class ContatoResource {
 
 	@PUT
 	@Path("/{id}")
+	@Transactional
 	public Response atualizarContato(@PathParam("id") short id, @Valid DadosParaAtualizacaoDeContatoDto dadosAtualizados) {
 		var contato = service.atualizarCadastro(dadosAtualizados);
 		return Response
@@ -123,6 +114,7 @@ public class ContatoResource {
 
 	@DELETE
 	@Path("/{id}")
+	@Transactional
 	public Response apagarContatoPeloId(@PathParam("id") short id) {
 		service.excluir(id);
 		return Response

@@ -1,5 +1,6 @@
 package br.albatross.agenda.domain.services;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +13,6 @@ import br.albatross.agenda.domain.models.contato.DadosParaPesquisaDeContatosDto;
 import br.albatross.agenda.domain.models.contato.Pagina;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @ApplicationScoped
@@ -24,7 +24,9 @@ public class ContatoService {
 	@Inject
 	private ServicoDePaginacao servicoDePaginacao;
 
-	@Transactional
+	@Inject
+	private GeradorDeArquivo<DadosParaListagemDeContatoDto> geradorDeArquivoService;
+
 	public DadosParaListagemDeContatoDto salvar(@Valid DadosParaCadastroDeNovoContatoDto dados) {
 		return dao.persist(new Contato(dados));
 	}
@@ -53,14 +55,20 @@ public class ContatoService {
 		return dao.buscarPorId(contatoId);
 	}
 
-	@Transactional
 	public DadosParaListagemDeContatoDto atualizarCadastro(@Valid DadosParaAtualizacaoDeContatoDto dados) {
 		return new DadosParaListagemDeContatoDto(dao.atualizar(new Contato(dados)));
 	}
 
-	@Transactional
 	public void excluir(short id) {
 		dao.excluir(id);
+	}
+
+	public File gerarDOCX() {
+		return geradorDeArquivoService.gerar(dao.listarTodos());
+	}
+
+	public File gerarDOCX(DadosParaPesquisaDeContatosDto dados) {
+		return geradorDeArquivoService.gerar(dao.listarTodos(dados));
 	}
 
 }

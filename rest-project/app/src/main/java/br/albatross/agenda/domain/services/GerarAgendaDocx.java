@@ -1,15 +1,15 @@
 package br.albatross.agenda.domain.services;
 
+import static java.io.File.createTempFile;
+import static java.lang.String.format;
+import static java.util.UUID.randomUUID;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
-
-import static java.io.File.createTempFile;
-import static java.lang.String.format;
-import static java.util.UUID.randomUUID;
 
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -34,7 +34,7 @@ public class GerarAgendaDocx implements GeradorDeArquivo<DadosParaListagemDeCont
 	@Inject
 	private XwpfTableService tableService;
 
-	public File gerar(List<DadosParaListagemDeContatoDto> contatos) throws IOException {
+	public File gerar(List<DadosParaListagemDeContatoDto> contatos) {
 		try (XWPFDocument doc = new XWPFDocument()) {
 
 			File file = createTempFile(AGENDA_DOCX_FILE_NAME, AGENDA_DOCX_FILE_EXTESION);
@@ -70,7 +70,8 @@ public class GerarAgendaDocx implements GeradorDeArquivo<DadosParaListagemDeCont
 				doc.write(os);
 				return file;
 			}
-		}
+
+		} catch (IOException e) { throw new RuntimeException(e); }
 
 	}
 
