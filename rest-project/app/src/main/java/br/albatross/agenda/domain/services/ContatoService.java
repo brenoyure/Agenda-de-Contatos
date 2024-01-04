@@ -32,15 +32,11 @@ public class ContatoService {
 	}
 
 	public Pagina listaPaginada(int pagina, byte resultadosPorPagina) {
-		var listaDeContatos = dao.listar(pagina, resultadosPorPagina);
-		var totalDeContatos = dao.getTotal();
-		return servicoDePaginacao.getListagemPaginada(listaDeContatos, pagina, resultadosPorPagina, totalDeContatos);
+		return servicoDePaginacao.getListagemPaginada(dao.listar(pagina, resultadosPorPagina), pagina, resultadosPorPagina, dao.getTotal());
 	}
 
 	public Pagina listaPaginada(int pagina, byte resultadosPorPagina, DadosParaPesquisaDeContatosDto dadosParaPesquisa) {
-		var listaDeContatos = dao.listar(pagina, resultadosPorPagina, dadosParaPesquisa);
-		var totalDeContatos = dao.getTotal();
-		return servicoDePaginacao.getListagemPaginada(listaDeContatos, pagina, resultadosPorPagina, totalDeContatos);
+		return servicoDePaginacao.getListagemPaginada(dao.listar(pagina, resultadosPorPagina, dadosParaPesquisa), pagina, resultadosPorPagina, dao.getTotal());
 	}
 	
 	public List<DadosParaListagemDeContatoDto> listarTodos(DadosParaPesquisaDeContatosDto dados) {
