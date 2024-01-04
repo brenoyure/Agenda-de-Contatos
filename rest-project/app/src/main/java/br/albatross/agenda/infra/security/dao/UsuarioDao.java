@@ -1,4 +1,4 @@
-package br.albatross.agenda.domain.dao;
+package br.albatross.agenda.infra.security.dao;
 
 import static org.hibernate.jpa.HibernateHints.HINT_CACHEABLE;
 

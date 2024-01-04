@@ -9,6 +9,8 @@ import static jakarta.ws.rs.core.Response.Status.NO_CONTENT;
 import java.io.File;
 import java.io.IOException;
 
+import org.jboss.resteasy.annotations.cache.Cache;
+
 import br.albatross.agenda.domain.models.contato.DadosParaAtualizacaoDeContatoDto;
 import br.albatross.agenda.domain.models.contato.DadosParaCadastroDeNovoContatoDto;
 import br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto;
@@ -37,6 +39,7 @@ import jakarta.ws.rs.core.Response;
 @Consumes(APPLICATION_JSON)
 @Produces(APPLICATION_JSON)
 @RolesAllowed("ADMIN")
+@Cache(maxAge = 3600, sMaxAge = 1800, mustRevalidate = true, proxyRevalidate = true)
 public class ContatoResource {
 
 	@Inject

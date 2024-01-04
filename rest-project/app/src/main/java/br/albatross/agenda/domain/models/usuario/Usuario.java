@@ -11,14 +11,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity @Table(name = "usuario")
 @EqualsAndHashCode(of = "id")
 @Getter @Setter
 @Cacheable
+@NoArgsConstructor @AllArgsConstructor
 public class Usuario {
 
 	@Id	@GeneratedValue(strategy = IDENTITY)
@@ -33,5 +36,11 @@ public class Usuario {
 	
 	@ManyToOne @JoinColumn(name = "fk_role_id", nullable = false)
 	private Role role;
+
+	public Usuario(String username, String password, Role role) {
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
 
 }

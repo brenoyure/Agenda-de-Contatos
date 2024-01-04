@@ -4,7 +4,8 @@ import static jakarta.ws.rs.core.Response.status;
 import static jakarta.ws.rs.core.Response.Status.BAD_REQUEST;
 
 import br.albatross.agenda.infra.security.exceptions.UsuarioExistenteException;
-import jakarta.json.Json;
+import br.albatross.agenda.infra.security.services.JsonErrorObjectFactory;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
@@ -12,17 +13,14 @@ import jakarta.ws.rs.ext.Provider;
 @Provider
 public class UsuarioExistenteExceptionMapper implements ExceptionMapper<UsuarioExistenteException> {
 
+	@Inject
+	private JsonErrorObjectFactory jsonErrorFactory;
+
 	@Override
 	public Response toResponse(UsuarioExistenteException exception) {
-		var objetoErro = Json
-				.createObjectBuilder()
-					.add("property", "username")
-					.add("message", "Já existe um usuário cadastrado com o nome informado.")
-					.add("code", "400 - Already Exists")
-					.build();
 
 		return status(BAD_REQUEST)
-				.entity(objetoErro)
+				.entity(jsonErrorFactory.createObject(exception.getMessage(), "400 - Already Exists", "username"))
 				.build();
 	}
 
