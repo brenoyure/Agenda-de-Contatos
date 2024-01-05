@@ -46,6 +46,7 @@ public class ContatoResource {
 	private static final String DEFAULT_RESULTS_PER_PAGE = "5";
 
 	@POST
+	@Transactional
 	public Response cadastrarNovoContato(@Valid DadosParaCadastroDeNovoContatoDto dados) {
 		var novoCadastro = service.salvar(dados);
 		return Response
