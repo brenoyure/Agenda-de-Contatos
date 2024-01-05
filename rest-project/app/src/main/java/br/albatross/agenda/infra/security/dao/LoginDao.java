@@ -26,7 +26,7 @@ public class LoginDao {
 	public Optional<DadosBasicosDoUsuarioParaExibicaoDto> logar(Credenciais credenciais) {
 		try {
 			return Optional.of(entityManager
-					.createQuery("SELECT new br.albatross.agenda.domain.models.usuario.DadosBasicosDoUsuarioParaExibicaoDto(u.username, u.role.nome) u FROM Usuario u WHERE u.username = ?1 AND u.password = ?2", DadosBasicosDoUsuarioParaExibicaoDto.class)
+					.createQuery("SELECT new br.albatross.agenda.infra.security.models.DadosBasicosDoUsuarioParaExibicaoDto(u.username, u.role.nome) u FROM Usuario u WHERE u.username = ?1 AND u.password = ?2", DadosBasicosDoUsuarioParaExibicaoDto.class)
 					.setParameter(1, credenciais.username())
 					.setParameter(2, passwordService.generateHashing(credenciais.password()))
 					.setHint(HINT_CACHEABLE, true)

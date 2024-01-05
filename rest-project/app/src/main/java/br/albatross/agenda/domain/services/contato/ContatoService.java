@@ -13,6 +13,7 @@ import br.albatross.agenda.domain.models.contato.DadosParaPesquisaDeContatosDto;
 import br.albatross.agenda.domain.models.contato.Pagina;
 import br.albatross.agenda.domain.services.GeradorDeArquivo;
 import br.albatross.agenda.domain.services.ServicoDePaginacao;
+import br.albatross.agenda.domain.services.setor.SetorService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -27,10 +28,18 @@ public class ContatoService {
 	private ServicoDePaginacao servicoDePaginacao;
 
 	@Inject
+	private SetorService setorService;
+
+	@Inject
 	private GeradorDeArquivo<DadosParaListagemDeContatoDto> geradorDeArquivoService;
 
 	public DadosParaListagemDeContatoDto salvar(@Valid DadosParaCadastroDeNovoContatoDto dados) {
-		return dao.persist(new Contato(dados));
+		Contato contato = new Contato();
+		contato.setNome(dados.nome());
+		contato.setNumero(dados.numero());
+		contato.setAndar(dados.andar());
+		contato.setSetor(setorService.getReferenceById(dados.setorId()));
+		return dao.persist(contato);
 	}
 
 	public Pagina listaPaginada(int pagina, byte resultadosPorPagina) {

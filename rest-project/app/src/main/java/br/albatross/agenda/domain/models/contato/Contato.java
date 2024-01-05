@@ -1,5 +1,6 @@
 package br.albatross.agenda.domain.models.contato;
 
+import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 import br.albatross.agenda.domain.models.setor.Setor;
@@ -33,7 +34,7 @@ public class Contato {
 	@Column(length = 13, unique = false, nullable = false)
 	private String numero;
 
-	@ManyToOne
+	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "fk_setor_id")
 	private Setor setor;	
 

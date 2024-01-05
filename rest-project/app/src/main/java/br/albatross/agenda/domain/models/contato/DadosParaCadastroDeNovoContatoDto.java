@@ -1,5 +1,6 @@
 package br.albatross.agenda.domain.models.contato;
 
+import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -17,6 +18,7 @@ public record DadosParaCadastroDeNovoContatoDto(
 
 		@NotNull
 		@Positive
+		@JsonbProperty("setor")
 		int setorId,
 
 		@NotBlank
