@@ -1,4 +1,4 @@
-package br.albatross.agenda.domain.services;
+package br.albatross.agenda.domain.services.contato;
 
 import java.io.File;
 import java.util.List;
@@ -11,6 +11,8 @@ import br.albatross.agenda.domain.models.contato.DadosParaCadastroDeNovoContatoD
 import br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto;
 import br.albatross.agenda.domain.models.contato.DadosParaPesquisaDeContatosDto;
 import br.albatross.agenda.domain.models.contato.Pagina;
+import br.albatross.agenda.domain.services.GeradorDeArquivo;
+import br.albatross.agenda.domain.services.ServicoDePaginacao;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;

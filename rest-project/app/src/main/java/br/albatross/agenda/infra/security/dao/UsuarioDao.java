@@ -4,9 +4,9 @@ import static org.hibernate.jpa.HibernateHints.HINT_CACHEABLE;
 
 import java.util.List;
 
-import br.albatross.agenda.domain.models.usuario.DadosBasicosDoUsuarioParaExibicaoDto;
-import br.albatross.agenda.domain.models.usuario.Role;
-import br.albatross.agenda.domain.models.usuario.Usuario;
+import br.albatross.agenda.infra.security.models.DadosBasicosDoUsuarioParaExibicaoDto;
+import br.albatross.agenda.infra.security.models.Role;
+import br.albatross.agenda.infra.security.models.Usuario;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

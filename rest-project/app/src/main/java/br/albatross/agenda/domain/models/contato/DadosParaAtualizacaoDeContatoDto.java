@@ -1,6 +1,7 @@
 package br.albatross.agenda.domain.models.contato;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -16,9 +17,9 @@ public record DadosParaAtualizacaoDeContatoDto(
 		@Pattern(regexp = "\\d{10,13}")
 		String ramal,
 
-		@NotBlank
-		@Size(max = 50)
-		String setor,
+		@NotNull
+		@Positive
+		int setorId,
 
 		@NotBlank
 		@Size(max = 10)

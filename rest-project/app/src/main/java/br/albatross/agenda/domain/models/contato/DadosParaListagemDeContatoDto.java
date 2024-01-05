@@ -11,7 +11,7 @@ public record DadosParaListagemDeContatoDto(
 	)  {
 
 	public DadosParaListagemDeContatoDto(Contato contato) {
-		this(contato.getId(), contato.getNome(), contato.getNumero(), contato.getSetor(), contato.getAndar());
+		this(contato.getId(), contato.getNome(), contato.getNumero(), contato.getSetor().getSigla(), contato.getAndar());
 	}
 
 }

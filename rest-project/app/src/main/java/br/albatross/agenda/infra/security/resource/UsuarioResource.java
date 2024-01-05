@@ -4,7 +4,7 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 import static jakarta.ws.rs.core.Response.status;
 import static jakarta.ws.rs.core.Response.Status.CREATED;
 
-import br.albatross.agenda.domain.models.usuario.DadosParaCriacaoDeUsuarioDto;
+import br.albatross.agenda.infra.security.models.DadosParaCriacaoDeUsuarioDto;
 import br.albatross.agenda.infra.security.services.usuario.UsuarioService;
 import jakarta.annotation.security.DenyAll;
 import jakarta.annotation.security.RolesAllowed;

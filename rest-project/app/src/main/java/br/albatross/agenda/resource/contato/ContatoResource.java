@@ -13,7 +13,7 @@ import org.jboss.resteasy.annotations.cache.Cache;
 import br.albatross.agenda.domain.models.contato.DadosParaAtualizacaoDeContatoDto;
 import br.albatross.agenda.domain.models.contato.DadosParaCadastroDeNovoContatoDto;
 import br.albatross.agenda.domain.models.contato.DadosParaPesquisaDeContatosDto;
-import br.albatross.agenda.domain.services.ContatoService;
+import br.albatross.agenda.domain.services.contato.ContatoService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;

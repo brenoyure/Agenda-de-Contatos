@@ -5,8 +5,8 @@ import static org.hibernate.jpa.HibernateHints.HINT_CACHEABLE;
 
 import java.util.Optional;
 
-import br.albatross.agenda.domain.models.usuario.DadosBasicosDoUsuarioParaExibicaoDto;
 import br.albatross.agenda.infra.security.credentials.Credenciais;
+import br.albatross.agenda.infra.security.models.DadosBasicosDoUsuarioParaExibicaoDto;
 import br.albatross.agenda.infra.security.services.password.PasswordService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;

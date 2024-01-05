@@ -1,9 +1,9 @@
 package br.albatross.agenda.infra.security.services.authentication;
 
-import br.albatross.agenda.domain.models.usuario.DadosBasicosDoUsuarioParaExibicaoDto;
 import br.albatross.agenda.infra.security.credentials.Credenciais;
 import br.albatross.agenda.infra.security.dao.LoginDao;
 import br.albatross.agenda.infra.security.exceptions.UsuarioOuSenhaIncorretaException;
+import br.albatross.agenda.infra.security.models.DadosBasicosDoUsuarioParaExibicaoDto;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 

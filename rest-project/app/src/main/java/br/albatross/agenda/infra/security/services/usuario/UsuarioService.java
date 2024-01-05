@@ -1,7 +1,7 @@
 package br.albatross.agenda.infra.security.services.usuario;
 
-import br.albatross.agenda.domain.models.usuario.DadosBasicosDoUsuarioParaExibicaoDto;
-import br.albatross.agenda.domain.models.usuario.DadosParaCriacaoDeUsuarioDto;
+import br.albatross.agenda.infra.security.models.DadosBasicosDoUsuarioParaExibicaoDto;
+import br.albatross.agenda.infra.security.models.DadosParaCriacaoDeUsuarioDto;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
