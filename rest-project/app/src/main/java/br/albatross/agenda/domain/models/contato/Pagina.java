@@ -3,15 +3,15 @@ package br.albatross.agenda.domain.models.contato;
 import java.util.List;
 
 /**
- * DTO que representa uma "página" da Agenda, contento uma lista de contatos, a página atual e o total de registros
+ * DTO que representa uma "página" contendo a lista dos dados<T> para exibição, a página atual e o total de registros
  * 
  * @author breno.brito
  */
-public record Pagina(
-		List<DadosParaListagemDeContatoDto> listaDeContatos, 
+public record Pagina<T>(
+		List<T> listaDeDados, 
 		int paginaAtual, 
 		int totalDePaginas,
-		long totalDeContatos,
+		long totalDeRegistros,
 		byte resultadosPorPagina
 	) {
 

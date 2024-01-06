@@ -31,5 +31,10 @@ public class Setor {
 	public Setor(@Valid DadosParaCadastroDeNovoSetor dados) {
 		this.sigla = dados.sigla();
 	}
+	
+	public Setor(@Valid DadosParaAtualizacaoDeSetorDto dadosAtualizados) {
+		this.id = dadosAtualizados.id();
+		this.sigla = dadosAtualizados.sigla();
+	}
 
 }

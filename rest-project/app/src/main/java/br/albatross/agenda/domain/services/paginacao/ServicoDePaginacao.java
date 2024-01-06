@@ -1,10 +1,9 @@
-package br.albatross.agenda.domain.services;
+package br.albatross.agenda.domain.services.paginacao;
 
 import java.util.List;
 
-import br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto;
 import br.albatross.agenda.domain.models.contato.Pagina;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
 
 /**
  * Serviço Responsável por gerar a paginação de uma lista de objetos, de forma a
@@ -14,12 +13,12 @@ import jakarta.enterprise.context.ApplicationScoped;
  * Resultados por Página, Total de Páginas e etc.
  * 
  */
-@ApplicationScoped
-public class ServicoDePaginacao {
+@Dependent
+public class ServicoDePaginacao<T> {
 
-	public Pagina getListagemPaginada(List<DadosParaListagemDeContatoDto> listaDeContatos, int paginaAtual,	byte resultadosPorPagina, long totalDeContatos) {
+	public Pagina<T> getListagemPaginada(List<T> listaDeContatos, int paginaAtual,	byte resultadosPorPagina, long totalDeContatos) {
 		int totalDePaginas = (int) Math.ceil(((float) totalDeContatos / (float) resultadosPorPagina));
-		return new Pagina(listaDeContatos, paginaAtual, totalDePaginas, (long) totalDeContatos,	(byte) resultadosPorPagina);
+		return new Pagina<T>(listaDeContatos, paginaAtual, totalDePaginas, (long) totalDeContatos,	(byte) resultadosPorPagina);
 	}
 
 }

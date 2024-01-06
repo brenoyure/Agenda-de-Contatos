@@ -83,7 +83,7 @@ public class ContatoDao {
 
 	public List<DadosParaListagemDeContatoDto> listar(int pagina, byte resultadosPorPagina) {
 		return entityManager
-				.createQuery("SELECT new br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto(c.id, c.nome, c.numero, c.setor, c.andar) FROM Contato c", DadosParaListagemDeContatoDto.class)
+				.createQuery("SELECT new br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto(c.id, c.nome, c.numero, c.setor.sigla, c.andar) FROM Contato c", DadosParaListagemDeContatoDto.class)
 				.setFirstResult((pagina * resultadosPorPagina) - resultadosPorPagina)
 				.setMaxResults(resultadosPorPagina)
 				.setHint(HINT_CACHEABLE, true)
@@ -110,7 +110,7 @@ public class ContatoDao {
 
 	public Optional<DadosParaListagemDeContatoDto> buscarPorId(short contatoId) {
 		return Optional.ofNullable(entityManager
-					.createQuery("SELECT new br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto(c.id, c.nome, c.numero, c.setor, c.andar) FROM Contato c WHERE c.id = ?1", DadosParaListagemDeContatoDto.class)
+					.createQuery("SELECT new br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto(c.id, c.nome, c.numero, c.setor.sigla, c.andar) FROM Contato c WHERE c.id = ?1", DadosParaListagemDeContatoDto.class)
 					.setParameter(1, contatoId)
 					.setHint(HINT_CACHEABLE, true)
 					.getSingleResult());
