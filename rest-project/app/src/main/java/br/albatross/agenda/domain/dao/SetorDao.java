@@ -4,7 +4,6 @@ import static org.hibernate.jpa.HibernateHints.HINT_CACHEABLE;
 
 import java.util.List;
 
-import br.albatross.agenda.domain.models.contato.Contato;
 import br.albatross.agenda.domain.models.setor.DadosParaListagemDeSetorDto;
 import br.albatross.agenda.domain.models.setor.Setor;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -47,7 +46,7 @@ public class SetorDao {
 	}
 
 	public void excluir(int id) {
-		entityManager.remove(entityManager.getReference(Contato.class, id));
+		entityManager.remove(getReferenceById(id));
 	}
 
 }
