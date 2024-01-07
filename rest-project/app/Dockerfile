@@ -7,7 +7,7 @@ ARG AGENDADB_MYSQL_USER
 ARG AGENDADB_MYSQL_PASSWORD
 ARG AGENDADB_MYSQL_DATABASE_NAME
 
-COPY mysql-connector-j-8.0.33.jar /tmp
+COPY mysql-connector-j-8.2.0.jar /tmp
 COPY config.cli ./bin/config.cli
 
 RUN ["/opt/jboss/wildfly/bin/jboss-cli.sh", "--file=/opt/jboss/wildfly/bin/config.cli", "--resolve-parameter-values"]
