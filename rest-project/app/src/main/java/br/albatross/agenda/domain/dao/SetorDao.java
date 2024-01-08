@@ -21,8 +21,22 @@ public class SetorDao {
 		return new DadosParaListagemDeSetorDto(setor);
 	}
 
+	public boolean existeContatoComEsteSetor(int setorId) {
+		return entityManager
+				.createQuery("SELECT EXISTS(SELECT c FROM Contato c WHERE c.setor.id = ?1)", Boolean.class)
+				.setParameter(1, setorId)
+				.getSingleResult();		
+	}
+
 	public Setor getReferenceById(int id) {
 		return entityManager.getReference(Setor.class, id);
+	}
+
+	public boolean existsByName(String setor) {
+		return entityManager
+				.createQuery("SELECT EXISTS(SELECT s FROM Setor s WHERE s.sigla = ?1)", Boolean.class)
+				.setParameter(1, setor)
+				.getSingleResult();
 	}
 
 	public List<DadosParaListagemDeSetorDto> listar(int pagina, byte resultadosPorPagina) {
