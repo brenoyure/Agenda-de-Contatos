@@ -4,6 +4,7 @@ import static br.albatross.agenda.domain.models.contato.Contato_.andar;
 import static br.albatross.agenda.domain.models.contato.Contato_.nome;
 import static br.albatross.agenda.domain.models.contato.Contato_.numero;
 import static br.albatross.agenda.domain.models.contato.Contato_.setor;
+import static br.albatross.agenda.domain.models.setor.Setor_.sigla;
 import static org.hibernate.jpa.HibernateHints.HINT_CACHEABLE;
 
 import java.util.List;
@@ -120,6 +121,7 @@ public class ContatoDao {
 		entityManager.remove(entityManager.getReference(Contato.class, id));
 	}
 
+	//TODO Pesquisa Dinâmica ainda Lançando Exceptions 
 	private Predicate fetchAndPredicate(CriteriaBuilder cb, Root<Contato> contato, DadosParaPesquisaDeContatosDto dados) {
 		Predicate and = cb.and();
 
@@ -128,7 +130,7 @@ public class ContatoDao {
 		}
 
 		if (dados.setor() != null) {
-			and = cb.and(and, cb.like(contato.get(setor), dados.setor().concat("%")));
+			and = cb.and(and, cb.equal(contato.get(setor).get(sigla), dados.setor()));
 		}
 
 		if (dados.andar() != null) {
