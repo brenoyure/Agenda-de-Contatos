@@ -60,7 +60,7 @@ public class ContatoDao {
 
 	public List<DadosParaListagemDeContatoDto> listarTodos() {
 		return entityManager
-				.createQuery("SELECT new br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto(c) FROM Contato c ORDER BY c.andar, c.setor ASC", DadosParaListagemDeContatoDto.class)
+				.createQuery("SELECT new br.albatross.agenda.domain.models.contato.DadosParaListagemDeContatoDto(c) FROM Contato c ORDER BY c.andar, c.setor.sigla ASC", DadosParaListagemDeContatoDto.class)
 				.setHint(HINT_CACHEABLE, true)
 				.getResultList();
 	}
@@ -74,7 +74,7 @@ public class ContatoDao {
 		cq.where(fetchAndPredicate(cb, contato, dados));
 
 		cq.orderBy(cb.asc(contato.get(andar)));
-		cq.orderBy(cb.asc(contato.get(setor)));
+		cq.orderBy(cb.asc(contato.get(setor).get(sigla)));
 
 		return entityManager
 				.createQuery(cq)

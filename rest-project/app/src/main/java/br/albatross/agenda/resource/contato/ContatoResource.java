@@ -78,6 +78,7 @@ public class ContatoResource {
 	}
 
 	@GET
+	@Transactional
 	@RolesAllowed({"USER", "ADMIN"})
 	public Response listarContatos(@QueryParam("pagina") @DefaultValue(FIRST_PAGE) int pagina, @QueryParam("resultadosPorPagina") @DefaultValue(DEFAULT_RESULTS_PER_PAGE) byte resultadosPorPagina) {
 		var listaDeContatos = service.listaPaginada(pagina, resultadosPorPagina);
@@ -87,6 +88,7 @@ public class ContatoResource {
 	}
 
 	@GET
+	@Transactional
 	@RolesAllowed({"USER", "ADMIN"})
 	public Response listarContatos(@QueryParam("pagina") @DefaultValue(FIRST_PAGE) int pagina, @QueryParam("resultadosPorPagina") @DefaultValue(DEFAULT_RESULTS_PER_PAGE) byte resultadosPorPagina, DadosParaPesquisaDeContatosDto dadosParaPesquisa) {
 		var listaDeContatos = service.listaPaginada(pagina, resultadosPorPagina, dadosParaPesquisa);
