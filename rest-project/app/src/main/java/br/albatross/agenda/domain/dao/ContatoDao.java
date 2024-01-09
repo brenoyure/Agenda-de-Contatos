@@ -125,19 +125,19 @@ public class ContatoDao {
 	private Predicate fetchAndPredicate(CriteriaBuilder cb, Root<Contato> contato, DadosParaPesquisaDeContatosDto dados) {
 		Predicate and = cb.and();
 
-		if (dados.nome() != null) {
+		if (!dados.nome().isBlank()) {
 			and = cb.and(and, cb.equal(contato.get(nome), dados.nome()));
 		}
 
-		if (dados.setor() != null) {
+		if (!dados.setor().isBlank()) {
 			and = cb.and(and, cb.equal(contato.get(setor).get(sigla), dados.setor()));
 		}
 
-		if (dados.andar() != null) {
+		if (!dados.andar().isBlank()) {
 			and = cb.and(and, cb.equal(contato.get(andar), dados.andar()));
 		}
 
-		if (dados.ramal() != null) {
+		if (!dados.ramal().isBlank()) {
 			and = cb.and(and, cb.equal(contato.get(numero), dados.ramal()));
 		}
 

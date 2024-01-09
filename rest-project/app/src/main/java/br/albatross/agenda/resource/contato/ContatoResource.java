@@ -87,10 +87,11 @@ public class ContatoResource {
 				.build();
 	}
 
-	@GET
+	@POST
+	@Path("/pesquisa")
 	@Transactional
 	@RolesAllowed({"USER", "ADMIN"})
-	public Response listarContatos(@QueryParam("pagina") @DefaultValue(FIRST_PAGE) int pagina, @QueryParam("resultadosPorPagina") @DefaultValue(DEFAULT_RESULTS_PER_PAGE) byte resultadosPorPagina, DadosParaPesquisaDeContatosDto dadosParaPesquisa) {
+	public Response listarContatos(@QueryParam("pagina") @DefaultValue(FIRST_PAGE) int pagina, @QueryParam("resultadosPorPagina") @DefaultValue(DEFAULT_RESULTS_PER_PAGE) byte resultadosPorPagina, @Valid DadosParaPesquisaDeContatosDto dadosParaPesquisa) {
 		var listaDeContatos = service.listaPaginada(pagina, resultadosPorPagina, dadosParaPesquisa);
 		return Response
 				.ok(listaDeContatos)

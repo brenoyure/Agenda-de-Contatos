@@ -1,15 +1,17 @@
 package br.albatross.agenda.domain.models.contato;
 
+import jakarta.validation.constraints.NotNull;
+
 public record DadosParaPesquisaDeContatosDto(
 
-		String andar, 
+		@NotNull String andar,
 
-		String nome, 
-		
-		String ramal, 
-		
-		String setor
+		@NotNull String nome,
 
-	) {
+		@NotNull String ramal,
+
+		@NotNull String setor
+
+) {
 
 }
