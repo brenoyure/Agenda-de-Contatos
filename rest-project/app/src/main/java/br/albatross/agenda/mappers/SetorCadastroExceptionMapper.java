@@ -1,7 +1,7 @@
 package br.albatross.agenda.mappers;
 
 import static jakarta.ws.rs.core.Response.status;
-import static jakarta.ws.rs.core.Response.Status.UNAUTHORIZED;
+import static jakarta.ws.rs.core.Response.Status.BAD_REQUEST;
 
 import br.albatross.agenda.domain.exceptions.SetorCadastroException;
 import br.albatross.agenda.infra.security.services.JsonErrorObjectFactory;
@@ -18,7 +18,7 @@ public class SetorCadastroExceptionMapper implements ExceptionMapper<SetorCadast
 
 	@Override
 	public Response toResponse(SetorCadastroException exception) {
-		return status(UNAUTHORIZED)
+		return status(BAD_REQUEST)
 				.entity(jsonErrorFactory.createObject(exception.getMessage(), "400 - BAD REQUEST"))
 				.build();
 	}

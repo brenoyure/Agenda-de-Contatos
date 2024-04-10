@@ -1,5 +1,7 @@
 package br.albatross.agenda.domain.services.setor;
 
+import java.util.List;
+
 import br.albatross.agenda.domain.dao.SetorDao;
 import br.albatross.agenda.domain.models.contato.Pagina;
 import br.albatross.agenda.domain.models.setor.DadosParaListagemDeSetorDto;
@@ -23,6 +25,10 @@ public class SetorConsultaService {
 
 	public Pagina<DadosParaListagemDeSetorDto> listaPaginada(int pagina, byte resultadosPorPagina) {
 		return servicoDePaginacao.getListagemPaginada(dao.listar(pagina, resultadosPorPagina), pagina, resultadosPorPagina, dao.getTotal());
+	}
+
+	public List<DadosParaListagemDeSetorDto> listarTodos() {
+		return dao.findAll();
 	}
 
 }

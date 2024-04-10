@@ -28,10 +28,10 @@ public class Contato {
 	@Id @GeneratedValue(strategy = IDENTITY)
 	private Short id;
 	
-	@Column(length = 50, unique = false, nullable = false)
+	@Column(length = 55, unique = true,  nullable = false)
 	private String nome;
 
-	@Column(length = 13, unique = false, nullable = false)
+	@Column(length = 55, unique = false, nullable = false)
 	private String numero;
 
 	@ManyToOne(fetch = LAZY)

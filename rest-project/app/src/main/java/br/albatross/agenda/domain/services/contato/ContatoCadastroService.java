@@ -1,6 +1,7 @@
 package br.albatross.agenda.domain.services.contato;
 
 import br.albatross.agenda.domain.dao.ContatoDao;
+import br.albatross.agenda.domain.exceptions.ContatoExistenteException;
 import br.albatross.agenda.domain.models.contato.Contato;
 import br.albatross.agenda.domain.models.contato.DadosParaAtualizacaoDeContatoDto;
 import br.albatross.agenda.domain.models.contato.DadosParaCadastroDeNovoContatoDto;
@@ -20,9 +21,15 @@ public class ContatoCadastroService {
 	private SetorService setorService;
 
 	public DadosParaListagemDeContatoDto salvar(@Valid DadosParaCadastroDeNovoContatoDto dados) {
+
+		if (dao.existePorNome(dados.nome())) {
+			throw new ContatoExistenteException();
+		}
+
 		Contato contato = new Contato(dados);
 		contato.setSetor(setorService.getReferenceById(dados.setorId()));
 		return dao.persist(contato);
+
 	}
 
 	public DadosParaListagemDeContatoDto atualizarCadastro(@Valid DadosParaAtualizacaoDeContatoDto dados) {

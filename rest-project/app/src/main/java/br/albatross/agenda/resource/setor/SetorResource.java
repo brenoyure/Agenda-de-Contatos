@@ -59,6 +59,16 @@ public class SetorResource {
 				.build();
 	}
 
+	@GET
+	@Path("/todos")
+	@RolesAllowed({"USER", "ADMIN"})
+	public Response listarTodos() {
+		var listaDeSetores = service.listarTodos();
+		return Response
+				.ok(listaDeSetores)
+				.build();
+	}	
+
 	@PUT
 	@Path("/{id}")
 	@Transactional

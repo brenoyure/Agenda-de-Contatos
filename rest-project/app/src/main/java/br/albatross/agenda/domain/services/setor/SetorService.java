@@ -1,5 +1,7 @@
 package br.albatross.agenda.domain.services.setor;
 
+import java.util.List;
+
 import br.albatross.agenda.domain.models.contato.Pagina;
 import br.albatross.agenda.domain.models.setor.DadosParaAtualizacaoDeSetorDto;
 import br.albatross.agenda.domain.models.setor.DadosParaCadastroDeNovoSetor;
@@ -29,6 +31,10 @@ public class SetorService {
 	public Pagina<DadosParaListagemDeSetorDto> listaPaginada(int pagina, byte resultadosPorPagina) {
 		return consultaService.listaPaginada(pagina, resultadosPorPagina);
 	}
+
+	public List<DadosParaListagemDeSetorDto> listarTodos() {
+		return consultaService.listarTodos();
+	}	
 
 	public DadosParaListagemDeSetorDto atualizarCadastro(@Valid DadosParaAtualizacaoDeSetorDto dadosAtualizados) {
 		return cadastroService.atualizar(dadosAtualizados);

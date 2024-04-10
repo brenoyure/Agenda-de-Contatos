@@ -48,6 +48,13 @@ public class SetorDao {
 				.getResultList();
 	}
 
+	public List<DadosParaListagemDeSetorDto> findAll() {
+		return entityManager
+				.createQuery("SELECT new br.albatross.agenda.domain.models.setor.DadosParaListagemDeSetorDto(s.id, s.sigla) FROM Setor s ORDER BY s.sigla", DadosParaListagemDeSetorDto.class)
+				.setHint(HINT_CACHEABLE, true)
+				.getResultList();
+	}	
+
 	public long getTotal() {
 		return entityManager
 				.createQuery("SELECT COUNT(s) FROM Setor s", Long.class)
