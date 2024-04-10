@@ -25,11 +25,11 @@ public class Setor {
     @Column(length = 55, unique = true, nullable = false)
     private String sigla;
 
-    @Column(length = 100, unique = false, nullable = true)
+    @Column(length = 100, unique = true, nullable = true)
     private String descricao;
 
     @ManyToOne
-    @JoinColumn(name = "fk_unidade_administrativa_id")
+    @JoinColumn(name = "fk_unidade_administrativa_id", nullable = false)
     private UnidadeAdministrativa unidadeAdministrativa;
 
 }

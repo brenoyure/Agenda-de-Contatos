@@ -5,13 +5,10 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:head >
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</h:head>
+<ui:composition template="_template.xhtml" >
 
-<h:body>
-
-    <p:growl id="mensagens" />
+    <ui:define name="titulo">Consulta de Contatos</ui:define>
+    <ui:define name="conteudo">
 
 	<h:form>
 		<p:dataTable value="#{consultaContatosBean.contatos}" var="contato" rows="10" paginator="true" paginatorPosition="bottom" >
@@ -28,7 +25,7 @@
 				</p:column>
 		
 				<p:column headerText="Andar" filterBy="#{contato.andar.nome}" filterMatchMode="startsWith">
-					#{contato.andar.nome}
+					<h:outputText value="#{contato.andar.nome}" />
 				</p:column>
 
 				<p:column>
@@ -46,6 +43,9 @@
 
 		</p:dataTable>
 	</h:form>
-</h:body>
+
+	</ui:define>
+
+</ui:composition>
 
 </html>

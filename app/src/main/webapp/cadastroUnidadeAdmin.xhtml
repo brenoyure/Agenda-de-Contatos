@@ -14,6 +14,10 @@
         <f:viewAction action="#{cadastroUnidadeAdministrativaBean.carregar(param.unidadeId)}" if="#{param.unidadeId != null}" />
     </f:metadata>
 
+        <div>
+            <h:link outcome="consultaUnidades" value="Ir para Consulta de Unidades" />
+        </div>
+
 	    <h:panelGroup layout="block" styleClass="container" >
 
 			<h:form id="formCadastroUnidadeAdmin" title="Formulário de Cadastro Administração Central">

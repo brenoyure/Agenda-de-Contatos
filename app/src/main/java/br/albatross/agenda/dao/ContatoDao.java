@@ -37,7 +37,7 @@ public class ContatoDao {
 
 	public List<Contato> listar() {
 		return entityManager
-				.createQuery("SELECT c FROM Contato c", Contato.class)
+				.createQuery("SELECT c FROM Contato c JOIN FETCH c.andar JOIN FETCH c.setor s JOIN FETCH s.unidadeAdministrativa LEFT JOIN c.andar", Contato.class)
 				.getResultList();
 	}
 

@@ -20,11 +20,10 @@ import lombok.Setter;
 @Getter @Setter
 public class Andar {
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@Id	@GeneratedValue(strategy = IDENTITY)
 	private Short id;
 
-	@Column(name = "nome", unique = true, nullable = false)
+	@Column(name = "nome", length = 10, unique = true, nullable = false)
 	private String nome;
 
 }

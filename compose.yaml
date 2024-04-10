@@ -21,7 +21,8 @@ services:
     image: ${AGENDA_APP_IMAGE_NAME}
     container_name: ${AGENDA_APP_CONTAINER_NAME}
     volumes:
-      - br.albatross.agenda-app-vol:/opt/jboss/wildfly/standalone:rw
+      - br.albatross.agenda-app-logs-vol:/opt/jboss/wildfly/standalone/log:rw
+      - br.albatross.agenda-app-configuration-history-vol:/opt/jboss/wildfly/standalone/configuration/standalone_xml_history:rw
     networks:
       - br.albatross.agenda-bridged-network
     restart: always
@@ -33,10 +34,19 @@ services:
         condition: service_started
 
 volumes:
-  br.albatross.agenda-app-vol:
-    name: br.albatross.agenda-app-vol
+  br.albatross.agenda-app-logs-vol:
+    labels:
+      br.albatross.agenda-app-logs-vol-description: "Volume para Armazenar os Logs do Wildfly"
+    name: br.albatross.agenda-app-logs-vol
+    
+  br.albatross.agenda-app-configuration-history-vol:
+    labels:
+      br.albatross.agenda-app-configuration-history-vol-description: "Volume para Armazenar o histórico de mudanças no arquivo de configuração do Wildfly"
+    name: br.albatross.agenda-app-configuration-history-vol
 
   br.albatross.agenda-db-vol:
+    labels:
+      br.albatross.agenda-db-vol-description: "Volume do Banco de Dados"
     name: br.albatross.agenda-db-vol
 
 networks:

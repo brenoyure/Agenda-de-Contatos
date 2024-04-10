@@ -6,20 +6,20 @@ CREATE TABLE IF NOT EXISTS andar (
 CREATE TABLE IF NOT EXISTS unidade_administrativa (
     id           SMALLINT UNSIGNED  PRIMARY KEY AUTO_INCREMENT,
     sigla        VARCHAR(55)        UNIQUE NOT NULL,
-    descricao    VARCHAR(100)
+    descricao    VARCHAR(100)       UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS setor (
     id           SMALLINT UNSIGNED  PRIMARY KEY AUTO_INCREMENT,
     sigla        VARCHAR(55)        UNIQUE NOT NULL,
-    descricao    VARCHAR(100),
+    descricao    VARCHAR(100)       UNIQUE NOT NULL,
     fk_unidade_administrativa_id    SMALLINT UNSIGNED NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS contato (
     id              SMALLINT UNSIGNED   PRIMARY KEY AUTO_INCREMENT,
-    nome            VARCHAR(50)         NOT NULL,
-    numero          VARCHAR(12)         NOT NULL,
+    nome            VARCHAR(55)         UNIQUE NOT NULL,
+    numero          VARCHAR(55)                NOT NULL,
     fk_setor_id     SMALLINT UNSIGNED,
     fk_andar_id     TINYINT  UNSIGNED
 );

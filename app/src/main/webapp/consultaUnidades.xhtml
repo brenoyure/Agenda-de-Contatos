@@ -9,6 +9,10 @@
     <ui:define name="titulo">Consulta de Unidades</ui:define>
     <ui:define name="conteudo">
 
+        <div>
+            <h:link outcome="cadastroUnidadeAdmin" value="Ir para Cadastro de Unidades" />
+        </div>
+
         <h:form >
 	        <h:dataTable styleClass="table table-striped" value="#{consultaUnidadesBean.unidades}" var="unidade" >
 	            <h:column >

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" >
 
 <h:head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
-	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 	<title>
 	   <ui:insert name="titulo"></ui:insert>
 	</title>
@@ -17,19 +18,23 @@
     <div class="container" >
 
         <div>
-            <h:link outcome="index" value="Início" />
+            <h:link style="text-decoration: none;" outcome="index" value="Início" />
         </div>
 
-        <h2>
-            <ui:insert name="titulo"></ui:insert>
-        </h2>
+        <div>
+            <p:growl id="mensagens" />
+        </div>
 
-	    <div>
-	        <h:messages id="mensagens" />
-	        <ui:insert name="conteudo"></ui:insert>
-	    </div>
+        <p:fieldset>
+            <f:facet name="legend">
+                <ui:insert name="titulo"></ui:insert>
+            </f:facet>
+            <ui:insert name="conteudo"></ui:insert>
+        </p:fieldset>
 
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </h:body>
 
