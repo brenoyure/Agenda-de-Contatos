@@ -1,7 +1,5 @@
 package br.albatross.agenda.dto.impl.setor;
 
-import java.io.Serializable;
-
 import br.albatross.agenda.dto.spi.setor.DadosParaCadastroDeNovoSetor;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -25,7 +23,8 @@ public class DadosParaCadastroDeNovoSetorDto implements DadosParaCadastroDeNovoS
 	@Size(message = "{setor.descricao.tamanho.permitido}", min = 2, max = 100)
 	private String descricao;
 
-	@NotNull @Positive
-	private Serializable unidadeId;
+	@NotNull(message = "{setor.unidade.obrigatoria}")
+	@Positive(message = "{setor.unidade.id.positivo.obrigatorio}")
+	private Number unidadeId;
 	
 }

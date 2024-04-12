@@ -7,10 +7,10 @@
 
 <ui:composition template="./_template.xhtml">
 
-    <f:metadata>
-        <f:viewParam name="setorId" value="#{cadastroSetorBean.setor.id}" />
-        <f:viewAction action="#{cadastroSetorBean.carregar(param.setorId)}" if="#{param.setorId != null}" />
-    </f:metadata>
+<!--     <f:metadata> -->
+<!--         <f:viewParam name="setorId" value="#{cadastroSetorBean.setor.id}" /> -->
+<!--         <f:viewAction action="#{cadastroSetorBean.carregar(param.setorId)}" if="#{param.setorId != null}" /> -->
+<!--     </f:metadata> -->
 
     <ui:define name="titulo">Cadastro de Setor</ui:define>
     <ui:define name="conteudo">
@@ -32,9 +32,9 @@
 
 			<div>
                 <p:outputLabel for="selectOne-UnidadeAdmin" value="Unidade Administrativa" style="margin-right: 5px;" />
-                <p:selectOneMenu id="selectOne-UnidadeAdmin" value="#{cadastroSetorBean.setor.unidadeAdministrativa}" required="true" requiredMessage="Unidade Administrativa é Obrigatória" converter="unidadeAdministrativaConverter" >
+                <p:selectOneMenu id="selectOne-UnidadeAdmin" value="#{cadastroSetorBean.setor.unidadeId}">
 	                <f:selectItem itemLabel="Selecione uma Unidade" noSelectionOption="true" itemDisabled="true" />
-	                <f:selectItems value="#{cadastroSetorBean.unidadesAdministrativas}" var="unidadeAdmin" itemLabel="#{unidadeAdmin.sigla}" itemValue="#{unidadeAdmin}" />
+	                <f:selectItems value="#{cadastroSetorBean.unidadesAdministrativas}" var="unidadeAdmin" itemLabel="#{unidadeAdmin.sigla} - #{unidadeAdmin.descricao}" itemValue="#{unidadeAdmin.id}" />
                 </p:selectOneMenu>
             </div>
 

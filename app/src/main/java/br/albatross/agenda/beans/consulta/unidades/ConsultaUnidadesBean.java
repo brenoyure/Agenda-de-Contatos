@@ -1,10 +1,13 @@
 package br.albatross.agenda.beans.consulta.unidades;
 
+import static jakarta.faces.application.FacesMessage.SEVERITY_WARN;
+
 import java.io.Serializable;
 import java.util.List;
 
 import br.albatross.agenda.dto.spi.unidades.DadosParaListagemDeUnidade;
 import br.albatross.agenda.exceptions.CadastroException;
+import br.albatross.agenda.models.entities.UnidadeAdministrativa;
 import br.albatross.agenda.services.spi.unidades.UnidadeService;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
@@ -35,16 +38,17 @@ public class ConsultaUnidadesBean implements Serializable {
 	}
 
     @Transactional
-    public void excluir(DadosParaListagemDeUnidade unidade) {
+    public String excluir(UnidadeAdministrativa unidade) {
         try {
-
             service.excluir(unidade.getId());
-            unidades.remove(unidade);
             context.addMessage(null, new FacesMessage("Unidade: " + unidade.getSigla() + " excluída."));
+            context.getExternalContext().getFlash().setKeepMessages(true);
+            return context.getViewRoot().getViewId() + "?faces-redirect=true";
 
         } catch (CadastroException e) {
 
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao excluir", e.getMessage()));
+            context.addMessage(null, new FacesMessage(SEVERITY_WARN, e.getMessage(), null));
+            return null;
 
         }
 

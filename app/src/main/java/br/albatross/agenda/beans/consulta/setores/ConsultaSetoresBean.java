@@ -1,5 +1,7 @@
 package br.albatross.agenda.beans.consulta.setores;
 
+import static jakarta.faces.application.FacesMessage.SEVERITY_WARN;
+
 import java.util.List;
 
 import br.albatross.agenda.dto.spi.setor.DadosParaListagemDeSetor;
@@ -18,7 +20,7 @@ import lombok.Getter;
 @Named @RequestScoped
 public class ConsultaSetoresBean {
 
-	@Inject
+    @Inject
 	private FacesContext context;
 
 	@Inject
@@ -41,11 +43,12 @@ public class ConsultaSetoresBean {
 
         } catch (CadastroException e) {
 
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao excluir", e.getMessage()));
+            context.addMessage(null, new FacesMessage(SEVERITY_WARN, e.getMessage(), null));
 
         }
 
-		return context.getViewRoot().getViewId() + "?faces-redirect=true";
+		return context.getViewRoot().getViewId() + "?faces-redirect=true";		
+
 	}
 
 }
