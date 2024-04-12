@@ -1,6 +1,6 @@
 package br.albatross.agenda.beans.converters;
 
-import br.albatross.agenda.models.UnidadeAdministrativa;
+import br.albatross.agenda.models.entities.UnidadeAdministrativa;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;

@@ -44,7 +44,7 @@
                             <h:outputText value="Confirmar Exclusão da Unidade: #{unidade.sigla} ?" />
                           </div>
                           <div class="modal-footer">
-                            <h:commandButton styleClass="btn btn-danger" action="#{consultaUnidadesBean.excluir(unidade)}" value="Confirmar Exclusão" />
+                            <h:commandButton styleClass="btn btn-danger" actionListener="#{consultaUnidadesBean.excluir(unidade)}" value="Confirmar Exclusão" />
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                           </div>
                         </div>

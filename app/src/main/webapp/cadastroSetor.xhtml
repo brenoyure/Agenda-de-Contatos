@@ -7,13 +7,13 @@
 
 <ui:composition template="./_template.xhtml">
 
-    <ui:define name="titulo">Cadastro de Setor</ui:define>
-    <ui:define name="conteudo">
-
     <f:metadata>
         <f:viewParam name="setorId" value="#{cadastroSetorBean.setor.id}" />
         <f:viewAction action="#{cadastroSetorBean.carregar(param.setorId)}" if="#{param.setorId != null}" />
     </f:metadata>
+
+    <ui:define name="titulo">Cadastro de Setor</ui:define>
+    <ui:define name="conteudo">
 
 		<h:form id="formCadastroSetor" styleClass="form-signin w-100 m-auto" >
 			<div>

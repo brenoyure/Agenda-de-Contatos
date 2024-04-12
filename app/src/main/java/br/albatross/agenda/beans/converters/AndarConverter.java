@@ -1,6 +1,6 @@
 package br.albatross.agenda.beans.converters;
 
-import br.albatross.agenda.models.Andar;
+import br.albatross.agenda.models.entities.Andar;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;

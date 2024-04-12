@@ -2,56 +2,57 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:composition template="./_template.xhtml">
 
-    <ui:define name="titulo">Cadastro de Contato</ui:define>
-	<ui:define name="conteudo">
-
     <f:metadata>
         <f:viewParam name="contatoId" value="#{cadastroContatoBean.contato.id}" />
         <f:viewAction action="#{cadastroContatoBean.carregar(param.contatoId)}" if="#{param.contatoId != null}" />
-    </f:metadata>	
+    </f:metadata>
+
+    <ui:define name="titulo">Cadastro de Contato</ui:define>
+	<ui:define name="conteudo">
 
 		<h:form id="formCadastroContato">
 			<div>
-				<h:outputLabel for="inputText-contato-nome" value="Nome" />
+				<p:outputLabel for="@next" value="Nome" />
 				<div>
-					<h:inputText id="inputText-contato-nome" value="#{cadastroContatoBean.contato.nome}" required="true" requiredMessage="Nome para o Contato é Obrigatório" />
+					<p:inputText id="inputText-contato-nome" value="#{cadastroContatoBean.contato.nome}" required="true" requiredMessage="Nome para o Contato é Obrigatório" />
 				</div>
 			</div>
 
 			<div>
-				<h:outputLabel for="inputText-contato-numero" value="Número/Ramal" />
+				<p:outputLabel for="@next" value="Número/Ramal" />
 				<div>
-					<h:inputText id="inputText-contato-numero" value="#{cadastroContatoBean.contato.numero}" />
+					<p:inputText id="inputText-contato-numero" value="#{cadastroContatoBean.contato.numero}" />
 				</div>
 			</div>
 
 			<div>
-                <h:outputLabel for="selectOne-Setor" value="Setor" style="margin-right: 5px;" />
-                <h:selectOneMenu id="selectOne-Setor" value="#{cadastroContatoBean.contato.setor}" required="true" requiredMessage="Setor é Obrigatório" converter="setorConverter" >
+                <p:outputLabel for="@next" value="Setor" style="margin: 5px;" />
+                <p:selectOneMenu id="selectOne-Setor" value="#{cadastroContatoBean.contato.setor}" required="true" requiredMessage="Setor é Obrigatório" converter="setorConverter" >
                     <f:selectItem itemLabel="Selecione um Setor" noSelectionOption="true" itemDisabled="true" />
                     <f:selectItems value="#{cadastroContatoBean.setores}" var="setor" itemLabel="#{setor.sigla}" itemValue="#{setor}" />
-                </h:selectOneMenu>
+                </p:selectOneMenu>
 			</div>
 
             <div>
-                <h:outputLabel for="selectOne-Andar" value="Andar (Opcional)" style="margin-right: 5px;" />
-                <h:selectOneMenu id="selectOne-Andar" value="#{cadastroContatoBean.contato.andar}" converter="andarConverter" >
+                <p:outputLabel for="@next" value="Andar (Opcional)" style="margin: 5px;" />
+                <p:selectOneMenu id="selectOne-Andar" value="#{cadastroContatoBean.contato.andar}" converter="andarConverter" >
                     <f:selectItem itemLabel="Selecione o Andar" noSelectionOption="true" itemDisabled="true" />
                     <f:selectItems value="#{cadastroContatoBean.andares}" var="andar" itemLabel="#{andar.nome}" itemValue="#{andar}" />
-                </h:selectOneMenu>
+                </p:selectOneMenu>
             </div>
 
 			<div>
-				<h:outputLabel value="Conitnuar Nesta Tela?" for="selectCheckBoxContinuar" />
-				<h:selectBooleanCheckbox id="selectCheckBoxContinuar" value="#{cadastroContatoBean.continuarNestaTela}" />
+				<p:outputLabel for="@next" value="Conitnuar Nesta Tela?" />
+				<p:selectBooleanCheckbox id="selectCheckBoxContinuar" value="#{cadastroContatoBean.continuarNestaTela}" />
 			</div>
 
 			<div>
-				<h:commandButton value="Cadastrar" action="#{cadastroContatoBean.cadastrar}" />
+				<p:commandButton value="Cadastrar" action="#{cadastroContatoBean.cadastrar}" update="@form :mensagens" />
 			</div>
 
 		</h:form>

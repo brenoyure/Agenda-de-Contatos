@@ -2,7 +2,7 @@ package br.albatross.agenda.dao;
 
 import java.util.List;
 
-import br.albatross.agenda.models.Contato;
+import br.albatross.agenda.models.entities.Contato;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -27,7 +27,7 @@ public class ContatoDao {
 				.setParameter(1, nome)
 				.getSingleResult();
 	}
-	
+
 	public boolean existePorId(Short contatoId) {
 		return entityManager
 				.createQuery("SELECT EXISTS (SELECT c FROM Contato c WHERE c.id = ?1)", Boolean.class)
@@ -37,7 +37,7 @@ public class ContatoDao {
 
 	public List<Contato> listar() {
 		return entityManager
-				.createQuery("SELECT c FROM Contato c JOIN FETCH c.andar JOIN FETCH c.setor s JOIN FETCH s.unidadeAdministrativa LEFT JOIN c.andar", Contato.class)
+				.createQuery("SELECT c FROM Contato c LEFT JOIN FETCH c.setor LEFT JOIN FETCH c.andar", Contato.class)
 				.getResultList();
 	}
 
@@ -48,7 +48,5 @@ public class ContatoDao {
 	public void excluir(Contato contato) {
 		entityManager.remove(entityManager.getReference(Contato.class, contato.getId()));
 	}
-
-
 
 }
