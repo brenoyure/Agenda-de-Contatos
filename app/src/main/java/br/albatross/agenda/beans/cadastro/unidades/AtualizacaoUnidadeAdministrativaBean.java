@@ -51,7 +51,7 @@ public class AtualizacaoUnidadeAdministrativaBean implements Serializable {
 
 			context.getExternalContext().getFlash().setKeepMessages(true);
 			service.atualizar(unidadeAdmin);
-			context.addMessage(null, new FacesMessage("Cadastro da Unidade " + unidadeAdmin.getSigla() + " atualizado"));
+			context.addMessage(null, new FacesMessage("Cadastro da Unidade atualizado para " + unidadeAdmin.getSigla(), unidadeAdmin.getDescricao()));
 
 			if (!continuarNestaTela) {
 

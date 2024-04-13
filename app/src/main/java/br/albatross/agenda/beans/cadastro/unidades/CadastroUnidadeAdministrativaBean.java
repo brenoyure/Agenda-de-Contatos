@@ -35,7 +35,7 @@ public class CadastroUnidadeAdministrativaBean {
 		try {
 		    context.getExternalContext().getFlash().setKeepMessages(true);
 			service.cadastrar(unidadeAdmin);
-			context.addMessage(null, new FacesMessage("Unidade " + unidadeAdmin.getSigla() + " cadastrada"));
+			context.addMessage(null, new FacesMessage("Unidade " + unidadeAdmin.getSigla() + " cadastrada", unidadeAdmin.getDescricao()));
 
 			if (!continuarNestaTela) {
 

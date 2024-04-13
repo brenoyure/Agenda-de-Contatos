@@ -20,18 +20,18 @@
 	            <f:facet name="header">Setores</f:facet>
 	            <h:column>
 	                <f:facet name="header" >Sigla</f:facet>
-	                <h:outputText value="#{setor.sigla}" />
+	                <h:outputText value="#{setor.sigla}" title="#{setor.descricao}" />
 	            </h:column>
 
 	            <h:column>
 	                <f:facet name="header" >Descrição</f:facet>
-	                <h:outputText rendered="#{setor.descricao != null}" value="#{setor.descricao}" />
+	                <h:outputText rendered="#{setor.descricao != null}" value="#{setor.descricao}" title="#{setor.sigla}" />
 	                <h:outputText rendered="#{setor.descricao.blank}"   value="---" />
 	            </h:column>
 
 	            <h:column>
 	                <f:facet name="header" >Unidade</f:facet>
-	                <h:outputText value="#{setor.unidadeAdministrativa.sigla}" />
+	                <h:outputText value="#{setor.unidadeAdministrativa.sigla}" title="#{setor.unidadeAdministrativa.descricao}" />
 	            </h:column>
 
 	            <h:column>

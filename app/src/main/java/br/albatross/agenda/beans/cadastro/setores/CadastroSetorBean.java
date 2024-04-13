@@ -53,7 +53,7 @@ public class CadastroSetorBean {
 		try {
 			context.getExternalContext().getFlash().setKeepMessages(true);
 			setorService.cadastrar(setor);
-			context.addMessage(null, new FacesMessage("Setor: " + setor.getSigla() + " cadastrado."));
+			context.addMessage(null, new FacesMessage("Setor " + setor.getSigla() + " cadastrado", setor.getDescricao()));
 
 			if (!continuarNestaTela) {
 
