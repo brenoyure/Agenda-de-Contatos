@@ -2,7 +2,7 @@ package br.albatross.agenda.beans.consulta.contatos;
 
 import java.util.List;
 
-import br.albatross.agenda.models.entities.Contato;
+import br.albatross.agenda.models.Contato;
 import br.albatross.agenda.services.ContatoService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;

@@ -1,12 +1,11 @@
 package br.albatross.agenda.services.impl.setor;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 import br.albatross.agenda.dao.spi.SetorDao;
 import br.albatross.agenda.dto.spi.setor.DadosParaListagemDeSetor;
-import br.albatross.agenda.models.entities.Setor;
+import br.albatross.agenda.models.Setor;
 import br.albatross.agenda.services.spi.setores.SetorConsultaService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -25,21 +24,21 @@ public class SetorConsultaServiceImpl implements SetorConsultaService {
     }
 
     @Override
-    public boolean existePorId(Serializable id) {
+    public boolean existePorId(Integer id) {
 
         return dao.existsById(id);
 
     }
 
     @Override
-    public Optional<DadosParaListagemDeSetor> buscarPorId(Serializable id) {
+    public Optional<DadosParaListagemDeSetor> buscarPorId(Integer id) {
 
         return dao.findById(id);
 
     }
 
     @Override
-    public Optional<Setor> obterReferenciaPorId(Serializable id) {
+    public Optional<Setor> obterReferenciaPorId(Integer id) {
 
         return dao.getReferenceById(id);
 

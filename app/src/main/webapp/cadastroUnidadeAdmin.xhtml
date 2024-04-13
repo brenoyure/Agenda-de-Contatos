@@ -7,11 +7,6 @@
 
 <ui:composition template="_template.xhtml">
 
-<!--     <f:metadata> -->
-<!--         <f:viewParam name="unidadeId" value="#{cadastroUnidadeAdministrativaBean.unidadeAdmin.id}" /> -->
-<!--         <f:viewAction action="#{cadastroUnidadeAdministrativaBean.carregar(param.unidadeId)}" if="#{param.unidadeId != null}" /> -->
-<!--     </f:metadata> -->
-
     <ui:define name="titulo">Cadastro de Unidade Administrativa</ui:define>
     <ui:define name="conteudo">
 
@@ -24,13 +19,13 @@
 			<h:form id="formCadastroUnidadeAdmin" title="Formulário de Cadastro Administração Central">
                 <p:outputLabel for="@next" value="Sigla" />
                 <div>
-                    <p:inputText id="inputText-unidadeAdmin-sigla" value="#{cadastroUnidadeAdministrativaBean.unidadeAdmin.sigla}" required="true" requiredMessage="Sigla da Unidade Obrigatória" />
+                    <p:inputText id="inputText-unidadeAdmin-sigla" value="#{cadastroUnidadeAdministrativaBean.unidadeAdmin.sigla}" size="50" />
                 </div>
 
 				<div class="row g-3">
                     <p:outputLabel for="@next" value="Descrição" />
 					<div>
-						<p:inputText id="inputText-unidadeAdmin-descricao" title="Descrição" value="#{cadastroUnidadeAdministrativaBean.unidadeAdmin.descricao}" />
+						<p:inputText id="inputText-unidadeAdmin-descricao" title="Descrição" value="#{cadastroUnidadeAdministrativaBean.unidadeAdmin.descricao}" size="50" />
 					</div>
 				</div>
 

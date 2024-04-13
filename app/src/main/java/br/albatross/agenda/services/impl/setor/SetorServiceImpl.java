@@ -1,6 +1,5 @@
 package br.albatross.agenda.services.impl.setor;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +38,7 @@ public class SetorServiceImpl implements SetorService {
     }
 
 	@Override
-	public void excluir(Serializable id) throws CadastroException {
+	public void excluir(Integer id) throws CadastroException {
 
 	    cadastroService.excluir(id);
 
@@ -53,14 +52,14 @@ public class SetorServiceImpl implements SetorService {
 	}
 
 	@Override
-	public boolean existePorId(Serializable id) {
+	public boolean existePorId(Integer id) {
 
 	    return consultaService.existePorId(id);
 
 	}
 
 	@Override
-	public Optional<DadosParaListagemDeSetor> buscarPorId(Serializable id) {
+	public Optional<DadosParaListagemDeSetor> buscarPorId(Integer id) {
 
 	    return consultaService.buscarPorId(id);
 

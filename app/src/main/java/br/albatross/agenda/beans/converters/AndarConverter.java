@@ -1,6 +1,6 @@
 package br.albatross.agenda.beans.converters;
 
-import br.albatross.agenda.models.entities.Andar;
+import br.albatross.agenda.models.Andar;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
@@ -16,7 +16,7 @@ public class AndarConverter implements Converter<Andar> {
 			return null;
 		}
 		Andar andarObj = new Andar();
-		andarObj.setId(Short.valueOf(andar));
+		andarObj.setId(Integer.valueOf(andar));
 		return andarObj;
 	}
 

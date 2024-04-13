@@ -25,6 +25,6 @@ public class DadosParaCadastroDeNovoSetorDto implements DadosParaCadastroDeNovoS
 
 	@NotNull(message = "{setor.unidade.obrigatoria}")
 	@Positive(message = "{setor.unidade.id.positivo.obrigatorio}")
-	private Number unidadeId;
+	private Integer unidadeId;
 	
 }

@@ -1,4 +1,4 @@
-package br.albatross.agenda.models.entities;
+package br.albatross.agenda.models;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -22,7 +22,7 @@ import lombok.Setter;
 public class UnidadeAdministrativa {
 
 	@Id @GeneratedValue(strategy = IDENTITY)
-	private Short id;
+	private Integer id;
 
 	@Column(length = 55, unique = true, nullable = false)
 	private String sigla;
@@ -36,7 +36,7 @@ public class UnidadeAdministrativa {
 	}
 
 	public UnidadeAdministrativa(DadosParaAtualizacaoDeUnidade dadosAtualizados) {
-		this.id = (Short) dadosAtualizados.getId();
+		this.id = dadosAtualizados.getId();
 		this.sigla = dadosAtualizados.getSigla();
 		this.descricao = dadosAtualizados.getDescricao();
 	}

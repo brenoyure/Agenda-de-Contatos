@@ -7,11 +7,6 @@
 
 <ui:composition template="./_template.xhtml">
 
-<!--     <f:metadata> -->
-<!--         <f:viewParam name="setorId" value="#{cadastroSetorBean.setor.id}" /> -->
-<!--         <f:viewAction action="#{cadastroSetorBean.carregar(param.setorId)}" if="#{param.setorId != null}" /> -->
-<!--     </f:metadata> -->
-
     <ui:define name="titulo">Cadastro de Setor</ui:define>
     <ui:define name="conteudo">
 
@@ -19,20 +14,20 @@
 			<div>
 				<p:outputLabel for="@next" value="Sigla" />
                 <div>
-                    <p:inputText id="inputText-setor-sigla" value="#{cadastroSetorBean.setor.sigla}" required="true" requiredMessage="Sigla do Setor é Obrigatória" />
+                    <p:inputText id="inputText-setor-sigla" value="#{cadastroSetorBean.setor.sigla}" size="50" />
                 </div>
 			</div>
 
 			<div>
 				<p:outputLabel for="@next" value="Descrição" />
                 <div>
-                    <p:inputText id="inputText-setor-descricao" value="#{cadastroSetorBean.setor.descricao}" />
+                    <p:inputText id="inputText-setor-descricao" value="#{cadastroSetorBean.setor.descricao}" size="50" />
                 </div>
 			</div>
 
 			<div>
                 <p:outputLabel for="selectOne-UnidadeAdmin" value="Unidade Administrativa" style="margin-right: 5px;" />
-                <p:selectOneMenu id="selectOne-UnidadeAdmin" value="#{cadastroSetorBean.setor.unidadeId}">
+                <p:selectOneMenu id="selectOne-UnidadeAdmin" value="#{cadastroSetorBean.setor.unidadeId}" >
 	                <f:selectItem itemLabel="Selecione uma Unidade" noSelectionOption="true" itemDisabled="true" />
 	                <f:selectItems value="#{cadastroSetorBean.unidadesAdministrativas}" var="unidadeAdmin" itemLabel="#{unidadeAdmin.sigla} - #{unidadeAdmin.descricao}" itemValue="#{unidadeAdmin.id}" />
                 </p:selectOneMenu>

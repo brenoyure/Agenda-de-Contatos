@@ -1,6 +1,5 @@
 package br.albatross.agenda.services.spi.setores;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,12 +15,12 @@ public interface SetorService {
 
 	DadosParaListagemDeSetor atualizar(@Valid DadosParaAtualizacaoDeSetor dadosAtualizados) throws CadastroException;
 
-	void excluir(Serializable id) throws CadastroException;
+	void excluir(Integer id) throws CadastroException;
 
 	List<DadosParaListagemDeSetor> listar();
 
-	boolean existePorId(Serializable id);
+	boolean existePorId(Integer id);
 
-	Optional<DadosParaListagemDeSetor> buscarPorId(Serializable id);
+	Optional<DadosParaListagemDeSetor> buscarPorId(Integer id);
 
 }

@@ -1,29 +1,28 @@
 package br.albatross.agenda.dao.spi;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 import br.albatross.agenda.dto.spi.setor.DadosParaListagemDeSetor;
-import br.albatross.agenda.models.entities.Setor;
+import br.albatross.agenda.models.Setor;
 
 public interface SetorDao {
 
 	DadosParaListagemDeSetor persist(Setor setor);
 	DadosParaListagemDeSetor merge(Setor setor);
 
-	boolean existsById(Serializable id);
+	boolean existsById(Integer id);
 	boolean existsBySigla(String sigla);
 	boolean existsByDescricao(String descricao);
 
-	boolean existsBySigla(Serializable id, String sigla);
-	boolean existsByDescricao(Serializable id, String descricao);
+	boolean existsBySigla(Integer id, String sigla);
+	boolean existsByDescricao(Integer id, String descricao);
 
 	List<DadosParaListagemDeSetor> findAll();
-	Optional<DadosParaListagemDeSetor> findById(Serializable id);
-	Optional<Setor> getReferenceById(Serializable id);
+	Optional<DadosParaListagemDeSetor> findById(Integer id);
+	Optional<Setor> getReferenceById(Integer id);
 
-	void delete(Serializable id);
-    boolean hasContatos(Serializable id);
+	void delete(Integer id);
+    boolean hasContatos(Integer id);
 
 }

@@ -1,30 +1,29 @@
 package br.albatross.agenda.dao.spi;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 import br.albatross.agenda.dto.spi.unidades.DadosParaListagemDeUnidade;
-import br.albatross.agenda.models.entities.UnidadeAdministrativa;
+import br.albatross.agenda.models.UnidadeAdministrativa;
 
 public interface UnidadeAdministrativaDao {
 
 	DadosParaListagemDeUnidade persist(UnidadeAdministrativa unidadeAdministrativa);
 	DadosParaListagemDeUnidade merge(UnidadeAdministrativa unidadeAdministrativa);
 
-	boolean existsById(Serializable id);
+	boolean existsById(Integer id);
 	boolean existsBySigla(String sigla);
 	boolean existsByDescricao(String descricao);
 
-	boolean existsBySigla(Serializable id, String sigla);
-	boolean existsByDescricao(Serializable id, String descricao);	
+	boolean existsBySigla(Integer id, String sigla);
+	boolean existsByDescricao(Integer id, String descricao);	
 
-	boolean hasSetores(Serializable id);
+	boolean hasSetores(Integer id);
 
 	List<DadosParaListagemDeUnidade> findAll();
-	Optional<DadosParaListagemDeUnidade> findById(Serializable id);
-	Optional<UnidadeAdministrativa> getReferenceById(Serializable id);
+	Optional<DadosParaListagemDeUnidade> findById(Integer id);
+	Optional<UnidadeAdministrativa> getReferenceById(Integer id);
 
-	void delete(Serializable id);
+	void delete(Integer id);
 
 }

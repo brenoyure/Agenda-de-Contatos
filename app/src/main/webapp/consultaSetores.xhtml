@@ -9,6 +9,10 @@
     <ui:define name="titulo">Consulta de Setores</ui:define>
     <ui:define name="conteudo">
 
+        <div>
+            <h:link outcome="cadastroSetor" value="Ir para Cadastro de Setores" />
+        </div>
+
     <h:outputText rendered="#{empty consultaSetoresBean.setores}" value="Nenhum Setor Cadastrado" />
 
         <h:form rendered="#{not empty consultaSetoresBean.setores}" >
@@ -32,7 +36,7 @@
 
 	            <h:column>
 	                <f:facet name="header">Editar</f:facet>
-	                <h:link title="Editar" outcome="cadastroSetor" includeViewParams="true">
+	                <h:link styleClass="btn btn-primary" title="Editar" outcome="cadastroSetor" includeViewParams="true">
 	                    <h:outputText value="Editar" />
 	                    <f:param name="setorId" value="#{setor.id}" />
 	                </h:link>

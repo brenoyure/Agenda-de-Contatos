@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.albatross.agenda.dto.spi.setor.DadosParaListagemDeSetor;
 import br.albatross.agenda.exceptions.CadastroException;
-import br.albatross.agenda.models.entities.Setor;
+import br.albatross.agenda.models.Setor;
 import br.albatross.agenda.services.spi.setores.SetorService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;

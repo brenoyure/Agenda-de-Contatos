@@ -1,14 +1,12 @@
 package br.albatross.agenda.services.impl.unidades;
 
-import java.io.Serializable;
-
 import br.albatross.agenda.dao.spi.UnidadeAdministrativaDao;
 import br.albatross.agenda.dto.spi.unidades.DadosParaAtualizacaoDeUnidade;
 import br.albatross.agenda.dto.spi.unidades.DadosParaCadastroDeNovaUnidade;
 import br.albatross.agenda.dto.spi.unidades.DadosParaListagemDeUnidade;
 import br.albatross.agenda.exceptions.CadastroException;
 import br.albatross.agenda.exceptions.UnidadeExistenteException;
-import br.albatross.agenda.models.entities.UnidadeAdministrativa;
+import br.albatross.agenda.models.UnidadeAdministrativa;
 import br.albatross.agenda.services.spi.unidades.UnidadeCadastroService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -56,7 +54,7 @@ public class CadastroUnidadeServiceImpl implements UnidadeCadastroService {
 	}
 
 	@Override
-	public void excluir(Serializable id) throws CadastroException {
+	public void excluir(Integer id) throws CadastroException {
 
 	    boolean unidadePossuiSetores = dao.hasSetores(id);
 

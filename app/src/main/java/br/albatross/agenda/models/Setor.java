@@ -1,4 +1,4 @@
-package br.albatross.agenda.models.entities;
+package br.albatross.agenda.models;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -23,8 +23,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Setor {
 
-    @Id @GeneratedValue(strategy=IDENTITY)
-    private Short id;
+    @Id @GeneratedValue(strategy = IDENTITY)
+    private Integer id;
 
     @Column(length = 55, unique = true, nullable = false)
     private String sigla;
@@ -43,7 +43,7 @@ public class Setor {
     }
 
     public Setor(DadosParaAtualizacaoDeSetor dadosAtualizados, UnidadeAdministrativa unidadeAdministrativa) {
-        this.id = (Short) dadosAtualizados.getId();
+        this.id = dadosAtualizados.getId();
         this.sigla = dadosAtualizados.getSigla();
         this.descricao = dadosAtualizados.getDescricao();
         this.unidadeAdministrativa = unidadeAdministrativa;

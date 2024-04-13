@@ -1,6 +1,6 @@
 package br.albatross.agenda.beans.converters;
 
-import br.albatross.agenda.models.entities.UnidadeAdministrativa;
+import br.albatross.agenda.models.UnidadeAdministrativa;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
@@ -16,7 +16,7 @@ public class UnidadeAdministrativaConverter implements Converter<UnidadeAdminist
 			return null;
 		}
 		UnidadeAdministrativa unidade = new UnidadeAdministrativa();
-		unidade.setId(Short.valueOf(unidadeAdmin));
+		unidade.setId(Integer.valueOf(unidadeAdmin));
 		return unidade;
 	}
 

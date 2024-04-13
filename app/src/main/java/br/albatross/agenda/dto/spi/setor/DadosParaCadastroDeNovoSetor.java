@@ -4,10 +4,10 @@ public interface DadosParaCadastroDeNovoSetor {
 
 	String getSigla();
 	String getDescricao();
-	Number getUnidadeId();	
+	Integer getUnidadeId();	
 
 	void setSigla(String sigla);
 	void setDescricao(String descricao);
-	void setUnidadeId(Number id);
+	void setUnidadeId(Integer id);
 
 }

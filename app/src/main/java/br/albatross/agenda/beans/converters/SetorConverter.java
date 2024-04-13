@@ -1,6 +1,6 @@
 package br.albatross.agenda.beans.converters;
 
-import br.albatross.agenda.models.entities.Setor;
+import br.albatross.agenda.models.Setor;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
@@ -16,7 +16,7 @@ public class SetorConverter implements Converter<Setor> {
 			return null;
 		}
 		Setor setorObj = new Setor();
-		setorObj.setId(Short.valueOf(setor));
+		setorObj.setId(Integer.valueOf(setor));
 		return setorObj;
 	}
 

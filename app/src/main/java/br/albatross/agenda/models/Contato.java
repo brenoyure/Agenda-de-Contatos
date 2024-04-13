@@ -1,4 +1,4 @@
-package br.albatross.agenda.models.entities;
+package br.albatross.agenda.models;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -20,7 +20,7 @@ import lombok.Setter;
 public class Contato {
 
 	@Id @GeneratedValue(strategy = IDENTITY)
-	private Short id;
+	private Long id;
 	
 	@Column(length = 55, unique = true,  nullable = false)
 	private String nome;

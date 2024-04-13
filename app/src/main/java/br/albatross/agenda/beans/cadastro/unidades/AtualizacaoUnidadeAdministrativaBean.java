@@ -1,63 +1,71 @@
 package br.albatross.agenda.beans.cadastro.unidades;
 
+import java.io.Serializable;
+
 import br.albatross.agenda.dto.impl.unidades.DadosParaAtualizacaoDeUnidadeDto;
 import br.albatross.agenda.dto.spi.unidades.DadosParaAtualizacaoDeUnidade;
 import br.albatross.agenda.exceptions.CadastroException;
 import br.albatross.agenda.services.spi.unidades.UnidadeService;
-import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.Setter;
 
-@Named @RequestScoped
-public class AtualizacaoUnidadeAdministrativaBean {
+@Named @ViewScoped
+public class AtualizacaoUnidadeAdministrativaBean implements Serializable {
 
-	@Inject
+    private static final long serialVersionUID = 1L;
+
+    @Inject
 	private FacesContext context;
 
 	@Inject
 	private UnidadeService service;
 
-	@Getter
+	@Getter @Setter
 	private DadosParaAtualizacaoDeUnidade unidadeAdmin;
 
 	@Getter @Setter
 	private boolean continuarNestaTela = false;
 
-	@PostConstruct
-	void init() {
+	public void carregar(Integer id) {
 
-		service.buscarPorId(1).ifPresentOrElse(dto -> {
-			this.unidadeAdmin = new DadosParaAtualizacaoDeUnidadeDto(dto);
+	    service
+	        .buscarPorId(id)
+	        .ifPresentOrElse(dto -> unidadeAdmin = new DadosParaAtualizacaoDeUnidadeDto(dto),
 
-		}, () -> {
-			context
-				.getApplication()
-				.getNavigationHandler()
-				.handleNavigation(context, null, context.getViewRoot().getViewId() + "?faces-redirect=true");
-		});
+	        () -> context
+	                .getApplication()
+	                .getNavigationHandler()
+	                .handleNavigation(context, null, "cadastroUnidadeAdmin?faces-redirect=true"));
+
 	}
 
+	@Transactional
 	public String atualizar() {
 		try {
+
 			context.getExternalContext().getFlash().setKeepMessages(true);
 			service.atualizar(unidadeAdmin);
 			context.addMessage(null, new FacesMessage("Cadastro da Unidade " + unidadeAdmin.getSigla() + " atualizado"));
 
-			if (continuarNestaTela) {
-				return context.getViewRoot().getViewId() + "?faces-redirect=true";
+			if (!continuarNestaTela) {
+
+			    return "consultaUnidades?faces-redirect=true";
+
 			}
 
-			return "consultaUnidades?faces-redirect=true";
-
 		} catch (CadastroException e) {
+
 			context.addMessage(null, new FacesMessage(e.getMessage()));
-			return context.getViewRoot().getViewId() + "?faces-redirect=true";
+
 		}
+
+		return context.getViewRoot().getViewId() + "?faces-redirect=true";		
 
 	}
 

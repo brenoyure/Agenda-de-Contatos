@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="unidadeId" />
+        <f:viewAction action="#{atualizacaoUnidadeAdministrativaBean.carregar(param.unidadeId)}" if="#{param.unidadeId != null}" />
+    </f:metadata>
+
+    <ui:define name="titulo">Atualização de Unidade Administrativa</ui:define>
+    <ui:define name="conteudo">
+
+        <div>
+            <h:link outcome="consultaUnidades" value="Ir para Consulta de Unidades" />
+        </div>
+
+	    <div class="container" >
+
+			<h:form id="formCadastroUnidadeAdmin" title="Formulário de Atualização de Unidade">
+                <p:outputLabel for="@next" value="Sigla" />
+                <div>
+                    <p:inputText id="inputText-unidadeAdmin-sigla" value="#{atualizacaoUnidadeAdministrativaBean.unidadeAdmin.sigla}" size="50" />
+                </div>
+
+				<div class="row g-3">
+                    <p:outputLabel for="@next" value="Descrição" />
+					<div>
+						<p:inputText id="inputText-unidadeAdmin-descricao" title="Descrição" value="#{atualizacaoUnidadeAdministrativaBean.unidadeAdmin.descricao}" size="50" />
+					</div>
+				</div>
+
+				<div>
+					<p:outputLabel value="Continuar Nesta Tela?" for="@next" />
+					<p:selectBooleanCheckbox id="selectCheckBoxContinuar" value="#{atualizacaoUnidadeAdministrativaBean.continuarNestaTela}" />
+				</div>
+
+				<div>
+					<p:commandButton value="Atualizar Cadastro" action="#{atualizacaoUnidadeAdministrativaBean.atualizar}" update="@form :mensagens" />
+				</div>
+	
+			</h:form>
+			
+		</div>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

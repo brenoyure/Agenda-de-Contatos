@@ -1,10 +1,8 @@
 package br.albatross.agenda.dto.spi.unidades;
 
-import java.io.Serializable;
-
 public interface DadosParaListagemDeUnidade {
 
-	Serializable getId();
+    Integer getId();
 	String getSigla();
 	String getDescricao();
 

@@ -1,13 +1,15 @@
 package br.albatross.agenda.dao.impl;
 
-import java.io.Serializable;
+import static br.albatross.agenda.models.Setor_.unidadeAdministrativa;
+
 import java.util.List;
 import java.util.Optional;
 
 import br.albatross.agenda.dao.spi.SetorDao;
 import br.albatross.agenda.dto.impl.setor.DadosParaListagemDeSetorDto;
 import br.albatross.agenda.dto.spi.setor.DadosParaListagemDeSetor;
-import br.albatross.agenda.models.entities.Setor;
+import br.albatross.agenda.models.Setor;
+import br.albatross.agenda.models.Setor_;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -28,11 +30,14 @@ public class SetorDaoImpl implements SetorDao {
 
 	@Override
 	public DadosParaListagemDeSetor merge(Setor setor) {
-		return new DadosParaListagemDeSetorDto(entityManager.merge(setor));
+
+	    setor = entityManager.merge(setor);
+		return new DadosParaListagemDeSetorDto(setor);
+
 	}
 
 	@Override
-	public boolean existsById(Serializable id) {
+	public boolean existsById(Integer id) {
 		try {
 			return entityManager
 						.createQuery("SELECT EXISTS(SELECT s FROM Setor s WHERE s.id = ?1)", Boolean.class)
@@ -59,9 +64,9 @@ public class SetorDaoImpl implements SetorDao {
 		var root =  cq.from(Setor.class);
 
 		root
-		    .fetch("unidadeAdministrativa", JoinType.INNER);
+		    .fetch(unidadeAdministrativa, JoinType.INNER);
 
-		cb.construct(DadosParaListagemDeSetorDto.class, root);
+		cq.select(cb.construct(DadosParaListagemDeSetorDto.class, root));
 		
 		return entityManager
 				.createQuery(cq)
@@ -69,7 +74,7 @@ public class SetorDaoImpl implements SetorDao {
 	}
 
 	@Override
-	public Optional<DadosParaListagemDeSetor> findById(Serializable id) {
+	public Optional<DadosParaListagemDeSetor> findById(Integer id) {
 
 		try {
 
@@ -78,10 +83,11 @@ public class SetorDaoImpl implements SetorDao {
 			var root =  cq.from(Setor.class);
 
 	        root
-                .fetch("unidadeAdministrativa", JoinType.INNER);		
+	            .fetch(unidadeAdministrativa, JoinType.INNER);		
 
-			cq.where(cb.equal(root.get("id"), id));
-			cb.construct(DadosParaListagemDeSetorDto.class, root);
+	        cq.select(cb.construct(DadosParaListagemDeSetorDto.class, root));
+
+	        cq.where(cb.equal(root.get(Setor_.id), id));	        
 
 			return Optional
 					.ofNullable(entityManager
@@ -93,14 +99,14 @@ public class SetorDaoImpl implements SetorDao {
 	}
 
     @Override
-    public Optional<Setor> getReferenceById(Serializable id) {
+    public Optional<Setor> getReferenceById(Integer id) {
 
         return Optional.ofNullable(entityManager.getReference(Setor.class, id));
 
     }   	
 
 	@Override
-	public void delete(Serializable id) {
+	public void delete(Integer id) {
 
 		entityManager.remove(entityManager.getReference(Setor.class, id));
 
@@ -117,7 +123,7 @@ public class SetorDaoImpl implements SetorDao {
 	}
 
 	@Override
-	public boolean existsBySigla(Serializable id, String sigla) {
+	public boolean existsBySigla(Integer id, String sigla) {
 		try {
 			return entityManager
 						.createQuery("SELECT EXISTS(SELECT s FROM Setor s WHERE s.sigla = ?1 AND s.id != ?2)", Boolean.class)
@@ -128,7 +134,7 @@ public class SetorDaoImpl implements SetorDao {
 	}
 
 	@Override
-	public boolean existsByDescricao(Serializable id, String descricao) {
+	public boolean existsByDescricao(Integer id, String descricao) {
 		try {
 			return entityManager
 						.createQuery("SELECT EXISTS(SELECT s FROM Setor s WHERE s.descricao = ?1 AND s.id != ?2)", Boolean.class)
@@ -139,7 +145,7 @@ public class SetorDaoImpl implements SetorDao {
 	}
 
     @Override
-    public boolean hasContatos(Serializable id) {
+    public boolean hasContatos(Integer id) {
         try {
 
             return entityManager

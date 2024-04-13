@@ -1,6 +1,5 @@
 package br.albatross.agenda.services.impl.unidades;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,17 +39,17 @@ public class UnidadeServiceImpl implements UnidadeService {
 	}
 
 	@Override
-	public boolean existePorId(Serializable id) {
+	public boolean existePorId(Integer id) {
 		return consultaService.existePorId(id);
 	}
 
 	@Override
-	public Optional<DadosParaListagemDeUnidade> buscarPorId(Serializable id) {
+	public Optional<DadosParaListagemDeUnidade> buscarPorId(Integer id) {
 		return consultaService.buscarPorId(id);
 	}
 
 	@Override
-	public void excluir(Serializable id) throws CadastroException {
+	public void excluir(Integer id) throws CadastroException {
 		cadastroService.excluir(id);
 	}
 

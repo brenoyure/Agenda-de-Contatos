@@ -1,12 +1,11 @@
 package br.albatross.agenda.services.impl.unidades;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 import br.albatross.agenda.dao.spi.UnidadeAdministrativaDao;
 import br.albatross.agenda.dto.spi.unidades.DadosParaListagemDeUnidade;
-import br.albatross.agenda.models.entities.UnidadeAdministrativa;
+import br.albatross.agenda.models.UnidadeAdministrativa;
 import br.albatross.agenda.services.spi.unidades.UnidadeConsultaService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -25,21 +24,21 @@ public class UnidadeConsultaServiceImpl implements UnidadeConsultaService {
     }
 
     @Override
-    public boolean existePorId(Serializable id) {
+    public boolean existePorId(Integer id) {
 
         return dao.existsById(id);
 
     }
 
     @Override
-    public Optional<DadosParaListagemDeUnidade> buscarPorId(Serializable id) {
+    public Optional<DadosParaListagemDeUnidade> buscarPorId(Integer id) {
 
         return dao.findById(id);
 
     }
 
     @Override
-    public Optional<UnidadeAdministrativa> obterReferenciaPorId(Serializable id) {
+    public Optional<UnidadeAdministrativa> obterReferenciaPorId(Integer id) {
 
         return dao.getReferenceById(id);
 

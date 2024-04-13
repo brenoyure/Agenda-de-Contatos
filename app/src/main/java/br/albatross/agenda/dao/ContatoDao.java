@@ -2,7 +2,7 @@ package br.albatross.agenda.dao;
 
 import java.util.List;
 
-import br.albatross.agenda.models.entities.Contato;
+import br.albatross.agenda.models.Contato;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

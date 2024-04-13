@@ -1,7 +1,5 @@
 package br.albatross.agenda.dto.impl.setor;
 
-import java.io.Serializable;
-
 import br.albatross.agenda.dto.spi.setor.DadosParaAtualizacaoDeSetor;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -16,6 +14,6 @@ import lombok.Setter;
 public class DadosParaAtualizacaoDeSetorDto extends DadosParaCadastroDeNovoSetorDto implements DadosParaAtualizacaoDeSetor {
 
 	@NotNull @Positive
-	private Serializable id;
+	private Integer id;
 	
 }

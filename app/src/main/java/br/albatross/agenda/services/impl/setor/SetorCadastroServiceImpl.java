@@ -1,14 +1,12 @@
 package br.albatross.agenda.services.impl.setor;
 
-import java.io.Serializable;
-
 import br.albatross.agenda.dao.spi.SetorDao;
 import br.albatross.agenda.dto.spi.setor.DadosParaAtualizacaoDeSetor;
 import br.albatross.agenda.dto.spi.setor.DadosParaCadastroDeNovoSetor;
 import br.albatross.agenda.dto.spi.setor.DadosParaListagemDeSetor;
 import br.albatross.agenda.exceptions.CadastroException;
 import br.albatross.agenda.exceptions.SetorExistenteException;
-import br.albatross.agenda.models.entities.Setor;
+import br.albatross.agenda.models.Setor;
 import br.albatross.agenda.services.spi.setores.SetorCadastroService;
 import br.albatross.agenda.services.spi.unidades.UnidadeConsultaService;
 import jakarta.enterprise.context.RequestScoped;
@@ -75,7 +73,7 @@ public class SetorCadastroServiceImpl implements SetorCadastroService {
     }
 
     @Override
-    public void excluir(Serializable id) throws CadastroException {
+    public void excluir(Integer id) throws CadastroException {
 
         boolean setorPossuiContatos = dao.hasContatos(id);
 

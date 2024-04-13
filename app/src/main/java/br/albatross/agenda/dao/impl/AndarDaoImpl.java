@@ -1,12 +1,11 @@
 package br.albatross.agenda.dao.impl;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 import br.albatross.agenda.dao.spi.AndarDao;
 import br.albatross.agenda.dto.spi.andar.DadosParaListagemDoAndar;
-import br.albatross.agenda.models.entities.Andar;
+import br.albatross.agenda.models.Andar;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -34,7 +33,7 @@ public class AndarDaoImpl implements AndarDao {
     }
 
     @Override
-    public Optional<Andar> getReferenceById(Serializable id) {
+    public Optional<Andar> getReferenceById(Integer id) {
 
         return Optional.ofNullable(entityManager.getReference(Andar.class, id));
 

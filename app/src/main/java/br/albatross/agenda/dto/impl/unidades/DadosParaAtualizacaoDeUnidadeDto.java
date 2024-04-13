@@ -1,7 +1,5 @@
 package br.albatross.agenda.dto.impl.unidades;
 
-import java.io.Serializable;
-
 import br.albatross.agenda.dto.spi.unidades.DadosParaAtualizacaoDeUnidade;
 import br.albatross.agenda.dto.spi.unidades.DadosParaListagemDeUnidade;
 import jakarta.validation.constraints.NotNull;
@@ -17,12 +15,12 @@ import lombok.Setter;
 public class DadosParaAtualizacaoDeUnidadeDto extends DadosParaCadastroDeNovaUnidadeDto implements DadosParaAtualizacaoDeUnidade {
 
 	@NotNull @Positive
-	private Serializable id;
+	private Integer id;
 
 	public DadosParaAtualizacaoDeUnidadeDto(DadosParaListagemDeUnidade dados) {
 		this.id = dados.getId();
-		setSigla(dados.getSigla());
-		setDescricao(dados.getDescricao());
+		super.setSigla(dados.getSigla());
+		super.setDescricao(dados.getDescricao());
 	}
-	
+
 }

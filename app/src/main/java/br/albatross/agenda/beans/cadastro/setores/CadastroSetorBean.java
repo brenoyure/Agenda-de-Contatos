@@ -1,6 +1,7 @@
 package br.albatross.agenda.beans.cadastro.setores;
 
-import java.io.Serializable;
+import static jakarta.faces.application.FacesMessage.SEVERITY_WARN;
+
 import java.util.List;
 
 import br.albatross.agenda.dto.impl.setor.DadosParaCadastroDeNovoSetorDto;
@@ -10,19 +11,17 @@ import br.albatross.agenda.exceptions.CadastroException;
 import br.albatross.agenda.services.spi.setores.SetorService;
 import br.albatross.agenda.services.spi.unidades.UnidadeConsultaService;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.Setter;
 
-@Named @ViewScoped
-public class CadastroSetorBean implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+@Named @RequestScoped
+public class CadastroSetorBean {
 
     @Inject
 	private FacesContext context;
@@ -56,16 +55,19 @@ public class CadastroSetorBean implements Serializable {
 			setorService.cadastrar(setor);
 			context.addMessage(null, new FacesMessage("Setor: " + setor.getSigla() + " cadastrado."));
 
-			if (continuarNestaTela) {
-				return context.getViewRoot().getViewId() + "?faces-redirect=true";
+			if (!continuarNestaTela) {
+
+	            return "consultaSetores?faces-redirect=true";
+
 			}
 
-			return "consultaSetores?faces-redirect=true";
-
 		} catch (CadastroException e) {
-			context.addMessage(null, new FacesMessage(e.getMessage()));
-			return context.getViewRoot().getViewId() + "?faces-redirect=true";
+
+			context.addMessage(null, new FacesMessage(SEVERITY_WARN, e.getMessage(), null));
+
 		}
+
+		return context.getViewRoot().getViewId() + "?faces-redirect=true";		
 
 	}
 

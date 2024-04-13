@@ -1,4 +1,4 @@
-package br.albatross.agenda.models.entities;
+package br.albatross.agenda.models;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -21,7 +21,7 @@ import lombok.Setter;
 public class Andar {
 
 	@Id	@GeneratedValue(strategy = IDENTITY)
-	private Short id;
+	private Integer id;
 
 	@Column(name = "nome", length = 10, unique = true, nullable = false)
 	private String nome;
