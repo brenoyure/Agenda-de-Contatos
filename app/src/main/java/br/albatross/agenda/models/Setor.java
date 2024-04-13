@@ -5,6 +5,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 import br.albatross.agenda.dto.spi.setor.DadosParaAtualizacaoDeSetor;
 import br.albatross.agenda.dto.spi.setor.DadosParaCadastroDeNovoSetor;
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity @Table(name =  "setor")
+@Cacheable
 @Getter @Setter
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor

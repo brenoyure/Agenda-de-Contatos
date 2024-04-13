@@ -1,6 +1,7 @@
 package br.albatross.agenda.dao.impl;
 
 import static br.albatross.agenda.models.Setor_.unidadeAdministrativa;
+import static org.hibernate.jpa.HibernateHints.HINT_CACHEABLE;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,6 +43,7 @@ public class SetorDaoImpl implements SetorDao {
 			return entityManager
 						.createQuery("SELECT EXISTS(SELECT s FROM Setor s WHERE s.id = ?1)", Boolean.class)
 						.setParameter(1, id)
+						.setHint(HINT_CACHEABLE, true)
 						.getSingleResult();
 		} catch (NoResultException e) { return false; }
 	}
@@ -70,6 +72,7 @@ public class SetorDaoImpl implements SetorDao {
 		
 		return entityManager
 				.createQuery(cq)
+				.setHint(HINT_CACHEABLE, true)
 				.getResultList();
 	}
 
@@ -92,6 +95,7 @@ public class SetorDaoImpl implements SetorDao {
 			return Optional
 					.ofNullable(entityManager
 									.createQuery(cq)
+									.setHint(HINT_CACHEABLE, true)
 									.getSingleResult());
 
 		} catch (NoResultException e) { return Optional.empty(); }

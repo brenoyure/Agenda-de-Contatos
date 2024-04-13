@@ -1,5 +1,7 @@
 package br.albatross.agenda.dao.impl;
 
+import static org.hibernate.jpa.HibernateHints.HINT_CACHEABLE;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +51,7 @@ public class UnidadeAdministrativaDaoImpl implements UnidadeAdministrativaDao {
 
 	        return Optional.of(entityManager
                     	                .createQuery(cq)
+                    	                .setHint(HINT_CACHEABLE, true)
                     	                .getSingleResult());
 
 	    } catch (NoResultException e) { return Optional.empty(); }
@@ -70,6 +73,7 @@ public class UnidadeAdministrativaDaoImpl implements UnidadeAdministrativaDao {
 			return entityManager
 						.createQuery("SELECT EXISTS(SELECT u FROM UnidadeAdministrativa u WHERE u.id = ?1)", Boolean.class)
 						.setParameter(1, id)
+						.setHint(HINT_CACHEABLE, true)
 						.getSingleResult();
 
 		} catch (NoResultException e) { return false; }
@@ -82,6 +86,7 @@ public class UnidadeAdministrativaDaoImpl implements UnidadeAdministrativaDao {
 			return entityManager
 						.createQuery("SELECT EXISTS(SELECT u FROM UnidadeAdministrativa u WHERE u.sigla = ?1)", Boolean.class)
 						.setParameter(1, sigla)
+						.setHint(HINT_CACHEABLE, true)
 						.getSingleResult();
 		} catch (NoResultException e) { return false; }
 	}	
@@ -97,6 +102,7 @@ public class UnidadeAdministrativaDaoImpl implements UnidadeAdministrativaDao {
 
 		return entityManager
 				.createQuery(cq)
+				.setHint(HINT_CACHEABLE, true)
 				.getResultList();
 
 	}

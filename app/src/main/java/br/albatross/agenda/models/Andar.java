@@ -2,6 +2,7 @@ package br.albatross.agenda.models;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Table(name = "andar")
 @EqualsAndHashCode(of = "id")
 @Getter @Setter
+@Cacheable
 public class Andar {
 
 	@Id	@GeneratedValue(strategy = IDENTITY)
