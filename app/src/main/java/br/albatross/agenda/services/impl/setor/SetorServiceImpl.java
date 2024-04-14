@@ -3,6 +3,7 @@ package br.albatross.agenda.services.impl.setor;
 import java.util.List;
 import java.util.Optional;
 
+import br.albatross.agenda.dto.spi.setor.DadosBasicosDoSetor;
 import br.albatross.agenda.dto.spi.setor.DadosParaAtualizacaoDeSetor;
 import br.albatross.agenda.dto.spi.setor.DadosParaCadastroDeNovoSetor;
 import br.albatross.agenda.dto.spi.setor.DadosParaListagemDeSetor;
@@ -50,6 +51,13 @@ public class SetorServiceImpl implements SetorService {
 	    return consultaService.listar();
 
 	}
+
+    @Override
+    public List<DadosBasicosDoSetor> listarDadosBasicos() {
+
+        return consultaService.listarDadosBasicos();
+
+    }	
 
 	@Override
 	public boolean existePorId(Integer id) {

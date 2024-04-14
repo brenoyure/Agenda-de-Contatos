@@ -1,7 +1,13 @@
 package br.albatross.agenda.beans.cadastro.contato;
 
-import jakarta.annotation.PostConstruct;
+import static jakarta.faces.application.FacesMessage.SEVERITY_WARN;
+
+import br.albatross.agenda.dto.impl.contato.DadosParaCadastroDeNovoContatoDto;
+import br.albatross.agenda.dto.spi.contato.DadosParaCadastroDeNovoContato;
+import br.albatross.agenda.exceptions.CadastroException;
+import br.albatross.agenda.services.spi.contatos.ContatoCadastroService;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -15,31 +21,36 @@ public class CadastroContatoBean {
 	@Inject
 	private FacesContext context;
 
+	@Inject
+	private ContatoCadastroService cadastroService;
+
+	@Getter @Setter
+	private DadosParaCadastroDeNovoContato contato = new DadosParaCadastroDeNovoContatoDto();
+	
 	@Getter @Setter
 	private boolean continuarNestaTela = false;
 
-	@PostConstruct
-	void init() {
-	    
-	}
-
 	@Transactional
 	public String cadastrar() {
-//		try {
-			context.getExternalContext().getFlash().setKeepMessages(true);
-//			service.salvar(contato);
-//			context.addMessage(null, new FacesMessage("Contato: " + contato.getNome() + " cadastrado."));
+		try {
 
-			if (continuarNestaTela) {
-				return context.getViewRoot().getViewId() + "?faces-redirect=true";
+			context.getExternalContext().getFlash().setKeepMessages(true);
+			var novoContato = cadastroService.cadastrar(contato);
+			context.addMessage(null, new FacesMessage("Contato " + novoContato.getNome() + " cadastrado", novoContato.getNome() + " - " + novoContato.getNome()));
+
+			if (!continuarNestaTela) {
+
+			    return "consultaContatos?faces-redirect=true";
+
 			}
 
-			return "consultaContatos?faces-redirect=true";
+		} catch (CadastroException e) {
 
-//		} catch (ContatoExistenteException e) {
-//			context.addMessage(null, new FacesMessage(e.getMessage()));
-//			return context.getViewRoot().getViewId() + "?faces-redirect=true";
-//		}
+			context.addMessage(null, new FacesMessage(SEVERITY_WARN, e.getMessage(), null));
+
+		}
+
+		return context.getViewRoot().getViewId() + "?faces-redirect=true";		
 
 	}
 

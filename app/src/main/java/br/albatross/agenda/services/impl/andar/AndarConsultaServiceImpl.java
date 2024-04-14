@@ -7,8 +7,10 @@ import br.albatross.agenda.dao.spi.AndarDao;
 import br.albatross.agenda.dto.spi.andar.DadosParaListagemDoAndar;
 import br.albatross.agenda.models.Andar;
 import br.albatross.agenda.services.spi.andares.AndarConsultaService;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 
+@RequestScoped
 public class AndarConsultaServiceImpl implements AndarConsultaService {
 
     @Inject

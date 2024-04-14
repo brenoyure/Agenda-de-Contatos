@@ -1,4 +1,4 @@
-package br.albatross.agenda.dto.impl;
+package br.albatross.agenda.dto.impl.andar;
 
 import br.albatross.agenda.dto.spi.andar.DadosParaListagemDoAndar;
 import br.albatross.agenda.models.Andar;

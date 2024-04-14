@@ -3,6 +3,7 @@ package br.albatross.agenda.services.spi.setores;
 import java.util.List;
 import java.util.Optional;
 
+import br.albatross.agenda.dto.spi.setor.DadosBasicosDoSetor;
 import br.albatross.agenda.dto.spi.setor.DadosParaAtualizacaoDeSetor;
 import br.albatross.agenda.dto.spi.setor.DadosParaCadastroDeNovoSetor;
 import br.albatross.agenda.dto.spi.setor.DadosParaListagemDeSetor;
@@ -18,6 +19,7 @@ public interface SetorService {
 	void excluir(Integer id) throws CadastroException;
 
 	List<DadosParaListagemDeSetor> listar();
+	List<DadosBasicosDoSetor> listarDadosBasicos();
 
 	boolean existePorId(Integer id);
 

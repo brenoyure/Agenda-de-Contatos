@@ -7,27 +7,32 @@
 
 <ui:composition template="./_template.xhtml">
 
-    <ui:define name="titulo">Cadastro de Setor</ui:define>
+    <f:metadata>
+        <f:viewParam name="setorId" />
+        <f:viewAction action="#{atualizacaoSetorBean.carregar(param.setorId)}" if="#{param.setorId != null}" />
+    </f:metadata>
+
+    <ui:define name="titulo">Atualização de Setor</ui:define>
     <ui:define name="conteudo">
 
 		<h:form id="formCadastroSetor" styleClass="form-signin w-100 m-auto" >
 			<div>
 				<p:outputLabel for="@next" value="Sigla" />
                 <div>
-                    <p:inputText id="inputText-setor-sigla" value="#{cadastroSetorBean.setor.sigla}" size="50" />
+                    <p:inputText id="inputText-setor-sigla" value="#{atualizacaoSetorBean.setor.sigla}" size="50" />
                 </div>
 			</div>
 
 			<div>
 				<p:outputLabel for="@next" value="Descrição" />
                 <div>
-                    <p:inputText id="inputText-setor-descricao" value="#{cadastroSetorBean.setor.descricao}" size="50" />
+                    <p:inputText id="inputText-setor-descricao" value="#{atualizacaoSetorBean.setor.descricao}" size="50" />
                 </div>
 			</div>
 
 			<div>
                 <p:outputLabel for="selectOne-UnidadeAdmin" value="Unidade Administrativa" style="margin-right: 5px;" />
-                <p:selectOneMenu id="selectOne-UnidadeAdmin" value="#{cadastroSetorBean.setor.unidadeId}" >
+                <p:selectOneMenu id="selectOne-UnidadeAdmin" value="#{atualizacaoSetorBean.setor.unidadeId}" >
 	                <f:selectItem itemLabel="Selecione uma Unidade" noSelectionOption="true" itemDisabled="true" />
 	                <f:selectItems value="#{listaUnidadesBean.unidades}" var="unidadeAdmin" itemLabel="#{unidadeAdmin.sigla} - #{unidadeAdmin.descricao}" itemValue="#{unidadeAdmin.id}" />
                 </p:selectOneMenu>
@@ -35,11 +40,11 @@
 
             <div>
                 <p:outputLabel value="Conitnuar Nesta Tela?" for="@next" style="margin-right: 5px;"  />
-                <p:selectBooleanCheckbox id="selectCheckBoxContinuar" value="#{cadastroSetorBean.continuarNestaTela}" />
+                <p:selectBooleanCheckbox id="selectCheckBoxContinuar" value="#{atualizacaoSetorBean.continuarNestaTela}" />
             </div>
 
             <div>
-                <p:commandButton value="Cadastrar" action="#{cadastroSetorBean.cadastrar}" update="@form :mensagens" />
+                <p:commandButton value="Atualizar Cadastro" action="#{atualizacaoSetorBean.atualizar}" update="@form :mensagens" />
             </div>
 
 		</h:form>

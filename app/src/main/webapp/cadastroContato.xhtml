@@ -7,11 +7,6 @@
 
 <ui:composition template="./_template.xhtml">
 
-    <f:metadata>
-        <f:viewParam name="contatoId" value="#{cadastroContatoBean.contato.id}" />
-        <f:viewAction action="#{cadastroContatoBean.carregar(param.contatoId)}" if="#{param.contatoId != null}" />
-    </f:metadata>
-
     <ui:define name="titulo">Cadastro de Contato</ui:define>
 	<ui:define name="conteudo">
 
@@ -19,7 +14,7 @@
 			<div>
 				<p:outputLabel for="@next" value="Nome" />
 				<div>
-					<p:inputText id="inputText-contato-nome" value="#{cadastroContatoBean.contato.nome}" required="true" requiredMessage="Nome para o Contato é Obrigatório" />
+					<p:inputText id="inputText-contato-nome" value="#{cadastroContatoBean.contato.nome}" />
 				</div>
 			</div>
 
@@ -31,18 +26,18 @@
 			</div>
 
 			<div>
-                <p:outputLabel for="@next" value="Setor" style="margin: 5px;" />
-                <p:selectOneMenu id="selectOne-Setor" value="#{cadastroContatoBean.contato.setor}" required="true" requiredMessage="Setor é Obrigatório" converter="setorConverter" >
+                <p:outputLabel for="@next" value="Setor (Opcional)" style="margin: 5px;" />
+                <p:selectOneMenu id="selectOne-Setor" value="#{cadastroContatoBean.contato.setorId}" >
                     <f:selectItem itemLabel="Selecione um Setor" noSelectionOption="true" itemDisabled="true" />
-                    <f:selectItems value="#{cadastroContatoBean.setores}" var="setor" itemLabel="#{setor.sigla}" itemValue="#{setor}" />
+                    <f:selectItems value="#{consultaDadosBasicosSetoresBean.setores}" var="setor" itemLabel="#{setor.sigla} - #{setor.descricao}" itemValue="#{setor.id}" />
                 </p:selectOneMenu>
 			</div>
 
             <div>
                 <p:outputLabel for="@next" value="Andar (Opcional)" style="margin: 5px;" />
-                <p:selectOneMenu id="selectOne-Andar" value="#{cadastroContatoBean.contato.andar}" converter="andarConverter" >
+                <p:selectOneMenu id="selectOne-Andar" value="#{cadastroContatoBean.contato.andarId}">
                     <f:selectItem itemLabel="Selecione o Andar" noSelectionOption="true" itemDisabled="true" />
-                    <f:selectItems value="#{cadastroContatoBean.andares}" var="andar" itemLabel="#{andar.nome}" itemValue="#{andar}" />
+                    <f:selectItems value="#{consultaAndaresBean.andares}" var="andar" itemLabel="#{andar.nome}" itemValue="#{andar.id}" />
                 </p:selectOneMenu>
             </div>
 

@@ -1,5 +1,8 @@
 package br.albatross.agenda.dao.impl;
 
+import static br.albatross.agenda.models.Setor_.descricao;
+import static br.albatross.agenda.models.Setor_.id;
+import static br.albatross.agenda.models.Setor_.sigla;
 import static br.albatross.agenda.models.Setor_.unidadeAdministrativa;
 import static org.hibernate.jpa.HibernateHints.HINT_CACHEABLE;
 
@@ -7,7 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 import br.albatross.agenda.dao.spi.SetorDao;
+import br.albatross.agenda.dto.impl.setor.DadosBasicosDoSetorDto;
 import br.albatross.agenda.dto.impl.setor.DadosParaListagemDeSetorDto;
+import br.albatross.agenda.dto.spi.setor.DadosBasicosDoSetor;
 import br.albatross.agenda.dto.spi.setor.DadosParaListagemDeSetor;
 import br.albatross.agenda.models.Setor;
 import br.albatross.agenda.models.Setor_;
@@ -68,13 +73,32 @@ public class SetorDaoImpl implements SetorDao {
 		root
 		    .fetch(unidadeAdministrativa, JoinType.INNER);
 
-		cq.select(cb.construct(DadosParaListagemDeSetorDto.class, root));
-		
+		cq.select(cb.construct(DadosParaListagemDeSetorDto.class, root))
+		  .orderBy(cb.asc(root.get(sigla)));
+
 		return entityManager
 				.createQuery(cq)
 				.setHint(HINT_CACHEABLE, true)
 				.getResultList();
 	}
+
+    @Override
+    public List<DadosBasicosDoSetor> findAllWithBasicData() {
+
+        var cb   =  entityManager.getCriteriaBuilder();
+        var cq   =  cb.createQuery(DadosBasicosDoSetor.class);
+        var root =  cq.from(Setor.class);
+
+        cq.select(cb.construct(DadosBasicosDoSetorDto.class, root.get(id),
+                                                             root.get(sigla),
+                                                             root.get(descricao)))
+          .orderBy(cb.asc(root.get(sigla)));
+
+        return entityManager
+                .createQuery(cq)
+                .setHint(HINT_CACHEABLE, true)
+                .getResultList();
+    }	
 
 	@Override
 	public Optional<DadosParaListagemDeSetor> findById(Integer id) {

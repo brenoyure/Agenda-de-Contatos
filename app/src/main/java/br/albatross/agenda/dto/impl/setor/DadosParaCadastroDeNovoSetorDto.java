@@ -1,6 +1,7 @@
 package br.albatross.agenda.dto.impl.setor;
 
 import br.albatross.agenda.dto.spi.setor.DadosParaCadastroDeNovoSetor;
+import br.albatross.agenda.dto.spi.setor.DadosParaListagemDeSetor;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -26,5 +27,11 @@ public class DadosParaCadastroDeNovoSetorDto implements DadosParaCadastroDeNovoS
 	@NotNull(message = "{setor.unidade.obrigatoria}")
 	@Positive(message = "{setor.unidade.id.positivo.obrigatorio}")
 	private Integer unidadeId;
-	
+
+	public DadosParaCadastroDeNovoSetorDto(DadosParaListagemDeSetor dto) {
+	    this.sigla = dto.getSigla();
+	    this.descricao = dto.getDescricao();
+	    this.unidadeId = dto.getUnidadeAdministrativa().getId();
+	}
+
 }

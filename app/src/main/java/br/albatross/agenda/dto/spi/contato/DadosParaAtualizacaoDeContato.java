@@ -1,9 +1,7 @@
 package br.albatross.agenda.dto.spi.contato;
 
-import java.io.Serializable;
+public interface DadosParaAtualizacaoDeContato extends DadosParaCadastroDeNovoContato {
 
-public interface DadosParaAtualizacaoDeContato extends DadosParaCadastroDeContato {
-
-    Serializable getId();
+    Long getId();
     void setId();
 }

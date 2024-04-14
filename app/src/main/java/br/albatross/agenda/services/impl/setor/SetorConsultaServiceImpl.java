@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.albatross.agenda.dao.spi.SetorDao;
+import br.albatross.agenda.dto.spi.setor.DadosBasicosDoSetor;
 import br.albatross.agenda.dto.spi.setor.DadosParaListagemDeSetor;
 import br.albatross.agenda.models.Setor;
 import br.albatross.agenda.services.spi.setores.SetorConsultaService;
@@ -41,6 +42,13 @@ public class SetorConsultaServiceImpl implements SetorConsultaService {
     public Optional<Setor> obterReferenciaPorId(Integer id) {
 
         return dao.getReferenceById(id);
+
+    }
+
+    @Override
+    public List<DadosBasicosDoSetor> listarDadosBasicos() {
+
+        return dao.findAllWithBasicData();
 
     }
 
