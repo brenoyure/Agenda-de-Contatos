@@ -1,5 +1,7 @@
 package br.albatross.agenda.beans.cadastro.unidades;
 
+import static java.lang.String.format;
+
 import java.io.Serializable;
 
 import br.albatross.agenda.dto.impl.unidades.DadosParaAtualizacaoDeUnidadeDto;
@@ -65,7 +67,7 @@ public class AtualizacaoUnidadeAdministrativaBean implements Serializable {
 
 		}
 
-		return context.getViewRoot().getViewId() + "?faces-redirect=true";		
+		return format("%s?unidadeId=%d&faces-redirect=true", context.getViewRoot().getViewId(), unidadeAdmin.getId());
 
 	}
 

@@ -1,4 +1,4 @@
-package br.albatross.agenda.beans.cadastro.setores;
+package br.albatross.agenda.beans.consulta.setores;
 
 import java.util.List;
 

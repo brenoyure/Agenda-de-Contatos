@@ -28,7 +28,7 @@ public class CadastroSetorBean {
 	private DadosParaCadastroDeNovoSetor setor = new DadosParaCadastroDeNovoSetorDto();
 
 	@Getter @Setter
-	private boolean continuarNestaTela = false;
+	private boolean continuarNestaTela = true;
 
 	@Transactional
 	public String cadastrar() {

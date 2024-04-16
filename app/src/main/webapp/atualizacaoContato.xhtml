@@ -7,7 +7,12 @@
 
 <ui:composition template="./_template.xhtml">
 
-    <ui:define name="titulo">Cadastro de Contato</ui:define>
+    <f:metadata>
+        <f:viewParam name="id" />
+        <f:viewAction action="#{atualizacaoContatoBean.carregar(param.id)}" if="#{param.id != null}" />
+    </f:metadata>
+
+    <ui:define name="titulo">Atualização de Contato</ui:define>
 	<ui:define name="conteudo">
 
         <div>
@@ -18,20 +23,20 @@
 			<div>
 				<p:outputLabel for="@next" value="Nome" />
 				<div>
-					<p:inputText id="inputText-contato-nome" value="#{cadastroContatoBean.contato.nome}" size="50" />
+					<p:inputText id="inputText-contato-nome" value="#{atualizacaoContatoBean.contato.nome}" size="50" />
 				</div>
 			</div>
 
 			<div>
 				<p:outputLabel for="@next" value="Número/Ramal" />
 				<div>
-					<p:inputText id="inputText-contato-numero" value="#{cadastroContatoBean.contato.numero}" size="50" />
+					<p:inputText id="inputText-contato-numero" value="#{atualizacaoContatoBean.contato.numero}" size="50" />
 				</div>
 			</div>
 
 			<div>
                 <p:outputLabel for="@next" value="Setor (Opcional)" style="margin: 5px;" />
-                <p:selectOneMenu id="selectOne-Setor" value="#{cadastroContatoBean.contato.setorId}" >
+                <p:selectOneMenu id="selectOne-Setor" value="#{atualizacaoContatoBean.contato.setorId}" >
                     <f:selectItem itemLabel="Selecione um Setor" noSelectionOption="true" itemDisabled="true" />
                     <f:selectItems value="#{consultaDadosBasicosSetoresBean.setores}" var="setor" itemLabel="#{setor.sigla} - #{setor.descricao}" itemValue="#{setor.id}" />
                 </p:selectOneMenu>
@@ -39,7 +44,7 @@
 
             <div>
                 <p:outputLabel for="@next" value="Andar (Opcional)" style="margin: 5px;" />
-                <p:selectOneMenu id="selectOne-Andar" value="#{cadastroContatoBean.contato.andarId}">
+                <p:selectOneMenu id="selectOne-Andar" value="#{atualizacaoContatoBean.contato.andarId}">
                     <f:selectItem itemLabel="Selecione o Andar" noSelectionOption="true" itemDisabled="true" />
                     <f:selectItems value="#{consultaAndaresBean.andares}" var="andar" itemLabel="#{andar.nome}" itemValue="#{andar.id}" />
                 </p:selectOneMenu>
@@ -47,11 +52,11 @@
 
 			<div>
 				<p:outputLabel for="@next" value="Conitnuar Nesta Tela?" />
-				<p:selectBooleanCheckbox id="selectCheckBoxContinuar" value="#{cadastroContatoBean.continuarNestaTela}" />
+				<p:selectBooleanCheckbox id="selectCheckBoxContinuar" value="#{atualizacaoContatoBean.continuarNestaTela}" />
 			</div>
 
 			<div>
-				<p:commandButton value="Cadastrar" action="#{cadastroContatoBean.cadastrar}" update="@form :mensagens" />
+				<p:commandButton value="Atualizar Cadastro" action="#{atualizacaoContatoBean.atualizar}" update="@form :mensagens" />
 			</div>
 
 		</h:form>

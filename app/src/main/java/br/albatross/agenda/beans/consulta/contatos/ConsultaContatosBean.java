@@ -1,23 +1,26 @@
 package br.albatross.agenda.beans.consulta.contatos;
 
+import java.io.Serializable;
 import java.util.List;
 
 import br.albatross.agenda.dto.spi.contato.DadosParaListagemDeContato;
 import br.albatross.agenda.services.spi.contatos.ContatoCadastroService;
 import br.albatross.agenda.services.spi.contatos.ContatoConsultaService;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.transaction.Transactional;
 import lombok.Getter;
 
-@Named @RequestScoped
-public class ConsultaContatosBean {
+@Named @ViewScoped
+public class ConsultaContatosBean implements Serializable {
 
-	@Inject
+	private static final long serialVersionUID = 1L;
+
+    @Inject
 	private FacesContext context;
 
 	@Inject

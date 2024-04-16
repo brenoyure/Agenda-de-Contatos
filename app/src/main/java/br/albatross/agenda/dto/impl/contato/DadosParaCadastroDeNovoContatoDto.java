@@ -1,6 +1,7 @@
 package br.albatross.agenda.dto.impl.contato;
 
 import br.albatross.agenda.dto.spi.contato.DadosParaCadastroDeNovoContato;
+import br.albatross.agenda.dto.spi.contato.DadosParaListagemDeContato;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -27,5 +28,12 @@ public class DadosParaCadastroDeNovoContatoDto implements DadosParaCadastroDeNov
 
     @Positive(message = "{contato.andar.id.positivo.obrigatorio}")
     private Integer andarId;
-    
+
+    public DadosParaCadastroDeNovoContatoDto(DadosParaListagemDeContato dto) {
+        this.nome = dto.getNome();
+        this.numero = dto.getNumero();
+        this.setorId = dto.getSetor().getId();
+        this.andarId = dto.getAndar().getId();
+    }
+
 }

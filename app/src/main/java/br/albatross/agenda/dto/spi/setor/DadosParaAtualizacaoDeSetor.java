@@ -4,5 +4,5 @@ public interface DadosParaAtualizacaoDeSetor extends DadosParaCadastroDeNovoSeto
 
     Integer getId();
 	void setId(Integer id);
-	
+
 }

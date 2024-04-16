@@ -10,6 +10,10 @@
     <ui:define name="titulo">Cadastro de Setor</ui:define>
     <ui:define name="conteudo">
 
+        <div>
+            <h:link outcome="consultaSetores" value="Ir para Consulta de Setores" style="text-decoration: none; margin-bottom: 5px" />
+        </div>
+
 		<h:form id="formCadastroSetor" styleClass="form-signin w-100 m-auto" >
 			<div>
 				<p:outputLabel for="@next" value="Sigla" />
@@ -26,11 +30,13 @@
 			</div>
 
 			<div>
-                <p:outputLabel for="selectOne-UnidadeAdmin" value="Unidade Administrativa" style="margin-right: 5px;" />
-                <p:selectOneMenu id="selectOne-UnidadeAdmin" value="#{cadastroSetorBean.setor.unidadeId}" >
-	                <f:selectItem itemLabel="Selecione uma Unidade" noSelectionOption="true" itemDisabled="true" />
-	                <f:selectItems value="#{listaUnidadesBean.unidades}" var="unidadeAdmin" itemLabel="#{unidadeAdmin.sigla} - #{unidadeAdmin.descricao}" itemValue="#{unidadeAdmin.id}" />
-                </p:selectOneMenu>
+                <p:outputLabel for="selectOne-UnidadeAdmin" value="Unidade Administrativa" style="margin: 5px;" />
+                <div>
+                    <p:selectOneMenu id="selectOne-UnidadeAdmin" value="#{cadastroSetorBean.setor.unidadeId}" >
+                        <f:selectItem itemLabel="Selecione uma Unidade" noSelectionOption="true" itemDisabled="true" />
+                        <f:selectItems value="#{listaUnidadesBean.unidades}" var="unidadeAdmin" itemLabel="#{unidadeAdmin.sigla} - #{unidadeAdmin.descricao}" itemValue="#{unidadeAdmin.id}" />
+                    </p:selectOneMenu>                
+                </div>
             </div>
 
             <div>

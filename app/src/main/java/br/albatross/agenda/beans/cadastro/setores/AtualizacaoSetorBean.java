@@ -1,6 +1,7 @@
 package br.albatross.agenda.beans.cadastro.setores;
 
 import static jakarta.faces.application.FacesMessage.SEVERITY_WARN;
+import static java.lang.String.format;
 
 import java.io.Serializable;
 
@@ -28,7 +29,7 @@ public class AtualizacaoSetorBean implements Serializable {
     @Inject
     private SetorService setorService;
 
-	@Getter
+	@Getter @Setter
 	private DadosParaAtualizacaoDeSetor setor;
 
 	@Getter @Setter
@@ -55,12 +56,11 @@ public class AtualizacaoSetorBean implements Serializable {
 
 		}
 
-		return context.getViewRoot().getViewId() + "?faces-redirect=true";		
+		return format("%s?setorId=%d&faces-redirect=true", context.getViewRoot().getViewId(), setor.getId());		
 
 	}
 
 	public void carregar(Integer id) {
-
 	    setorService
             .buscarPorId(id)
             .ifPresentOrElse(dto -> setor = new DadosParaAtualizacaoDeSetorDto(dto),

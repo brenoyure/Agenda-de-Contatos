@@ -10,35 +10,54 @@
     <ui:define name="titulo">Consulta de Contatos</ui:define>
     <ui:define name="conteudo">
 
+    <div>
+        <h:link outcome="cadastroContato" value="Ir para Cadastro de Contatos" style="text-decoration: none; margin-bottom: 5px" />
+    </div>
+
 	<h:form>
 		<p:dataTable value="#{consultaContatosBean.contatos}" var="contato" rows="10" paginator="true" paginatorPosition="bottom" >
 			<f:facet name="header">Contatos</f:facet>
-				<p:column headerText="Nome" filterBy="#{contato.nome}" filterMatchMode="startsWith">
-					#{contato.nome}
+				<p:column headerText="Nome" filterBy="#{contato.nome}" filterMatchMode="contains">
+					<h:outputText value="#{contato.nome}" />
 				</p:column>
 				<p:column headerText="Ramal" filterBy="#{contato.numero}" filterMatchMode="contains" >
 					<h:outputText value="#{contato.numero}" />
 				</p:column>
-	
+
 				<p:column headerText="Setor" filterBy="#{contato.setor.sigla}" filterMatchMode="contains">
 					<h:outputText value="#{contato.setor.sigla}" title="#{contato.setor.descricao}" />
 				</p:column>
-		
+
 				<p:column headerText="Andar" filterBy="#{contato.andar.nome}" filterMatchMode="startsWith">
 					<h:outputText value="#{contato.andar.nome}" />
 				</p:column>
 
 				<p:column>
-				    <p:link includeViewParams="true" outcome="cadastroContato" >
-				        <h:outputText title="Editar" styleClass="ui-icon pi pi-pencil" />
-				        <f:param name="contatoId" value="#{contato.id}" />
-				    </p:link>
+                    <h:link includeViewParams="true" outcome="atualizacaoContato" >
+                        <h:outputText value="Editar" styleClass="btn btn-primary" />
+                        <f:param name="id" value="#{contato.id}" />
+                    </h:link>
 				</p:column>
 
                 <p:column>
-                    <p:commandLink action="#{consultaContatosBean.excluir(contato)}" >
-                        <h:outputText styleClass="ui-icon pi pi-trash" />
-                    </p:commandLink>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#contatoModal#{contato.id}">Excluir</button>
+                    <div class="modal fade" id="contatoModal#{contato.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmação de Exclusão</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <h:outputText value="Confirmar Exclusão do Contato: #{contato.nome} ?" />
+                          </div>
+                          <div class="modal-footer">
+                            <h:commandButton styleClass="btn btn-danger" action="#{consultaContatosBean.excluir(contato)}" value="Confirmar Exclusão" />
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                 </p:column>
 
 		</p:dataTable>

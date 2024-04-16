@@ -28,7 +28,7 @@ public class CadastroUnidadeAdministrativaBean {
 	private DadosParaCadastroDeNovaUnidade unidadeAdmin = new DadosParaCadastroDeNovaUnidadeDto();
 	
 	@Getter @Setter
-	private boolean continuarNestaTela = false;
+	private boolean continuarNestaTela = true;
 
 	@Transactional
 	public String cadastrar() {
