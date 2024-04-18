@@ -23,6 +23,7 @@
 <!--           <url-pattern>*.xhtml</url-pattern> -->
 <!--       </web-resource-collection> -->
 <!--       <auth-constraint> -->
+<!--           <role-name>ADMIN</role-name> -->
 <!--           <role-name>USER</role-name> -->
 <!--       </auth-constraint> -->
 <!--    </security-constraint> -->
@@ -30,7 +31,7 @@
 <!--    <security-constraint> -->
 <!--     <web-resource-collection> -->
 <!--         <web-resource-name>Acesso ao CRUD da Administração</web-resource-name> -->
-<!--         <description>CRUD de Textos Prontos de Problemas e Administração de Usuários</description> -->
+<!--         <description>CRUD das entidades do sistema, cadastros e atualizações</description> -->
 <!--         <url-pattern>/administracao/*</url-pattern> -->
 <!--     </web-resource-collection> -->
 <!--     <auth-constraint> -->
@@ -53,7 +54,7 @@
 <!-- 	   <auth-method>FORM</auth-method> -->
 <!-- 	   <form-login-config> -->
 <!-- 	       <form-login-page>/login.xhtml</form-login-page> -->
-<!-- 	       <form-error-page>/login.xhtml</form-error-page> -->
+<!-- 	       <form-error-page>/login-error.xhtml</form-error-page> -->
 <!-- 	   </form-login-config> -->
 <!-- 	</login-config> -->
 

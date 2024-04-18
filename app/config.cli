@@ -12,19 +12,26 @@ data-source add --name=AgendaDS --driver-name=mysql --jndi-name=java:jboss/datas
 ### Autenticação ###
 
 ### 3.1 Criando o JDBC-Realm para recuperar a senha e a role do usuário ####
-/subsystem=elytron/jdbc-realm=agenda-jdbc-realm:add(principal-query=[{data-source=AgendaDS,sql="SELECT u.password AS 'password', r.nome AS 'role' FROM users u INNER JOIN roles r ON u.fk_role_id=r.id WHERE u.username = ?", simple-digest-mapper={password-index=1, algorithm=simple-digest-sha-512, hash-encoding=base64},attribute-mapping=[{index=2,to=Roles}]}]
+/subsystem=elytron/jdbc-realm=agenda-jdbc-realm:add(principal-query=[{data-source=AgendaDS,sql="SELECT u.password AS 'password', r.nome AS 'role' FROM users u INNER JOIN roles r ON u.fk_role_id=r.id WHERE u.username = ?", simple-digest-mapper={password-index=1, algorithm=simple-digest-sha-512, hash-encoding=base64},attribute-mapping=[{index=2,to=role}]}]
 
 ### 3.2 Criando Role Decoder ###
-/subsystem=elytron/simple-role-decoder=attribute-to-role:add(attribute=Roles)
+/subsystem=elytron/simple-role-decoder=attribute-to-role:add(attribute=role)
+
+### 7.3 Definindo o Realm criado como padrão do ApplicationDomain padrão do Wildfly ###
+### Isto é necessário caso o sistema faça uso de EJBs ###
+batch
+/subsystem=elytron/security-domain=ApplicationDomain:write-attribute(name=realms, value=[{realm=agenda-jdbc-realm, role-decoder=attribute-to-role}])
+/subsystem=elytron/security-domain=ApplicationDomain:write-attribute(name=default-realm,value=agenda-jdbc-realm)
+run-batch
 
 ## 3.3 Criando o Security Domain ####
-/subsystem=elytron/security-domain=agendaSD:add(realms=[{realm=agenda-jdbc-realm,role-decoder=attribute-to-role}],default-realm=agenda-jdbc-realm,permission-mapper=default-permission-mapper)
+#/subsystem=elytron/security-domain=agendaSD:add(realms=[{realm=agenda-jdbc-realm,role-decoder=attribute-to-role}],default-realm=agenda-jdbc-realm,permission-mapper=default-permission-mapper)
 
 ## 3.4 Criando a Http Authentication Factory ####
-/subsystem=elytron/http-authentication-factory=agenda-http-auth:add(http-server-mechanism-factory=global,security-domain=agendaSD,mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=agenda-jdbc-realm}]}])
+#/subsystem=elytron/http-authentication-factory=agenda-http-auth:add(http-server-mechanism-factory=global,security-domain=agendaSD,mechanism-configurations=[{mechanism-name=FORM,mechanism-realm-configurations=[{realm-name=agenda-jdbc-realm}]}])
 
 ## 3.5 Criando o App Security Domain no Subsystem do Undertow ###
-/subsystem=undertow/application-security-domain=agendaHttpSD:add(http-authentication-factory=agenda-http-auth)
+#/subsystem=undertow/application-security-domain=agendaHttpSD:add(http-authentication-factory=agenda-http-auth)
 
 
 ## Security Logging ###
