@@ -39,7 +39,7 @@ public class CadastroUnidadeAdministrativaBean {
 
 			if (!continuarNestaTela) {
 
-			    return "consultaUnidades?faces-redirect=true";
+			    return "/administracao/consultas/unidades/consultaUnidades?faces-redirect=true";
 
 			}
 

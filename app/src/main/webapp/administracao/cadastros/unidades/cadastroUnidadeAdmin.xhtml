@@ -5,16 +5,18 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<ui:composition template="_template.xhtml">
+<ui:composition template="/_template.xhtml">
 
     <ui:define name="titulo">Cadastro de Unidade Administrativa</ui:define>
     <ui:define name="conteudo">
 
         <div>
-            <h:link outcome="consultaUnidades" value="Ir para Consulta de Unidades" style="text-decoration: none; margin-bottom: 5px" />
+            <h:link outcome="/administracao/consultas/unidades/consultaUnidades" value="Ir para Consulta de Unidades" style="text-decoration: none; margin-bottom: 5px" />
         </div>
 
 	    <h:panelGroup layout="block" styleClass="container" >
+
+            <p:focus for="@next" />
 
 			<h:form id="formCadastroUnidadeAdmin" title="Formulário de Cadastro Administração Central">
                 <p:outputLabel for="@next" value="Sigla" />

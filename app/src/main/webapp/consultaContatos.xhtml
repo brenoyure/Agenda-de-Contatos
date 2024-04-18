@@ -11,7 +11,7 @@
     <ui:define name="conteudo">
 
     <div>
-        <h:link outcome="cadastroContato" value="Ir para Cadastro de Contatos" style="text-decoration: none; margin-bottom: 5px" />
+        <h:link outcome="/administracao/cadastros/contatos/cadastroContato" value="Ir para Cadastro de Contatos" style="text-decoration: none; margin-bottom: 5px" />
     </div>
 
 	<h:form>
@@ -32,8 +32,12 @@
 					<h:outputText value="#{contato.andar.nome}" />
 				</p:column>
 
+                <p:column headerText="Unidade Administrativa" filterBy="#{contato.setor.unidadeAdministrativa.sigla}" filterMatchMode="startsWith">
+                    <h:outputText value="#{contato.setor.unidadeAdministrativa.sigla}" />
+                </p:column>
+
 				<p:column>
-                    <h:link includeViewParams="true" outcome="atualizacaoContato" >
+                    <h:link includeViewParams="true" outcome="/administracao/cadastros/contatos/atualizacaoContato" >
                         <h:outputText value="Editar" styleClass="btn btn-primary" />
                         <f:param name="id" value="#{contato.id}" />
                     </h:link>

@@ -9,7 +9,7 @@ public interface DadosParaListagemDeContato {
 
     String getNome();
     String getNumero();
-    
+
     DadosParaListagemDeSetor getSetor();
     DadosParaListagemDoAndar getAndar();
 

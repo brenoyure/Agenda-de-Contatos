@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<ui:composition template="_template.xhtml">
+<ui:composition template="/_template.xhtml">
 
     <f:metadata>
         <f:viewParam name="unidadeId" />
@@ -16,10 +16,12 @@
     <ui:define name="conteudo">
 
         <div>
-            <h:link outcome="consultaUnidades" value="Ir para Consulta de Unidades" />
+            <h:link outcome="/administracao/consultas/unidades/consultaUnidades" value="Ir para Consulta de Unidades" style="text-decoration: none; margin-bottom: 5px" />
         </div>
 
 	    <div class="container" >
+
+            <p:focus for="@next" />
 
 			<h:form id="formCadastroUnidadeAdmin" title="Formulário de Atualização de Unidade">
                 <p:outputLabel for="@next" value="Sigla" />

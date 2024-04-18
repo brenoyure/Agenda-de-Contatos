@@ -41,14 +41,14 @@ public class CadastroContatoBean {
             String detailMessage = format("%s - %s", novoContato.getNome(), novoContato.getNumero());
 
             if (novoContato.getSetor() != null) {
-                detailMessage.concat(format(" -%s", novoContato.getSetor().getSigla()));
+                detailMessage = detailMessage.concat(format(" -%s", novoContato.getSetor().getSigla()));
             }
 
             context.addMessage(null, new FacesMessage(format("Contato %s Cadastrado", novoContato.getNome()), detailMessage));			
 
 			if (!continuarNestaTela) {
 
-			    return "consultaContatos?faces-redirect=true";
+			    return "/consultaContatos?faces-redirect=true";
 
 			}
 

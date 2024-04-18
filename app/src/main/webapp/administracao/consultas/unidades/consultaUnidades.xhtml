@@ -4,13 +4,13 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"> 
 
-<ui:composition template="_template.xhtml" >
+<ui:composition template="/_template.xhtml" >
 
     <ui:define name="titulo">Consulta de Unidades</ui:define>
     <ui:define name="conteudo">
 
         <div>
-            <h:link outcome="cadastroUnidadeAdmin" value="Ir para Cadastro de Unidades" style="text-decoration: none; margin-bottom: 5px" />
+            <h:link outcome="/administracao/cadastros/unidades/cadastroUnidadeAdmin" value="Ir para Cadastro de Unidades" style="text-decoration: none; margin-bottom: 5px" />
         </div>
 
         <h:outputText rendered="#{empty consultaUnidadesBean.unidades}" value="Nenhuma Unidade Cadastrada" />
@@ -28,7 +28,7 @@
 	            </h:column>
 
 	            <h:column>
-	               <h:link styleClass="btn btn-primary" value="Editar" outcome="atualizacaoUnidadeAdmin" includeViewParams="true">
+	               <h:link styleClass="btn btn-primary" value="Editar" outcome="/administracao/cadastros/unidades/atualizacaoUnidadeAdmin" includeViewParams="true">
 	                   <f:param name="unidadeId" value="#{unidade.id}" />
 	               </h:link>
 	            </h:column>

@@ -22,16 +22,15 @@ public class DadosParaListagemDeContatoDto implements DadosParaListagemDeContato
 
     private final String numero;
 
-    private final DadosParaListagemDeSetor setor;
-
-    private final DadosParaListagemDoAndar andar;
+    private DadosParaListagemDeSetor setor;
+    private DadosParaListagemDoAndar andar;
 
     public DadosParaListagemDeContatoDto(Contato contato) {
-        this.id = contato.getId();
-        this.nome = contato.getNome();
-        this.numero = contato.getNumero();
-        this.setor = new DadosParaListagemDeSetorDto(contato.getSetor());
-        this.andar = new DadosParaListagemDoAndarDto(contato.getAndar());
+        this.id     =  contato.getId();
+        this.nome   =  contato.getNome();
+        this.numero =  contato.getNumero();
+        this.setor  =  contato.getSetor() == null ? null : new DadosParaListagemDeSetorDto(contato.getSetor());
+        this.andar  =  contato.getAndar() == null ? null : new DadosParaListagemDoAndarDto(contato.getAndar());
     }
-
+    
 }

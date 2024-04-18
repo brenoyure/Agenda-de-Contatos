@@ -32,8 +32,8 @@ public class DadosParaCadastroDeNovoContatoDto implements DadosParaCadastroDeNov
     public DadosParaCadastroDeNovoContatoDto(DadosParaListagemDeContato dto) {
         this.nome = dto.getNome();
         this.numero = dto.getNumero();
-        this.setorId = dto.getSetor().getId();
-        this.andarId = dto.getAndar().getId();
+        this.setorId = dto.getSetor() == null ? null : dto.getSetor().getId();
+        this.andarId = dto.getAndar() == null ? null : dto.getAndar().getId();
     }
 
 }

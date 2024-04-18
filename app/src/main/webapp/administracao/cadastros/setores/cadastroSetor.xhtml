@@ -5,14 +5,16 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" >
 
-<ui:composition template="./_template.xhtml">
+<ui:composition template="/_template.xhtml">
 
     <ui:define name="titulo">Cadastro de Setor</ui:define>
     <ui:define name="conteudo">
 
         <div>
-            <h:link outcome="consultaSetores" value="Ir para Consulta de Setores" style="text-decoration: none; margin-bottom: 5px" />
+            <h:link outcome="/administracao/consultas/setores/consultaSetores" value="Ir para Consulta de Setores" style="text-decoration: none; margin-bottom: 5px" />
         </div>
+
+        <p:focus for="@next" />
 
 		<h:form id="formCadastroSetor" styleClass="form-signin w-100 m-auto" >
 			<div>

@@ -46,7 +46,7 @@ public class AtualizacaoSetorBean implements Serializable {
 
 			if (!continuarNestaTela) {
 
-	            return "consultaSetores?faces-redirect=true";
+	            return "/administracao/consultas/setores/consultaSetores?faces-redirect=true";
 
 			}
 
@@ -68,7 +68,7 @@ public class AtualizacaoSetorBean implements Serializable {
         () -> context
                 .getApplication()
                 .getNavigationHandler()
-                .handleNavigation(context, null, "cadastroSetor?faces-redirect=true"));
+                .handleNavigation(context, null, "/administracao/cadastros/setores/cadastroSetor?faces-redirect=true"));
 	}
 
 }

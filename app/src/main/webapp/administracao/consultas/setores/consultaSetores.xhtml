@@ -4,13 +4,13 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"> 
 
-<ui:composition template="_template.xhtml" >
+<ui:composition template="/_template.xhtml" >
 
     <ui:define name="titulo">Consulta de Setores</ui:define>
     <ui:define name="conteudo">
 
     <div>
-        <h:link outcome="cadastroSetor" value="Ir para Cadastro de Setores" style="text-decoration: none; margin-bottom: 5px" />
+        <h:link outcome="/administracao/cadastros/setores/cadastroSetor" value="Ir para Cadastro de Setores" style="text-decoration: none; margin-bottom: 5px" />
     </div>
 
     <h:outputText rendered="#{empty consultaSetoresBean.setores}" value="Nenhum Setor Cadastrado" />
@@ -36,7 +36,7 @@
 
 	            <h:column>
 	                <f:facet name="header">Editar</f:facet>
-	                <h:link styleClass="btn btn-primary" title="Editar" outcome="atualizacaoSetor" includeViewParams="true">
+	                <h:link styleClass="btn btn-primary" title="Editar" outcome="/administracao/cadastros/setores/atualizacaoSetor" includeViewParams="true">
 	                    <h:outputText value="Editar" />
 	                    <f:param name="setorId" value="#{setor.id}" />
 	                </h:link>

@@ -49,14 +49,14 @@ public class AtualizacaoContatoBean implements Serializable {
             String detailMessage = format("%s - %s", novoContato.getNome(), novoContato.getNumero());
 
             if (novoContato.getSetor() != null) {
-                detailMessage.concat(format(" -%s", novoContato.getSetor().getSigla()));
+                detailMessage = detailMessage.concat(format(" -%s", novoContato.getSetor().getSigla()));
             }
 
             context.addMessage(null, new FacesMessage(format("Dados do Contato %s Atualizado", novoContato.getNome()), detailMessage));			
 
 			if (!continuarNestaTela) {
 
-			    return "consultaContatos?faces-redirect=true";
+			    return "/consultaContatos?faces-redirect=true";
 
 			}
 
@@ -70,7 +70,6 @@ public class AtualizacaoContatoBean implements Serializable {
 
 	}
 
-	@Transactional
     public void carregar(Long id) {
         consultaService
             .buscarPorId(id)
@@ -79,7 +78,7 @@ public class AtualizacaoContatoBean implements Serializable {
         () -> context
                 .getApplication()
                 .getNavigationHandler()
-                .handleNavigation(context, null, "cadastroContato?faces-redirect=true"));
+                .handleNavigation(context, null, "/administracao/cadastros/contato/cadastroContato?faces-redirect=true"));
     }	
 
 }

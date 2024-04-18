@@ -1,5 +1,7 @@
 package br.albatross.agenda.services.impl.andar;
 
+import static java.util.Optional.empty;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -9,8 +11,10 @@ import br.albatross.agenda.models.Andar;
 import br.albatross.agenda.services.spi.andares.AndarConsultaService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 @RequestScoped
+@Transactional
 public class AndarConsultaServiceImpl implements AndarConsultaService {
 
     @Inject
@@ -26,7 +30,7 @@ public class AndarConsultaServiceImpl implements AndarConsultaService {
     @Override
     public Optional<Andar> obterReferenciaPorId(Integer id) {
 
-        return dao.getReferenceById(id);
+        return id == null ? empty() : dao.getReferenceById(id);
 
     }
 

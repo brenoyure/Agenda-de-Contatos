@@ -1,5 +1,7 @@
 package br.albatross.agenda.services.impl.setor;
 
+import static java.util.Optional.empty;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -10,8 +12,10 @@ import br.albatross.agenda.models.Setor;
 import br.albatross.agenda.services.spi.setores.SetorConsultaService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 @RequestScoped
+@Transactional
 public class SetorConsultaServiceImpl implements SetorConsultaService {
 
     @Inject
@@ -41,7 +45,7 @@ public class SetorConsultaServiceImpl implements SetorConsultaService {
     @Override
     public Optional<Setor> obterReferenciaPorId(Integer id) {
 
-        return dao.getReferenceById(id);
+        return id == null ? empty() : dao.getReferenceById(id);
 
     }
 

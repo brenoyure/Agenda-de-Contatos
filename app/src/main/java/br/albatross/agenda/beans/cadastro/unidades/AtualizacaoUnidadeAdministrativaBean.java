@@ -43,7 +43,7 @@ public class AtualizacaoUnidadeAdministrativaBean implements Serializable {
 	        () -> context
 	                .getApplication()
 	                .getNavigationHandler()
-	                .handleNavigation(context, null, "cadastroUnidadeAdmin?faces-redirect=true"));
+	                .handleNavigation(context, null, "/administracao/cadastros/unidades/cadastroUnidadeAdmin?faces-redirect=true"));
 
 	}
 
@@ -57,7 +57,7 @@ public class AtualizacaoUnidadeAdministrativaBean implements Serializable {
 
 			if (!continuarNestaTela) {
 
-			    return "consultaUnidades?faces-redirect=true";
+			    return "/administracao/consultas/unidades/consultaUnidades?faces-redirect=true";
 
 			}
 

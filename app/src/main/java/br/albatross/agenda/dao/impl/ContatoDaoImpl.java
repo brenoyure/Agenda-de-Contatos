@@ -1,5 +1,8 @@
 package br.albatross.agenda.dao.impl;
 
+import static br.albatross.agenda.models.Contato_.andar;
+import static br.albatross.agenda.models.Contato_.setor;
+import static br.albatross.agenda.models.Setor_.unidadeAdministrativa;
 import static org.hibernate.jpa.HibernateHints.HINT_CACHEABLE;
 
 import java.util.List;
@@ -9,6 +12,7 @@ import br.albatross.agenda.dao.spi.ContatoDao;
 import br.albatross.agenda.dto.impl.contato.DadosParaListagemDeContatoDto;
 import br.albatross.agenda.dto.spi.contato.DadosParaListagemDeContato;
 import br.albatross.agenda.models.Contato;
+import br.albatross.agenda.models.Contato_;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -79,11 +83,11 @@ public class ContatoDaoImpl implements ContatoDao {
         var root = cq.from(Contato.class);
 
         root
-            .fetch("andar", JoinType.LEFT);
+            .fetch(andar,                 JoinType.LEFT);
 
         root
-            .fetch("setor", JoinType.LEFT)
-            .fetch("unidadeAdministrativa", JoinType.INNER);
+            .fetch(setor,                 JoinType.LEFT)
+            .fetch(unidadeAdministrativa, JoinType.LEFT);
 
         cq.select(cb.construct(DadosParaListagemDeContatoDto.class, root));
 
@@ -103,14 +107,15 @@ public class ContatoDaoImpl implements ContatoDao {
             var root = cq.from(Contato.class);
 
             root
-                .fetch("andar", JoinType.INNER);
+                .fetch(andar,                 JoinType.LEFT);
 
             root
-                .fetch("setor", JoinType.INNER);
+                .fetch(setor,                 JoinType.LEFT)
+                .fetch(unidadeAdministrativa, JoinType.LEFT);
 
             cq
                 .select(cb.construct(DadosParaListagemDeContatoDto.class, root))
-                .where(cb.equal(root.get("id"), id));
+                .where(cb.equal(root.get(Contato_.id), id));
 
             return Optional.of(
                     entityManager
