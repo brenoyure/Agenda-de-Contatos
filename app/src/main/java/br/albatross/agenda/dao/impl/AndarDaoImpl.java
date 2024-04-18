@@ -43,7 +43,9 @@ public class AndarDaoImpl implements AndarDao {
         var cq   =  cb.createQuery(DadosParaListagemDoAndar.class);
         var root =  cq.from(Andar.class);
 
-        cq.select(cb.construct(DadosParaListagemDoAndarDto.class, root));
+        cq
+            .select(cb.construct(DadosParaListagemDoAndarDto.class, root))
+            .orderBy(cb.asc(root.get("nome")));
 
         return entityManager
                 .createQuery(cq)
@@ -108,7 +110,7 @@ public class AndarDaoImpl implements AndarDao {
         try {
 
             return entityManager
-                    .createQuery("SELECT EXISTS(SELECT a FROM Andar a WHERE a.id = ?1 AND a.nome = ?2)", Boolean.class)
+                    .createQuery("SELECT EXISTS(SELECT a FROM Andar a WHERE a.id != ?1 AND a.nome = ?2)", Boolean.class)
                     .setParameter(1, id)
                     .setParameter(2, nome)
                     .getSingleResult();

@@ -51,6 +51,6 @@ public class ConsultaUnidadesBean implements Serializable {
 
         return context.getViewRoot().getViewId() + "?faces-redirect=true";        
 
-    }	
+    }
 
 }

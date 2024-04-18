@@ -13,8 +13,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DadosParaCadastroDoAndarDto implements DadosParaCadastroDoAndar {
 
-    @NotBlank
-    @Size(min = 1, max = 10)
+    @NotBlank(message = "{andar.nome.obrigatorio}")
+    @Size(message = "{andar.nome.tamanho.permitido}", min = 1, max = 10)
     private String nome;
 
 }

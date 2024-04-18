@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DadosParaAtualizacaoDoAndarDto extends DadosParaCadastroDoAndarDto implements DadosParaAtualizacaoDoAndar {
 
-    @NotNull @Positive
+    @NotNull @Positive(message = "{andar.id.positivo.obrigatorio}")
     private Integer id;
 
     public DadosParaAtualizacaoDoAndarDto(DadosParaListagemDoAndar dto) {
