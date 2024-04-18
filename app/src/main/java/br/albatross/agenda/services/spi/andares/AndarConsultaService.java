@@ -10,6 +10,10 @@ public interface AndarConsultaService {
 
     List<DadosParaListagemDoAndar> listar();
 
+    Optional<DadosParaListagemDoAndar> buscarPorId(Integer id);    
+
     Optional<Andar> obterReferenciaPorId(Integer id);
+
+    boolean existePorId(Integer id);
 
 }

@@ -34,4 +34,18 @@ public class AndarConsultaServiceImpl implements AndarConsultaService {
 
     }
 
+    @Override
+    public Optional<DadosParaListagemDoAndar> buscarPorId(Integer id) {
+
+        return id == null ? empty() : dao.findById(id);
+
+    }
+
+    @Override
+    public boolean existePorId(Integer id) {
+
+        return id == null ? false : dao.existsById(id);
+
+    }
+
 }
