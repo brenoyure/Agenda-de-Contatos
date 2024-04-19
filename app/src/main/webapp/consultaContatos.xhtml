@@ -11,7 +11,12 @@
     <ui:define name="conteudo">
 
     <div>
-        <h:link outcome="/administracao/cadastros/contatos/cadastroContato" value="Ir para Cadastro de Contatos" style="text-decoration: none; margin-bottom: 5px" />
+        <div>
+            <h:link outcome="/administracao/cadastros/contatos/cadastroContato" value="Ir para Cadastro de Contatos"   style="text-decoration: none; margin-bottom: 5px" />
+        </div>
+        <div>
+            <a href="#{request.contextPath}/api/contatos/docx" target="_blank" style="text-decoration: none; margin-bottom: 5px" >(Em Testes) Download da Agenda</a>
+        </div>
     </div>
 
 	<h:form>
