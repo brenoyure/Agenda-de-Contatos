@@ -80,4 +80,9 @@
         <location>/error/pages/forbidden-error-page.xhtml</location>
     </error-page>
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/pages/notfound-error-page.xhtml</location>
+    </error-page>
+
 </web-app>
