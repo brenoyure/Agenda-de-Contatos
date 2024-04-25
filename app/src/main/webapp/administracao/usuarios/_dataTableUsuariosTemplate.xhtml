@@ -10,7 +10,11 @@
 <ui:composition>
 
 
-        <p:fieldset legend="Administração / Usuários / Listagem" >
+        <p:panelGrid columns="1" id="panel" layout="tabular" >
+            <h:link outcome="/administracao/usuarios/cadastro" value="Ir para Cadastro de Usuários" style="text-decoration: none; margin-bottom: 5px" />
+        </p:panelGrid>
+
+        <p:fieldset>
 
             <p:dataTable id="usuarios" value="#{listaUsuariosBean.usuarios}" var="usuario" scrollable="true" scrollRows="10" scrollHeight="400" liveScroll="false" >
 

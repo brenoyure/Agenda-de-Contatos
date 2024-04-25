@@ -11,6 +11,11 @@
     <ui:define name="conteudo">
 
 	    <div>
+	    
+	        <p:panelGrid columns="1" id="panel" layout="tabular" >
+	            <h:link outcome="/administracao/usuarios/listagem" value="Ir para Consulta de Usuários" style="text-decoration: none; margin-bottom: 5px" />
+	        </p:panelGrid>
+	    
 	        <h:form id="form-cadastroUsuario">
 	            <p:focus context="panel" />
 

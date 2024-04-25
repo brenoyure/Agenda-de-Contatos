@@ -40,7 +40,7 @@ public class CadastroSetorBean {
 
 			if (!continuarNestaTela) {
 
-	            return "consultaSetores?faces-redirect=true";
+	            return "/administracao/consultas/setores/consultaSetores?faces-redirect=true";
 
 			}
 

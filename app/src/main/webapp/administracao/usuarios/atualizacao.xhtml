@@ -7,13 +7,19 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:composition template="/_template.xhtml">
+
+    <f:metadata>
+        <f:viewParam  name="usuarioId" />
+        <f:viewAction action="#{atualizacaoUsuarioBean.carregarUsuarioPeloId(param.usuarioId)}" if="#{param.usuarioId != null}" />
+    </f:metadata>
+
     <ui:define name="titulo">Atualização de Usuário</ui:define>
     <ui:define name="conteudo">
 
-	    <f:metadata>
-	        <f:viewParam  name="usuarioId" />
-	        <f:viewAction action="#{atualizacaoUsuarioBean.carregarUsuarioPeloId(param.usuarioId)}" if="#{param.usuarioId != null}" />
-	    </f:metadata>
+
+        <p:panelGrid columns="1" id="panel" layout="tabular" >
+            <h:link outcome="/administracao/usuarios/listagem" value="Ir para Consulta de Usuários" style="text-decoration: none; margin-bottom: 5px" />
+        </p:panelGrid>
 
 	    <div style="width: 50vw; display: flex;">
 	        <h:form id="form-cadastroUsuario">
