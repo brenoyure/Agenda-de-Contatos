@@ -1,31 +1,31 @@
 <!DOCTYPE html> 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:composition>
 
-    <div>
-        <h3>Consultas</h3>
-		<nav>
-			<ul class="list-group">
-				<li class="list-group-item list-group-item-action">
-				    <h:link style="text-decoration: none"            outcome="/administracao/consultas/unidades/consultaUnidades"     value="Consultar Unidades" />
-				</li>
-	
-				<li class="list-group-item list-group-item-action">
-	                <h:link style="text-decoration: none"            outcome="/administracao/consultas/setores/consultaSetores"       value="Consultar Setores"  />
-				</li>
-	
-				<li class="list-group-item list-group-item-action">
-	                <h:link style="text-decoration: none"            outcome="consultaContatos"                                       value="Consultar Contatos" />
-				</li>
+    <h3>Consultas</h3>
+    <nav>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-action"   jsf:rendered="#{request.isUserInRole('ADMIN')}" >
+                <h:link style="text-decoration: none"            outcome="/administracao/consultas/unidades/consultaUnidades"     value="Consultar Unidades" />
+            </li>
 
-                <li class="list-group-item list-group-item-action">
-                    <h:link style="text-decoration: none"            outcome="/administracao/consultas/andares/consultaAndares"       value="Consultar Andares"  />
-                </li>
+			<li class="list-group-item list-group-item-action"   jsf:rendered="#{request.isUserInRole('ADMIN')}" >
+	            <h:link style="text-decoration: none"            outcome="/administracao/consultas/setores/consultaSetores"       value="Consultar Setores"  />
+			</li>
+
+			<li class="list-group-item list-group-item-action"                                                                                                >
+	            <h:link style="text-decoration: none"            outcome="consultaContatos"                                       value="Consultar Contatos" />
+			</li>
+
+            <li class="list-group-item list-group-item-action"   jsf:rendered="#{request.isUserInRole('ADMIN')}" >
+                <h:link style="text-decoration: none"            outcome="/administracao/consultas/andares/consultaAndares"       value="Consultar Andares"  />
+            </li>
+
 			</ul>
 		</nav>
-	</div>
 </ui:composition>
 </html>

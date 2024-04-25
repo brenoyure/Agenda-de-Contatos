@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:composition template="_template.xhtml">
@@ -9,8 +10,17 @@
     <ui:define name="titulo">Menu Principal - Agenda App</ui:define>
 	<ui:define name="conteudo">
 
-		<ui:include src="_navBarCadastroTemplate.xhtml" />
-		<ui:include src="_navBarConsultasTemplate.xhtml" />
+        <div jsf:rendered="#{request.isUserInRole('ADMIN')}" >
+            <ui:include src="_navBarCadastroTemplate.xhtml"  />
+        </div>
+		
+		<div>
+            <ui:include src="_navBarConsultasTemplate.xhtml" />
+		</div>
+
+        <div>
+            <ui:include src="/administracao/templates/_crudUsuariosTemplate.xhtml" />
+        </div>
 
 	</ui:define>
 

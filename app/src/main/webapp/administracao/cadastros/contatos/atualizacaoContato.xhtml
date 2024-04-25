@@ -15,52 +15,35 @@
     <ui:define name="titulo">Atualização de Contato</ui:define>
 	<ui:define name="conteudo">
 
-        <div>
-            <h:link outcome="/consultaContatos" value="Ir para Consulta de Contatos" style="text-decoration: none; margin-bottom: 5px" />
-        </div>
-
         <p:focus for="@next" />
 
 		<h:form id="formCadastroContato">
-			<div>
+		
+            <p:panelGrid columns="2" id="panel" layout="tabular">
 				<p:outputLabel for="@next" value="Nome" />
-				<div>
-					<p:inputText id="inputText-contato-nome" value="#{atualizacaoContatoBean.contato.nome}" size="50" />
-				</div>
-			</div>
-
-			<div>
+				<p:inputText id="inputText-contato-nome" value="#{atualizacaoContatoBean.contato.nome}" size="50" />
+	
 				<p:outputLabel for="@next" value="Número/Ramal" />
-				<div>
-					<p:inputText id="inputText-contato-numero" value="#{atualizacaoContatoBean.contato.numero}" size="50" />
-				</div>
-			</div>
-
-			<div>
+				<p:inputText id="inputText-contato-numero" value="#{atualizacaoContatoBean.contato.numero}" size="50" />
+	
                 <p:outputLabel for="@next" value="Setor (Opcional)" style="margin: 5px;" />
                 <p:selectOneMenu id="selectOne-Setor" value="#{atualizacaoContatoBean.contato.setorId}" >
                     <f:selectItem itemLabel="Selecione um Setor" noSelectionOption="true" itemDisabled="true" />
                     <f:selectItems value="#{consultaDadosBasicosSetoresBean.setores}" var="setor" itemLabel="#{setor.sigla} - #{setor.descricao}" itemValue="#{setor.id}" />
                 </p:selectOneMenu>
-			</div>
-
-            <div>
+	
                 <p:outputLabel for="@next" value="Andar (Opcional)" style="margin: 5px;" />
                 <p:selectOneMenu id="selectOne-Andar" value="#{atualizacaoContatoBean.contato.andarId}">
                     <f:selectItem itemLabel="Selecione o Andar" noSelectionOption="true" itemDisabled="true" />
                     <f:selectItems value="#{consultaAndaresBean.andares}" var="andar" itemLabel="#{andar.nome}" itemValue="#{andar.id}" />
                 </p:selectOneMenu>
-            </div>
-
-			<div>
+	
 				<p:outputLabel for="@next" value="Conitnuar Nesta Tela?" />
 				<p:selectBooleanCheckbox id="selectCheckBoxContinuar" value="#{atualizacaoContatoBean.continuarNestaTela}" />
-			</div>
 
-			<div>
 				<p:commandButton value="Atualizar Cadastro" action="#{atualizacaoContatoBean.atualizar}" update="@form :mensagens" />
-			</div>
 
+            </p:panelGrid>
 		</h:form>
 	</ui:define>
 

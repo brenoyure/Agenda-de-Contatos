@@ -13,7 +13,7 @@ public class LogoutBean {
 
     public String logout() {
         context.getExternalContext().invalidateSession();
-        return "/?faces-redirect=true";
+        return "/index?faces-redirect=true";
     }
 
 }

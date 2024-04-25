@@ -1,0 +1,26 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition>
+
+    <h3>Administração de Usuários</h3>
+    <nav>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-action" jsf:rendered="#{request.isUserInRole('ADMIN')}" >
+                <h:link style="text-decoration: none"              outcome="/administracao/usuarios/cadastro"                             value="Cadastrar Novo Usuário" />
+            </li>
+            <li class="list-group-item list-group-item-action" jsf:rendered="#{request.isUserInRole('ADMIN')}" >
+                <h:link style="text-decoration: none"              outcome="/administracao/usuarios/listagem"                             value="Consultar Usuários"     />
+            </li>
+            <li class="list-group-item list-group-item-action" >
+                <h:link style="text-decoration: none"              outcome="/administracao/usuarios/atualizacaoSenhaUsuarioComum"         value="Alteração de Senha"     />
+            </li>
+        </ul>
+    </nav>
+
+</ui:composition>
+
+</html>

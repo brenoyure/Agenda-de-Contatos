@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
@@ -10,7 +11,7 @@
     <ui:define name="titulo">Consulta de Contatos</ui:define>
     <ui:define name="conteudo">
 
-    <div>
+    <div jsf:rendered="#{request.isUserInRole('ADMIN')}" >
         <div>
             <h:link outcome="/administracao/cadastros/contatos/cadastroContato" value="Ir para Cadastro de Contatos"   style="text-decoration: none; margin-bottom: 5px" />
         </div>
@@ -41,14 +42,14 @@
                     <h:outputText value="#{contato.setor.unidadeAdministrativa.sigla}" title="#{contato.setor.unidadeAdministrativa.descricao}" />
                 </p:column>
 
-				<p:column>
+				<p:column rendered="#{request.isUserInRole('ADMIN')}" >
                     <h:link includeViewParams="true" outcome="/administracao/cadastros/contatos/atualizacaoContato" >
                         <h:outputText value="Editar" styleClass="btn btn-primary" />
                         <f:param name="id" value="#{contato.id}" />
                     </h:link>
 				</p:column>
 
-                <p:column>
+                <p:column rendered="#{request.isUserInRole('ADMIN')}" >
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#contatoModal#{contato.id}">Excluir</button>
                     <div class="modal fade" id="contatoModal#{contato.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog">

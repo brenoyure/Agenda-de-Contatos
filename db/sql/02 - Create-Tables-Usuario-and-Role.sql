@@ -1,6 +1,6 @@
  CREATE TABLE IF NOT EXISTS roles (
      id           INT UNSIGNED       PRIMARY KEY AUTO_INCREMENT,
-     nome         VARCHAR(55)        UNIQUE NOT NULL
+     name         VARCHAR(55)        UNIQUE NOT NULL
  );
  
  CREATE TABLE IF NOT EXISTS users (
