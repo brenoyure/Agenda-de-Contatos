@@ -19,28 +19,24 @@
             <h:link outcome="/administracao/consultas/andares/consultaAndares" value="Ir para Consulta de Andares" style="text-decoration: none; margin-bottom: 5px" />
         </div>
 
-	    <h:panelGroup layout="block" styleClass="container" >
+        <p:focus for="@next" />
 
-            <p:focus for="@next" />
+		<h:form id="formCadastroAndar" title="Formulário de Cadastro de Andar">
 
-			<h:form id="formCadastroAndar" title="Formulário de Cadastro de Andar">
+            <p:panelGrid columns="2" id="panel" layout="tabular">
+
                 <p:outputLabel for="@next" value="Nome" />
-                <div>
-                    <p:inputText id="inputText-andar-nome" value="#{atualizacaoAndarBean.andar.nome}" size="50" />
-                </div>
+                <p:inputText id="inputText-andar-nome" value="#{atualizacaoAndarBean.andar.nome}" size="50" />
 
-				<div>
-					<p:outputLabel value="Continuar Nesta Tela?" for="@next" />
-					<p:selectBooleanCheckbox id="selectCheckBoxContinuar" value="#{atualizacaoAndarBean.continuarNestaTela}" />
-				</div>
+                <p:outputLabel value="Continuar Nesta Tela?" for="@next" />
+                <p:selectBooleanCheckbox id="selectCheckBoxContinuar" value="#{atualizacaoAndarBean.continuarNestaTela}" />
 
-				<div>
-					<p:commandButton value="Atualizar Cadastro" action="#{atualizacaoAndarBean.atualizar}" update="@form :mensagens" />
-				</div>
+                <p:commandButton value="Atualizar Cadastro" action="#{atualizacaoAndarBean.atualizar}" update="@form :mensagens" />
+
+            </p:panelGrid>
 	
-			</h:form>
+        </h:form>
 			
-		</h:panelGroup>
 	</ui:define>
 
 </ui:composition>

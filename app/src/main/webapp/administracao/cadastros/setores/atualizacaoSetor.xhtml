@@ -22,36 +22,27 @@
         <p:focus for="@next" />
 
 		<h:form id="formCadastroSetor" styleClass="form-signin w-100 m-auto" >
-			<div>
-				<p:outputLabel for="@next" value="Sigla" />
-                <div>
-                    <p:inputText id="inputText-setor-sigla" value="#{atualizacaoSetorBean.setor.sigla}" size="50" />
-                </div>
-			</div>
 
-			<div>
-				<p:outputLabel for="@next" value="Descrição" />
-                <div>
-                    <p:inputText id="inputText-setor-descricao" value="#{atualizacaoSetorBean.setor.descricao}" size="50" />
-                </div>
-			</div>
+            <p:panelGrid columns="2" id="panel" layout="tabular">
 
-			<div>
+                <p:outputLabel for="@next" value="Sigla" />
+                <p:inputText id="inputText-setor-sigla" value="#{atualizacaoSetorBean.setor.sigla}" size="50" />
+
+                <p:outputLabel for="@next" value="Descrição" />
+                <p:inputText id="inputText-setor-descricao" value="#{atualizacaoSetorBean.setor.descricao}" size="50" />
+
                 <p:outputLabel for="selectOne-UnidadeAdmin" value="Unidade Administrativa" style="margin-right: 5px;" />
                 <p:selectOneMenu id="selectOne-UnidadeAdmin" value="#{atualizacaoSetorBean.setor.unidadeId}" >
-	                <f:selectItem itemLabel="Selecione uma Unidade" noSelectionOption="true" itemDisabled="true" />
-	                <f:selectItems value="#{listaUnidadesBean.unidades}" var="unidadeAdmin" itemLabel="#{unidadeAdmin.sigla} - #{unidadeAdmin.descricao}" itemValue="#{unidadeAdmin.id}" />
+                    <f:selectItem itemLabel="Selecione uma Unidade" noSelectionOption="true" itemDisabled="true" />
+                    <f:selectItems value="#{listaUnidadesBean.unidades}" var="unidadeAdmin" itemLabel="#{unidadeAdmin.sigla} - #{unidadeAdmin.descricao}" itemValue="#{unidadeAdmin.id}" />
                 </p:selectOneMenu>
-            </div>
 
-            <div>
                 <p:outputLabel value="Conitnuar Nesta Tela?" for="@next" style="margin-right: 5px;"  />
                 <p:selectBooleanCheckbox id="selectCheckBoxContinuar" value="#{atualizacaoSetorBean.continuarNestaTela}" />
-            </div>
 
-            <div>
                 <p:commandButton value="Atualizar Cadastro" action="#{atualizacaoSetorBean.atualizar}" update="@form :mensagens" />
-            </div>
+
+            </p:panelGrid>
 
 		</h:form>
 	</ui:define>
