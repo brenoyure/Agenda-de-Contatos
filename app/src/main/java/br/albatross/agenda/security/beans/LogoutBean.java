@@ -1,4 +1,4 @@
-package br.albatross.agenda.beans.security;
+package br.albatross.agenda.security.beans;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.FacesContext;

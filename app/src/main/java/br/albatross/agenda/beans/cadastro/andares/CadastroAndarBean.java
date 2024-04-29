@@ -1,10 +1,9 @@
 package br.albatross.agenda.beans.cadastro.andares;
 
-import static jakarta.faces.application.FacesMessage.SEVERITY_WARN;
-
 import br.albatross.agenda.dto.impl.andar.DadosParaCadastroDoAndarDto;
 import br.albatross.agenda.dto.spi.andar.DadosParaCadastroDoAndar;
 import br.albatross.agenda.exceptions.CadastroException;
+import br.albatross.agenda.interceptors.CadastroExceptionHandler;
 import br.albatross.agenda.services.spi.andares.AndarCadastroService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
@@ -31,8 +30,8 @@ public class CadastroAndarBean {
     private DadosParaCadastroDoAndar andar = new DadosParaCadastroDoAndarDto();
 
     @Transactional
-    public String cadastrar() {
-        try {
+    @CadastroExceptionHandler
+    public String cadastrar() throws CadastroException {
             context.getExternalContext().getFlash().setKeepMessages(true);
             service.cadastrar(andar);
             context.addMessage(null, new FacesMessage(andar.getNome() + " cadastrado"));
@@ -42,12 +41,6 @@ public class CadastroAndarBean {
                 return "/administracao/consultas/andares/consultaAndares?faces-redirect=true";
 
             }
-
-        } catch (CadastroException e) {
-
-            context.addMessage(null, new FacesMessage(SEVERITY_WARN, e.getMessage(), null));
-
-        }
 
         return context.getViewRoot().getViewId() + "?faces-redirect=true";      
 

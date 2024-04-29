@@ -1,10 +1,9 @@
 package br.albatross.agenda.beans.cadastro.unidades;
 
-import static jakarta.faces.application.FacesMessage.SEVERITY_WARN;
-
 import br.albatross.agenda.dto.impl.unidades.DadosParaCadastroDeNovaUnidadeDto;
 import br.albatross.agenda.dto.spi.unidades.DadosParaCadastroDeNovaUnidade;
 import br.albatross.agenda.exceptions.CadastroException;
+import br.albatross.agenda.interceptors.CadastroExceptionHandler;
 import br.albatross.agenda.services.spi.unidades.UnidadeCadastroService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
@@ -31,24 +30,18 @@ public class CadastroUnidadeAdministrativaBean {
 	private boolean continuarNestaTela = true;
 
 	@Transactional
-	public String cadastrar() {
-		try {
-		    context.getExternalContext().getFlash().setKeepMessages(true);
-			service.cadastrar(unidadeAdmin);
-			context.addMessage(null, new FacesMessage("Unidade " + unidadeAdmin.getSigla() + " cadastrada", unidadeAdmin.getDescricao()));
+	@CadastroExceptionHandler
+	public String cadastrar() throws CadastroException {
 
-			if (!continuarNestaTela) {
+        context.getExternalContext().getFlash().setKeepMessages(true);
+        service.cadastrar(unidadeAdmin);
+        context.addMessage(null, new FacesMessage("Unidade " + unidadeAdmin.getSigla() + " cadastrada", unidadeAdmin.getDescricao()));
 
-			    return "/administracao/consultas/unidades/consultaUnidades?faces-redirect=true";
+        if (!continuarNestaTela) {
 
-			}
+            return "/administracao/consultas/unidades/consultaUnidades?faces-redirect=true";
 
-
-		} catch (CadastroException e) {
-
-			context.addMessage(null, new FacesMessage(SEVERITY_WARN, e.getMessage(), null));
-
-		}
+        }
 
 		return context.getViewRoot().getViewId() + "?faces-redirect=true";		
 

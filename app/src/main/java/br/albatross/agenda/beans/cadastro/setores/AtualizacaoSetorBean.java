@@ -1,6 +1,5 @@
 package br.albatross.agenda.beans.cadastro.setores;
 
-import static jakarta.faces.application.FacesMessage.SEVERITY_WARN;
 import static java.lang.String.format;
 
 import java.io.Serializable;
@@ -8,6 +7,7 @@ import java.io.Serializable;
 import br.albatross.agenda.dto.impl.setor.DadosParaAtualizacaoDeSetorDto;
 import br.albatross.agenda.dto.spi.setor.DadosParaAtualizacaoDeSetor;
 import br.albatross.agenda.exceptions.CadastroException;
+import br.albatross.agenda.interceptors.CadastroExceptionHandler;
 import br.albatross.agenda.services.spi.setores.SetorService;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -36,23 +36,16 @@ public class AtualizacaoSetorBean implements Serializable {
 	private boolean continuarNestaTela = false;
 
 	@Transactional
-	public String atualizar() {
+	@CadastroExceptionHandler
+	public String atualizar() throws CadastroException {
 
-		try {
+		context.getExternalContext().getFlash().setKeepMessages(true);
+		setorService.atualizar(setor);
+		context.addMessage(null, new FacesMessage("Cadastro do Setor atualizado para " + setor.getSigla(), setor.getDescricao()));
 
-			context.getExternalContext().getFlash().setKeepMessages(true);
-			setorService.atualizar(setor);
-			context.addMessage(null, new FacesMessage("Cadastro do Setor atualizado para " + setor.getSigla(), setor.getDescricao()));
+		if (!continuarNestaTela) {
 
-			if (!continuarNestaTela) {
-
-	            return "/administracao/consultas/setores/consultaSetores?faces-redirect=true";
-
-			}
-
-		} catch (CadastroException e) {
-
-			context.addMessage(null, new FacesMessage(SEVERITY_WARN, e.getMessage(), null));
+            return "/administracao/consultas/setores/consultaSetores?faces-redirect=true";
 
 		}
 

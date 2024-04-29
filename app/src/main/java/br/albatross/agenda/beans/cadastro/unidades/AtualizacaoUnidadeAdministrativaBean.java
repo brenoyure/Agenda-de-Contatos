@@ -7,6 +7,7 @@ import java.io.Serializable;
 import br.albatross.agenda.dto.impl.unidades.DadosParaAtualizacaoDeUnidadeDto;
 import br.albatross.agenda.dto.spi.unidades.DadosParaAtualizacaoDeUnidade;
 import br.albatross.agenda.exceptions.CadastroException;
+import br.albatross.agenda.interceptors.CadastroExceptionHandler;
 import br.albatross.agenda.services.spi.unidades.UnidadeService;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -48,24 +49,18 @@ public class AtualizacaoUnidadeAdministrativaBean implements Serializable {
 	}
 
 	@Transactional
-	public String atualizar() {
-		try {
+	@CadastroExceptionHandler
+	public String atualizar() throws CadastroException {
 
-			context.getExternalContext().getFlash().setKeepMessages(true);
-			service.atualizar(unidadeAdmin);
-			context.addMessage(null, new FacesMessage("Cadastro da Unidade atualizado para " + unidadeAdmin.getSigla(), unidadeAdmin.getDescricao()));
+        context.getExternalContext().getFlash().setKeepMessages(true);
+        service.atualizar(unidadeAdmin);
+        context.addMessage(null, new FacesMessage("Cadastro da Unidade atualizado para " + unidadeAdmin.getSigla(), unidadeAdmin.getDescricao()));
 
-			if (!continuarNestaTela) {
+        if (!continuarNestaTela) {
 
-			    return "/administracao/consultas/unidades/consultaUnidades?faces-redirect=true";
+            return "/administracao/consultas/unidades/consultaUnidades?faces-redirect=true";
 
-			}
-
-		} catch (CadastroException e) {
-
-			context.addMessage(null, new FacesMessage(e.getMessage()));
-
-		}
+        }
 
 		return format("%s?unidadeId=%d&faces-redirect=true", context.getViewRoot().getViewId(), unidadeAdmin.getId());
 

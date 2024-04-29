@@ -1,10 +1,9 @@
 package br.albatross.agenda.beans.cadastro.setores;
 
-import static jakarta.faces.application.FacesMessage.SEVERITY_WARN;
-
 import br.albatross.agenda.dto.impl.setor.DadosParaCadastroDeNovoSetorDto;
 import br.albatross.agenda.dto.spi.setor.DadosParaCadastroDeNovoSetor;
 import br.albatross.agenda.exceptions.CadastroException;
+import br.albatross.agenda.interceptors.CadastroExceptionHandler;
 import br.albatross.agenda.services.spi.setores.SetorService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
@@ -31,26 +30,20 @@ public class CadastroSetorBean {
 	private boolean continuarNestaTela = true;
 
 	@Transactional
-	public String cadastrar() {
+	@CadastroExceptionHandler
+	public String cadastrar() throws CadastroException {
 
-		try {
-			context.getExternalContext().getFlash().setKeepMessages(true);
-			setorService.cadastrar(setor);
-			context.addMessage(null, new FacesMessage("Setor " + setor.getSigla() + " cadastrado", setor.getDescricao()));
+	    context.getExternalContext().getFlash().setKeepMessages(true);
+	    setorService.cadastrar(setor);
+		context.addMessage(null, new FacesMessage("Setor " + setor.getSigla() + " cadastrado", setor.getDescricao()));
 
-			if (!continuarNestaTela) {
+	    if (!continuarNestaTela) {
 
-	            return "/administracao/consultas/setores/consultaSetores?faces-redirect=true";
+	        return "/administracao/consultas/setores/consultaSetores?faces-redirect=true";
 
-			}
+	    }
 
-		} catch (CadastroException e) {
-
-			context.addMessage(null, new FacesMessage(SEVERITY_WARN, e.getMessage(), null));
-
-		}
-
-		return context.getViewRoot().getViewId() + "?faces-redirect=true";		
+	    return context.getViewRoot().getViewId() + "?faces-redirect=true";		
 
 	}
 

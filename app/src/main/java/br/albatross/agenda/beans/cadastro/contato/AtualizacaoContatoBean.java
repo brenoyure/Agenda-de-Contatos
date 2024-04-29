@@ -1,6 +1,5 @@
 package br.albatross.agenda.beans.cadastro.contato;
 
-import static jakarta.faces.application.FacesMessage.SEVERITY_WARN;
 import static java.lang.String.format;
 
 import java.io.Serializable;
@@ -8,6 +7,7 @@ import java.io.Serializable;
 import br.albatross.agenda.dto.impl.contato.DadosParaAtualizacaoDeContatoDto;
 import br.albatross.agenda.dto.spi.contato.DadosParaAtualizacaoDeContato;
 import br.albatross.agenda.exceptions.CadastroException;
+import br.albatross.agenda.interceptors.CadastroExceptionHandler;
 import br.albatross.agenda.services.spi.contatos.ContatoCadastroService;
 import br.albatross.agenda.services.spi.contatos.ContatoConsultaService;
 import jakarta.faces.application.FacesMessage;
@@ -40,31 +40,25 @@ public class AtualizacaoContatoBean implements Serializable {
 	private boolean continuarNestaTela = true;
 
 	@Transactional
-	public String atualizar() {
-		try {
+	@CadastroExceptionHandler
+	public String atualizar() throws CadastroException {
 
-			context.getExternalContext().getFlash().setKeepMessages(true);
-			var novoContato = cadastroService.atualizar(contato);
+        context.getExternalContext().getFlash().setKeepMessages(true);
+        var novoContato = cadastroService.atualizar(contato);
 
-            String detailMessage = format("%s - %s", novoContato.getNome(), novoContato.getNumero());
+        String detailMessage = format("%s - %s", novoContato.getNome(), novoContato.getNumero());
 
-            if (novoContato.getSetor() != null) {
-                detailMessage = detailMessage.concat(format(" -%s", novoContato.getSetor().getSigla()));
-            }
+        if (novoContato.getSetor() != null) {
+            detailMessage = detailMessage.concat(format(" -%s", novoContato.getSetor().getSigla()));
+        }
 
-            context.addMessage(null, new FacesMessage(format("Dados do Contato %s Atualizado", novoContato.getNome()), detailMessage));			
+        context.addMessage(null, new FacesMessage(format("Dados do Contato %s Atualizado", novoContato.getNome()), detailMessage));			
 
-			if (!continuarNestaTela) {
+        if (!continuarNestaTela) {
 
-			    return "/consultaContatos?faces-redirect=true";
+            return "/consultaContatos?faces-redirect=true";
 
-			}
-
-		} catch (CadastroException e) {
-
-			context.addMessage(null, new FacesMessage(SEVERITY_WARN, e.getMessage(), null));
-
-		}
+        }
 
 		return format("%s?id=%d&faces-redirect=true", context.getViewRoot().getViewId(), contato.getId());
 

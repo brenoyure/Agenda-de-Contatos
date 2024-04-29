@@ -1,6 +1,5 @@
 package br.albatross.agenda.beans.cadastro.andares;
 
-import static jakarta.faces.application.FacesMessage.SEVERITY_WARN;
 import static java.lang.String.format;
 
 import java.io.Serializable;
@@ -8,6 +7,7 @@ import java.io.Serializable;
 import br.albatross.agenda.dto.impl.andar.DadosParaAtualizacaoDoAndarDto;
 import br.albatross.agenda.dto.spi.andar.DadosParaAtualizacaoDoAndar;
 import br.albatross.agenda.exceptions.CadastroException;
+import br.albatross.agenda.interceptors.CadastroExceptionHandler;
 import br.albatross.agenda.services.spi.andares.AndarCadastroService;
 import br.albatross.agenda.services.spi.andares.AndarConsultaService;
 import jakarta.faces.application.FacesMessage;
@@ -53,8 +53,8 @@ public class AtualizacaoAndarBean implements Serializable {
 	}
 
 	@Transactional
-	public String atualizar() {
-		try {
+	@CadastroExceptionHandler
+	public String atualizar() throws CadastroException {
 
 			context.getExternalContext().getFlash().setKeepMessages(true);
 			cadastroService.atualizar(andar);
@@ -65,12 +65,6 @@ public class AtualizacaoAndarBean implements Serializable {
 			    return "/administracao/consultas/andares/consultaAndares?faces-redirect=true";
 
 			}
-
-		} catch (CadastroException e) {
-
-			context.addMessage(null, new FacesMessage(SEVERITY_WARN, e.getMessage(), null));
-
-		}
 
 		return format("%s?andarId=%d&faces-redirect=true", context.getViewRoot().getViewId(), andar.getId());
 

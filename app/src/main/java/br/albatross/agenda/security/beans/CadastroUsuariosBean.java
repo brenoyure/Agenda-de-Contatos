@@ -1,8 +1,10 @@
 package br.albatross.agenda.security.beans;
 
+import static java.lang.String.format;
+
 import java.io.Serializable;
 
-import br.albatross.agenda.security.exceptions.CadastroException;
+import br.albatross.agenda.security.interceptors.UsuarioServiceExceptionHandler;
 import br.albatross.agenda.security.models.DadosParaCadastroDeUsuarioDto;
 import br.albatross.agenda.security.services.UsuarioService;
 import jakarta.annotation.PostConstruct;
@@ -35,19 +37,12 @@ public class CadastroUsuariosBean implements Serializable {
 	}
 
 	@Transactional
+	@UsuarioServiceExceptionHandler
 	public void cadastrarUsuario() {
 
-		try {
-
-			usuarioService.cadastrarNovoUsuario(dadosDeCadastro);
-			facesContext.addMessage(null, new FacesMessage(String.format("Usuário %s cadastrado com sucesso.", dadosDeCadastro.getUsername())));
-
-		} catch (CadastroException e) {
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMensagem(), e.getMensagemDetalhada()));
-			dadosDeCadastro = new DadosParaCadastroDeUsuarioDto();
-
-		}
-
+		usuarioService.cadastrarNovoUsuario(dadosDeCadastro);
+		facesContext.addMessage(null, new FacesMessage(format("Usuário %s cadastrado com sucesso.", dadosDeCadastro.getUsername())));
+		dadosDeCadastro = new DadosParaCadastroDeUsuarioDto();
 
 	}
 
