@@ -11,11 +11,11 @@
     <nav>
         <h:form style="margin:10px 0 10px 0">
             <p:menubar autoDisplay="true">
-                <p:menuitem  value="Início"                         icon="pi pi-home"  outcome="/index"                                                                                                              />
+                <p:menuitem  value="Início"                         icon="pi pi-home"  outcome="/index"                                                                                                                                                     />
 	            <f:facet name="options">
                     <h:outputLabel   value="Olá, você está logado como Administrador"  style="margin-right: 10px;"                                                                    rendered="#{request.userPrincipal.name.equals('Administrador')}"      />
                     <h:outputLabel   value="Olá #{request.userPrincipal.name}"         style="color: black; text-transform:capitalize ; text-decoration: none ; margin-right: 10px;"  rendered="#{not request.userPrincipal.name.equals('Administrador')}"  />
-                    <p:commandButton value="Sair" icon="pi pi-power-off" action="#{logoutBean.logout}"                                                                                                               />
+                    <p:commandButton value="Sair" icon="pi pi-power-off" action="#{logoutBean.logout}"                                                                                                                                                      />
 	            </f:facet>
             </p:menubar>
         </h:form>
