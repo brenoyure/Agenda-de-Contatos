@@ -1,4 +1,4 @@
-package br.albatross.agenda.security.daos;
+package br.albatross.agenda.security.daos.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.hibernate.jpa.AvailableHints;
 
+import br.albatross.agenda.security.daos.spi.UsersDao;
 import br.albatross.agenda.security.models.DadosParaListagemDoUsuarioDto;
 import br.albatross.agenda.security.models.User;
 import jakarta.enterprise.context.RequestScoped;
@@ -15,9 +16,9 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 
 @RequestScoped
-public class UsersDao {
+public class UsersDaoImpl implements UsersDao {
 
-	@PersistenceContext
+	@PersistenceContext(unitName = "agendadb")
 	private EntityManager entityManager;
 
 	public DadosParaListagemDoUsuarioDto persist(User user) {

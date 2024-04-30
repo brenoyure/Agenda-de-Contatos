@@ -46,7 +46,7 @@
 	                    </p:password>
 
 	                    <p:outputLabel for="@next" value="Selecione a ou as permissões do usuário: " />
-	                    <p:selectOneRadio required="true" value="#{cadastroUsuariosBean.dadosDeCadastro.roleId}" converter="jakarta.faces.Integer" requiredMessage="Usuário deve possuir pelo menos uma Role">
+	                    <p:selectOneRadio required="true" value="#{cadastroUsuariosBean.dadosDeCadastro.roleId}" requiredMessage="Usuário deve possuir pelo menos uma Role">
 	                        <f:selectItems value="#{listaRolesBean.roles}" var="role" itemLabel="#{role.name}" itemValue="#{role.id}" />
 	                    </p:selectOneRadio>
 	

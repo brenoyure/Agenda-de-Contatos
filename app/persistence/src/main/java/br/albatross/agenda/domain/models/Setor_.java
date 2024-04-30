@@ -1,4 +1,4 @@
-package br.albatross.agenda.models;
+package br.albatross.agenda.domain.models;
 
 import jakarta.persistence.metamodel.SingularAttribute;
 import jakarta.persistence.metamodel.StaticMetamodel;

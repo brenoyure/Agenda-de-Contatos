@@ -14,13 +14,13 @@ public final class DadosParaListagemDoUsuarioDto implements Serializable {
 
 	private final int id;
 	private final String username;
-	private final RoleDto role;
+	private final DadosParaListagemDaRoleDto role;
 
 	public DadosParaListagemDoUsuarioDto(User userEntity) {
 		
 		this.id = userEntity.getId();
 		this.username = userEntity.getUsername();
-		this.role = new RoleDto(userEntity.getRole());
+		this.role = new DadosParaListagemDaRoleDto(userEntity.getRole());
 
 	}
 

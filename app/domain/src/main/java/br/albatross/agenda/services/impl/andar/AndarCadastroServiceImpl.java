@@ -1,11 +1,11 @@
 package br.albatross.agenda.services.impl.andar;
 
 import br.albatross.agenda.dao.spi.AndarDao;
+import br.albatross.agenda.domain.models.Andar;
 import br.albatross.agenda.dto.spi.andar.DadosParaAtualizacaoDoAndar;
 import br.albatross.agenda.dto.spi.andar.DadosParaCadastroDoAndar;
 import br.albatross.agenda.dto.spi.andar.DadosParaListagemDoAndar;
 import br.albatross.agenda.exceptions.CadastroException;
-import br.albatross.agenda.models.Andar;
 import br.albatross.agenda.services.spi.andares.AndarCadastroService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;

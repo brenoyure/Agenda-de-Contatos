@@ -7,12 +7,12 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor
-public final class RoleDto {
+public final class DadosParaListagemDaRoleDto {
 
 	private final int id;
 	private final String name;
 
-	public RoleDto(Role roleEntity) {
+	public DadosParaListagemDaRoleDto(Role roleEntity) {
 		this.id = roleEntity.getId();
 		this.name = roleEntity.getName();
 	}

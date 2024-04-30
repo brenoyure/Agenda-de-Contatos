@@ -1,4 +1,4 @@
-package br.albatross.agenda.models;
+package br.albatross.agenda.domain.models;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;

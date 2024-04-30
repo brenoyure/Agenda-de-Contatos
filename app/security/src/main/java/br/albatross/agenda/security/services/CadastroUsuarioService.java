@@ -1,7 +1,7 @@
 package br.albatross.agenda.security.services;
 
-import br.albatross.agenda.security.daos.RolesDao;
-import br.albatross.agenda.security.daos.UsersDao;
+import br.albatross.agenda.security.daos.spi.RolesDao;
+import br.albatross.agenda.security.daos.spi.UsersDao;
 import br.albatross.agenda.security.exceptions.CadastroException;
 import br.albatross.agenda.security.exceptions.ListagemException;
 import br.albatross.agenda.security.models.DadosParaAtualizacaoDeUsuarioDto;
