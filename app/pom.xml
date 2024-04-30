@@ -1,86 +1,163 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>br.albatross</groupId>
-    <artifactId>agenda</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <packaging>war</packaging>
-
-    <name>agenda</name>
-
-    <properties>
-        <maven.compiler.release>17</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>jakarta.platform</groupId>
-            <artifactId>jakarta.jakartaee-web-api</artifactId>
-            <version>10.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate.orm</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>6.4.1.Final</version>
-            <scope>provided</scope>
-        </dependency>        
-
-		<dependency>
-		    <groupId>org.primefaces</groupId>
-		    <artifactId>primefaces</artifactId>
-		    <version>13.0.8</version>
-		    <classifier>jakarta</classifier>
-		</dependency>
-
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>4.1.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.30</version>
-            <scope>provided</scope>
-        </dependency>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+      
+  <modelVersion>4.0.0</modelVersion>
+      
+  <groupId>br.albatross</groupId>
+      
+  <artifactId>agenda</artifactId>
+      
+  <version>1.0.0-SNAPSHOT</version>
+      
+  <packaging>pom</packaging>
+      
+  <name>agenda</name>
+      
+  <properties>
+            
+    <maven.compiler.release>17</maven.compiler.release>
+            
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         
-    </dependencies>
+  </properties>
+      
+  <dependencies>
+            
+    <dependency>
+                  
+      <groupId>jakarta.platform</groupId>
+                  
+      <artifactId>jakarta.jakartaee-web-api</artifactId>
+                  
+      <version>10.0.0</version>
+                  
+      <scope>provided</scope>
+              
+    </dependency>
+            
+    <dependency>
+                  
+      <groupId>org.hibernate.orm</groupId>
+                  
+      <artifactId>hibernate-core</artifactId>
+                  
+      <version>6.4.1.Final</version>
+                  
+      <scope>provided</scope>
+              
+    </dependency>
+            
 
-    <build>
-        <finalName>agenda</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.12.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.4.0</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-            <!-- Execute 'mvn clean package wildfly:dev' to run the application. -->
-            <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>4.2.0.Final</version>
-                <configuration>
-                    <version>${wildfly.version}</version>
-                    <server-config>standalone.xml</server-config>
-                    <resolveExpressions>true</resolveExpressions>
-                    <scripts>
-                        <script>${project.basedir}/config-maven-plugin-http-basic-auth.cli</script>
-                    </scripts>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+		
+    <dependency>
+      		    
+      <groupId>org.primefaces</groupId>
+      		    
+      <artifactId>primefaces</artifactId>
+      		    
+      <version>13.0.8</version>
+      		    
+      <classifier>jakarta</classifier>
+      		
+    </dependency>
+            
+    <dependency>
+                  
+      <groupId>org.apache.poi</groupId>
+                  
+      <artifactId>poi-ooxml</artifactId>
+                  
+      <version>4.1.2</version>
+              
+    </dependency>
+            
+    <dependency>
+                  
+      <groupId>org.projectlombok</groupId>
+                  
+      <artifactId>lombok</artifactId>
+                  
+      <version>1.18.30</version>
+                  
+      <scope>provided</scope>
+              
+    </dependency>
+            
+    
+  </dependencies>
+      
+  <build>
+            
+    <finalName>agenda</finalName>
+            
+    <plugins>
+                  
+      <plugin>
+                        
+        <groupId>org.apache.maven.plugins</groupId>
+                        
+        <artifactId>maven-compiler-plugin</artifactId>
+                        
+        <version>3.12.1</version>
+                    
+      </plugin>
+                  
+      <plugin>
+                        
+        <groupId>org.apache.maven.plugins</groupId>
+                        
+        <artifactId>maven-war-plugin</artifactId>
+                        
+        <version>3.4.0</version>
+                        
+        <configuration>
+                              
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+                          
+        </configuration>
+                    
+      </plugin>
+                  
+      <!-- Execute 'mvn clean package wildfly:dev' to run the application. -->
+                  
+      <plugin>
+                        
+        <groupId>org.wildfly.plugins</groupId>
+                        
+        <artifactId>wildfly-maven-plugin</artifactId>
+                        
+        <version>4.2.0.Final</version>
+                        
+        <configuration>
+                              
+          <version>${wildfly.version}</version>
+                              
+          <server-config>standalone.xml</server-config>
+                              
+          <resolveExpressions>true</resolveExpressions>
+                              
+          <scripts>
+                                    
+            <script>${project.basedir}/config-maven-plugin-http-basic-auth.cli</script>
+                                
+          </scripts>
+                          
+        </configuration>
+                    
+      </plugin>
+              
+    </plugins>
+        
+  </build>
+  
+  <modules>
+      
+    <module>domain</module>
+
+    <module>web</module>
+
+    <module>security</module>
+
+  </modules>
+
 </project>
