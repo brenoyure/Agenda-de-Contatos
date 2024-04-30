@@ -2,10 +2,10 @@ package br.albatross.agenda.beans.cadastro.contato;
 
 import static java.lang.String.format;
 
+import br.albatross.agenda.beans.interceptors.CadastroExceptionHandler;
 import br.albatross.agenda.dto.impl.contato.DadosParaCadastroDeNovoContatoDto;
 import br.albatross.agenda.dto.spi.contato.DadosParaCadastroDeNovoContato;
 import br.albatross.agenda.exceptions.CadastroException;
-import br.albatross.agenda.interceptors.CadastroExceptionHandler;
 import br.albatross.agenda.services.spi.contatos.ContatoCadastroService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;

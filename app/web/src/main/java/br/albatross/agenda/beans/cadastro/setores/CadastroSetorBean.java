@@ -1,9 +1,9 @@
 package br.albatross.agenda.beans.cadastro.setores;
 
+import br.albatross.agenda.beans.interceptors.CadastroExceptionHandler;
 import br.albatross.agenda.dto.impl.setor.DadosParaCadastroDeNovoSetorDto;
 import br.albatross.agenda.dto.spi.setor.DadosParaCadastroDeNovoSetor;
 import br.albatross.agenda.exceptions.CadastroException;
-import br.albatross.agenda.interceptors.CadastroExceptionHandler;
 import br.albatross.agenda.services.spi.setores.SetorService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;

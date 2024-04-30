@@ -1,4 +1,4 @@
-package br.albatross.agenda.interceptors;
+package br.albatross.agenda.beans.interceptors;
 
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.METHOD;
@@ -15,6 +15,6 @@ import jakarta.interceptor.InterceptorBinding;
 @InterceptorBinding
 @Target({ TYPE, METHOD, CONSTRUCTOR })
 @Retention(RUNTIME)
-public @interface AgendaApplicationExceptionHandler {
+public @interface CadastroExceptionHandler {
 
 }

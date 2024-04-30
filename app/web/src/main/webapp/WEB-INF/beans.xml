@@ -5,6 +5,8 @@
 	version="4.0" bean-discovery-mode="annotated">
 
 	<interceptors>
+		<class>br.albatross.agenda.beans.interceptors.AgendaApplicationExceptionInterceptor</class>
+		<class>br.albatross.agenda.beans.interceptors.CadastroExceptionInterceptor</class>
 		<class>br.albatross.agenda.security.interceptors.UsuarioServiceExceptionInterceptor</class>
 	</interceptors>
 

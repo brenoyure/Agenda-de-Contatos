@@ -1,4 +1,4 @@
-package br.albatross.agenda.interceptors;
+package br.albatross.agenda.beans.interceptors;
 
 import static jakarta.faces.application.FacesMessage.SEVERITY_WARN;
 

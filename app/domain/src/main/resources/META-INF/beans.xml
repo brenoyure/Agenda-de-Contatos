@@ -4,10 +4,4 @@
 	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_4_0.xsd"
 	version="4.0" bean-discovery-mode="annotated">
 
-	<interceptors>
-		<class>br.albatross.agenda.security.interceptors.UsuarioServiceExceptionInterceptor</class>
-		<class>br.albatross.agenda.interceptors.AgendaApplicationExceptionInterceptor</class>
-		<class>br.albatross.agenda.interceptors.CadastroExceptionInterceptor</class>
-	</interceptors>
-
 </beans>

@@ -4,10 +4,10 @@ import static java.lang.String.format;
 
 import java.io.Serializable;
 
+import br.albatross.agenda.beans.interceptors.CadastroExceptionHandler;
 import br.albatross.agenda.dto.impl.andar.DadosParaAtualizacaoDoAndarDto;
 import br.albatross.agenda.dto.spi.andar.DadosParaAtualizacaoDoAndar;
 import br.albatross.agenda.exceptions.CadastroException;
-import br.albatross.agenda.interceptors.CadastroExceptionHandler;
 import br.albatross.agenda.services.spi.andares.AndarCadastroService;
 import br.albatross.agenda.services.spi.andares.AndarConsultaService;
 import jakarta.faces.application.FacesMessage;
