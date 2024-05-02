@@ -1,5 +1,6 @@
 package br.albatross.agenda.dao.impl;
 
+import static br.albatross.agenda.domain.models.Contato_.andar;
 import static br.albatross.agenda.domain.models.Contato_.setor;
 import static br.albatross.agenda.domain.models.Setor_.unidadeAdministrativa;
 import static org.hibernate.jpa.HibernateHints.HINT_CACHEABLE;
@@ -45,7 +46,7 @@ public class ContatoDaoImpl extends DaoImpl<Contato, Long> implements ContatoDao
     }
 
     @Override
-    public Optional<Contato> findByIdLeftJoinFetchSetor(Long id) {
+    public Optional<Contato> findByIdLeftJoinFetchSetorAndAndar(Long id) {
 
         try {
 
@@ -55,6 +56,9 @@ public class ContatoDaoImpl extends DaoImpl<Contato, Long> implements ContatoDao
 
             contato
                 .fetch(setor, JoinType.LEFT);
+
+            contato
+                .fetch(andar, JoinType.LEFT);
 
             criteriaQuery
                 .where(criteriaBuilder.equal(contato.get(Contato_.id), id));
@@ -67,7 +71,7 @@ public class ContatoDaoImpl extends DaoImpl<Contato, Long> implements ContatoDao
     }
 
     @Override
-    public List<Contato> findAllLeftJoinFetchSetorAndUnidadeAdministrativa() {
+    public List<Contato> findAllLeftJoinFetchSetorAndUnidadeAdministrativaAndAndar() {
 
         CriteriaBuilder criteriaBuilder       = entityManager.getCriteriaBuilder();
         CriteriaQuery<Contato> criteriaQuery  = criteriaBuilder.createQuery(Contato.class);
@@ -76,6 +80,9 @@ public class ContatoDaoImpl extends DaoImpl<Contato, Long> implements ContatoDao
         contato
             .fetch(setor, JoinType.LEFT)
             .fetch(unidadeAdministrativa, JoinType.LEFT);
+
+        contato
+            .fetch(andar, JoinType.LEFT);
 
         return entityManager
                 .createQuery(criteriaQuery)

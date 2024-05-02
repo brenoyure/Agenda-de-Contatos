@@ -10,8 +10,8 @@ public interface ContatoDao extends Dao<Contato, Long> {
     boolean existsByNome(String nome);
     boolean existsByNomeAndNotById(String nome, Long id);
 
-    Optional<Contato> findByIdLeftJoinFetchSetor(Long id);
+    Optional<Contato> findByIdLeftJoinFetchSetorAndAndar(Long id);
 
-    List<Contato> findAllLeftJoinFetchSetorAndUnidadeAdministrativa();
+    List<Contato> findAllLeftJoinFetchSetorAndUnidadeAdministrativaAndAndar();
     
 }

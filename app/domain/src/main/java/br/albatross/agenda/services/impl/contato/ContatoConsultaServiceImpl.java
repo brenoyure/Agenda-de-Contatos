@@ -25,7 +25,7 @@ public class ContatoConsultaServiceImpl implements ContatoConsultaService {
     public List<DadosParaListagemDeContato> listar() {
 
         return dao
-                .findAllLeftJoinFetchSetorAndUnidadeAdministrativa()
+                .findAllLeftJoinFetchSetorAndUnidadeAdministrativaAndAndar()
                 .stream()
                 .map(DadosParaListagemDeContatoDto::new)
                 .collect(toList());
@@ -57,7 +57,7 @@ public class ContatoConsultaServiceImpl implements ContatoConsultaService {
     public Optional<DadosParaListagemDeContato> buscarPorId(Long id) {
 
         return dao
-                .findByIdLeftJoinFetchSetor(id)
+                .findByIdLeftJoinFetchSetorAndAndar(id)
                 .map(DadosParaListagemDeContatoDto::new);
 
     }
