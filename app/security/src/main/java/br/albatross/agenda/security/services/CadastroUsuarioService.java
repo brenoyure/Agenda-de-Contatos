@@ -7,6 +7,7 @@ import br.albatross.agenda.security.exceptions.ListagemException;
 import br.albatross.agenda.security.models.DadosParaAtualizacaoDeUsuarioDto;
 import br.albatross.agenda.security.models.DadosParaCadastroDeUsuarioDto;
 import br.albatross.agenda.security.models.DadosParaListagemDoUsuarioDto;
+import br.albatross.agenda.security.models.Role;
 import br.albatross.agenda.security.models.User;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -35,18 +36,17 @@ public class CadastroUsuarioService {
 		var novoUsuario = new User();
 		novoUsuario.setUsername(dados.getUsername());
 		novoUsuario.setPassword(hashedPassword);
-		
-		var role = rolesDao.getReferenceById(dados.getRoleId()).orElseThrow(() -> new CadastroException("Role não Encontrada", "Role com o Id informado não encontrada, cadastro de usuário não realizado."));
+
+		var role = rolesDao.getReferenceById(Role.class, dados.getRoleId()).orElseThrow(() -> new CadastroException("Role não Encontrada", "Role com o Id informado não encontrada, cadastro de usuário não realizado."));
 		novoUsuario.setRole(role);
 
-		return dao
-				.persist(novoUsuario);
+		return new DadosParaListagemDoUsuarioDto(dao.persist(novoUsuario));
 
 	}
 
 	public DadosParaListagemDoUsuarioDto atualizarCadastro(@Valid DadosParaAtualizacaoDeUsuarioDto dadosAtualizados) {
 
-		if (dao.existsByUsernameForMerge(dadosAtualizados.getId(), dadosAtualizados.getUsername())) {
+		if (dao.existsByUsernameAndNotById(dadosAtualizados.getUsername(), dadosAtualizados.getId())) {
 			throw new CadastroException("Usuário já existente", "Já existe um usuário com o nome informado, atualização de cadastro não realizado.");
 		}
 
@@ -57,10 +57,10 @@ public class CadastroUsuarioService {
 		usuarioAtualizado.setUsername(dadosAtualizados.getUsername());
 		usuarioAtualizado.setPassword(hashedPassword);
 
-		var role = rolesDao.getReferenceById(dadosAtualizados.getRoleId()).orElseThrow(() -> new CadastroException("Role não Encontrada", "Role com o Id informado não encontrada, cadastro de usuário não realizado."));
+		var role = rolesDao.getReferenceById(Role.class, dadosAtualizados.getRoleId()).orElseThrow(() -> new CadastroException("Role não Encontrada", "Role com o Id informado não encontrada, cadastro de usuário não realizado."));
 		usuarioAtualizado.setRole(role);
 
-		return dao.atualizar(usuarioAtualizado);
+		return new DadosParaListagemDoUsuarioDto(dao.merge(usuarioAtualizado));
 
 	}
 
@@ -71,8 +71,8 @@ public class CadastroUsuarioService {
 		}
 
 		dao
-			.getReference(id)
-			.ifPresentOrElse(dao::remover, () -> {
+			.getReferenceById(User.class, id)
+			.ifPresentOrElse(dao::removeByReference, () -> {
 				throw new ListagemException("Usuário Não Encontrado", "Usuário com o ID informado não encontrado, exclusão não realizada");
 
 			});

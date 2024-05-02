@@ -1,9 +1,9 @@
 package br.albatross.agenda.dto.impl.setor;
 
+import br.albatross.agenda.domain.models.Setor;
 import br.albatross.agenda.dto.impl.unidades.DadosParaListagemDeUnidadeDto;
 import br.albatross.agenda.dto.spi.setor.DadosParaListagemDeSetor;
 import br.albatross.agenda.dto.spi.unidades.DadosParaListagemDeUnidade;
-import br.albatross.agenda.models.Setor;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

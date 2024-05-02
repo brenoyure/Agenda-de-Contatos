@@ -1,12 +1,13 @@
 package br.albatross.agenda.services.impl.contato;
 
 import br.albatross.agenda.dao.spi.ContatoDao;
+import br.albatross.agenda.domain.models.Contato;
+import br.albatross.agenda.dto.impl.contato.DadosParaListagemDeContatoDto;
 import br.albatross.agenda.dto.spi.contato.DadosParaAtualizacaoDeContato;
 import br.albatross.agenda.dto.spi.contato.DadosParaCadastroDeNovoContato;
 import br.albatross.agenda.dto.spi.contato.DadosParaListagemDeContato;
 import br.albatross.agenda.exceptions.CadastroException;
 import br.albatross.agenda.exceptions.ContatoExistenteException;
-import br.albatross.agenda.models.Contato;
 import br.albatross.agenda.services.spi.andares.AndarConsultaService;
 import br.albatross.agenda.services.spi.contatos.ContatoCadastroService;
 import br.albatross.agenda.services.spi.setores.SetorConsultaService;
@@ -33,8 +34,8 @@ public class ContatoCadastroServiceImpl implements ContatoCadastroService {
 
         if (dao.existsByNome(dadosNovos.getNome()))
             throw new ContatoExistenteException("Já existe outro Contato com o Nome informado, cadastro não realizado");
-        
-        var novoContato = new Contato(dadosNovos);
+
+        var novoContato = new Contato(dadosNovos.getNome(), dadosNovos.getNumero());
 
         if (dadosNovos.getAndarId() != null)
             andarConsultaService.obterReferenciaPorId(dadosNovos.getAndarId()).ifPresent(novoContato::setAndar);
@@ -42,7 +43,7 @@ public class ContatoCadastroServiceImpl implements ContatoCadastroService {
         if (dadosNovos.getSetorId() != null)
             setorConsultaService.obterReferenciaPorId(dadosNovos.getSetorId()).ifPresent(novoContato::setSetor);
 
-        return dao.persist(novoContato);
+        return new DadosParaListagemDeContatoDto(dao.persist(novoContato));
 
     }
 
@@ -54,7 +55,7 @@ public class ContatoCadastroServiceImpl implements ContatoCadastroService {
         if (existeOutroContatoComONome)
             throw new ContatoExistenteException("Já existe outro Contato com o Nome informado. Atualização de Contato não Realizada");
 
-        var contatoAtualizado = new Contato(dadosAtualizados);
+        var contatoAtualizado = new Contato(dadosAtualizados.getId(), dadosAtualizados.getNome(), dadosAtualizados.getNumero());
 
         if (dadosAtualizados.getAndarId() != null) {
             andarConsultaService
@@ -68,14 +69,14 @@ public class ContatoCadastroServiceImpl implements ContatoCadastroService {
                 .ifPresent(contatoAtualizado::setSetor);
         }
 
-        return dao.merge(contatoAtualizado);
+        return new DadosParaListagemDeContatoDto(dao.merge(contatoAtualizado));
 
     }   
 
     @Override
     public void excluir(Long id) {
 
-        dao.delete(id);
+        dao.getReferenceById(Contato.class, id).ifPresent(dao::removeByReference);
 
     }
 

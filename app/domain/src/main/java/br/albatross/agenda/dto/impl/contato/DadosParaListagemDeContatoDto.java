@@ -1,11 +1,11 @@
 package br.albatross.agenda.dto.impl.contato;
 
+import br.albatross.agenda.domain.models.Contato;
 import br.albatross.agenda.dto.impl.andar.DadosParaListagemDoAndarDto;
 import br.albatross.agenda.dto.impl.setor.DadosParaListagemDeSetorDto;
 import br.albatross.agenda.dto.spi.andar.DadosParaListagemDoAndar;
 import br.albatross.agenda.dto.spi.contato.DadosParaListagemDeContato;
 import br.albatross.agenda.dto.spi.setor.DadosParaListagemDeSetor;
-import br.albatross.agenda.models.Contato;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

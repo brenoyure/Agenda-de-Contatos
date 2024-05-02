@@ -1,7 +1,7 @@
 package br.albatross.agenda.dto.impl.andar;
 
+import br.albatross.agenda.domain.models.Andar;
 import br.albatross.agenda.dto.spi.andar.DadosParaListagemDoAndar;
-import br.albatross.agenda.models.Andar;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

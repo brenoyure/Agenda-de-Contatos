@@ -1,12 +1,13 @@
 package br.albatross.agenda.services.impl.unidades;
 
 import br.albatross.agenda.dao.spi.UnidadeAdministrativaDao;
+import br.albatross.agenda.domain.models.UnidadeAdministrativa;
+import br.albatross.agenda.dto.impl.unidades.DadosParaListagemDeUnidadeDto;
 import br.albatross.agenda.dto.spi.unidades.DadosParaAtualizacaoDeUnidade;
 import br.albatross.agenda.dto.spi.unidades.DadosParaCadastroDeNovaUnidade;
 import br.albatross.agenda.dto.spi.unidades.DadosParaListagemDeUnidade;
 import br.albatross.agenda.exceptions.CadastroException;
 import br.albatross.agenda.exceptions.UnidadeExistenteException;
-import br.albatross.agenda.models.UnidadeAdministrativa;
 import br.albatross.agenda.services.spi.unidades.UnidadeCadastroService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -29,16 +30,17 @@ public class CadastroUnidadeServiceImpl implements UnidadeCadastroService {
 			throw new UnidadeExistenteException("Já existe uma Unidade com a descrição informada");
 		}
 
-		var novaUnidade = new UnidadeAdministrativa(dadosNovos);
-		return dao.persist(novaUnidade);
+		var novaUnidade = new UnidadeAdministrativa(dadosNovos.getSigla(), dadosNovos.getDescricao());
+
+		return new DadosParaListagemDeUnidadeDto(dao.persist(novaUnidade));
 
 	}
 
 	@Override
 	public DadosParaListagemDeUnidade atualizar(@Valid DadosParaAtualizacaoDeUnidade dadosAtualizados) throws CadastroException {
 
-		boolean existeOutraUnidadeComASigla     = dao.existsBySigla(dadosAtualizados.getId(), dadosAtualizados.getSigla());
-		boolean existeOutraUnidadeComADescricao = dao.existsByDescricao(dadosAtualizados.getId(), dadosAtualizados.getDescricao());
+		boolean existeOutraUnidadeComASigla     = dao.existsBySiglaAndNotById(dadosAtualizados.getSigla(), dadosAtualizados.getId());
+		boolean existeOutraUnidadeComADescricao = dao.existsByDescricaoAndNotById(dadosAtualizados.getDescricao(), dadosAtualizados.getId());
 
 		if (existeOutraUnidadeComASigla) {
 			throw new UnidadeExistenteException("Já existe outra Unidade cadastrada com a Sigla informada");
@@ -48,8 +50,9 @@ public class CadastroUnidadeServiceImpl implements UnidadeCadastroService {
 			throw new UnidadeExistenteException("Já existe outra Unidade cadastrada com a Descrição informada");
 		}
 
-		var unidadeAtualizada = new UnidadeAdministrativa(dadosAtualizados);
-		return dao.merge(unidadeAtualizada);
+		var unidadeAtualizada = new UnidadeAdministrativa(dadosAtualizados.getId(), dadosAtualizados.getSigla(), dadosAtualizados.getDescricao());
+
+		return new DadosParaListagemDeUnidadeDto(dao.merge(unidadeAtualizada));
 
 	}
 
@@ -62,7 +65,7 @@ public class CadastroUnidadeServiceImpl implements UnidadeCadastroService {
 	        throw new CadastroException("A Unidade ainda possui setores associados a ela. Exclusão Não Permitida");
 	    }
 
-	    dao.delete(id);
+	    dao.getReferenceById(UnidadeAdministrativa.class, id).ifPresent(dao::removeByReference);
 
 	}
 

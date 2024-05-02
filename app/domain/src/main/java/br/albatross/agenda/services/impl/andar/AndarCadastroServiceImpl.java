@@ -2,6 +2,7 @@ package br.albatross.agenda.services.impl.andar;
 
 import br.albatross.agenda.dao.spi.AndarDao;
 import br.albatross.agenda.domain.models.Andar;
+import br.albatross.agenda.dto.impl.andar.DadosParaListagemDoAndarDto;
 import br.albatross.agenda.dto.spi.andar.DadosParaAtualizacaoDoAndar;
 import br.albatross.agenda.dto.spi.andar.DadosParaCadastroDoAndar;
 import br.albatross.agenda.dto.spi.andar.DadosParaListagemDoAndar;
@@ -24,20 +25,21 @@ public class AndarCadastroServiceImpl implements AndarCadastroService {
             throw new CadastroException("Já existe um Andar com o Nome informado");
         }
 
-        var novoAndar = new Andar(dadosNovos);
-        return dao.persist(novoAndar);
+        var novoAndar = new Andar(dadosNovos.getNome());
+
+        return new DadosParaListagemDoAndarDto(dao.persist(novoAndar));
 
     }
 
     @Override
     public DadosParaListagemDoAndar atualizar(@Valid DadosParaAtualizacaoDoAndar dadosAtualizados) throws CadastroException {
 
-        if (dao.existsByNome(dadosAtualizados.getId(), dadosAtualizados.getNome())) {
+        if (dao.existsByNomeAndNotById(dadosAtualizados.getNome(), dadosAtualizados.getId())) {
             throw new CadastroException("Já existe um Andar com o Nome informado");
         }
 
-        var andarParaSerAtualizado = new Andar(dadosAtualizados);
-        return dao.merge(andarParaSerAtualizado);
+        var andarParaSerAtualizado = new Andar(dadosAtualizados.getId(), dadosAtualizados.getNome());
+        return new DadosParaListagemDoAndarDto(andarParaSerAtualizado);
 
     }
 
@@ -48,7 +50,7 @@ public class AndarCadastroServiceImpl implements AndarCadastroService {
             throw new CadastroException("Existem Contatos associados ao Andar. Exclusão Não Permitida");
         }
 
-        dao.delete(id);
+        dao.getReferenceById(Andar.class, id).ifPresent(dao::removeByReference);
 
     }
 

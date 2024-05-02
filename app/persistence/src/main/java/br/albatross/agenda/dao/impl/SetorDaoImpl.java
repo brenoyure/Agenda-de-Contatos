@@ -1,57 +1,29 @@
 package br.albatross.agenda.dao.impl;
 
-import static br.albatross.agenda.models.Setor_.descricao;
-import static br.albatross.agenda.models.Setor_.id;
-import static br.albatross.agenda.models.Setor_.sigla;
-import static br.albatross.agenda.models.Setor_.unidadeAdministrativa;
+import static br.albatross.agenda.domain.models.Setor_.sigla;
+import static br.albatross.agenda.domain.models.Setor_.unidadeAdministrativa;
 import static org.hibernate.jpa.HibernateHints.HINT_CACHEABLE;
 
 import java.util.List;
 import java.util.Optional;
 
 import br.albatross.agenda.dao.spi.SetorDao;
-import br.albatross.agenda.dto.impl.setor.DadosBasicosDoSetorDto;
-import br.albatross.agenda.dto.impl.setor.DadosParaListagemDeSetorDto;
-import br.albatross.agenda.dto.spi.setor.DadosBasicosDoSetor;
-import br.albatross.agenda.dto.spi.setor.DadosParaListagemDeSetor;
-import br.albatross.agenda.models.Setor;
-import br.albatross.agenda.models.Setor_;
+import br.albatross.agenda.domain.models.Setor;
+import br.albatross.agenda.domain.models.Setor_;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Root;
 
 @RequestScoped
-public class SetorDaoImpl implements SetorDao {
+public class SetorDaoImpl extends DaoImpl<Setor, Integer> implements SetorDao {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-
-	@Override
-	public DadosParaListagemDeSetor persist(Setor setor) {
-		entityManager.persist(setor);
-		return new DadosParaListagemDeSetorDto(setor);
-	}
-
-	@Override
-	public DadosParaListagemDeSetor merge(Setor setor) {
-
-	    setor = entityManager.merge(setor);
-		return new DadosParaListagemDeSetorDto(setor);
-
-	}
-
-	@Override
-	public boolean existsById(Integer id) {
-		try {
-			return entityManager
-						.createQuery("SELECT EXISTS(SELECT s FROM Setor s WHERE s.id = ?1)", Boolean.class)
-						.setParameter(1, id)
-						.setHint(HINT_CACHEABLE, true)
-						.getSingleResult();
-		} catch (NoResultException e) { return false; }
-	}
 
 	@Override
 	public boolean existsBySigla(String sigla) {
@@ -64,79 +36,44 @@ public class SetorDaoImpl implements SetorDao {
 	}
 
 	@Override
-	public List<DadosParaListagemDeSetor> findAll() {
+	public List<Setor> findAllInnerJoinFetchUnidadeAdministrativa() {
 
-		var cb   =  entityManager.getCriteriaBuilder();
-		var cq   =  cb.createQuery(DadosParaListagemDeSetor.class);
-		var root =  cq.from(Setor.class);
+        CriteriaBuilder criteriaBuilder     =  entityManager.getCriteriaBuilder();
+        CriteriaQuery<Setor> criteriaQuery  =  criteriaBuilder.createQuery(Setor.class);
+        Root<Setor> setor                   =  criteriaQuery.from(Setor.class); 
 
-		root
+		setor
 		    .fetch(unidadeAdministrativa, JoinType.INNER);
 
-		cq.select(cb.construct(DadosParaListagemDeSetorDto.class, root))
-		  .orderBy(cb.asc(root.get(sigla)));
+		criteriaQuery
+		    .orderBy(criteriaBuilder.asc(setor.get(sigla)));
 
 		return entityManager
-				.createQuery(cq)
+				.createQuery(criteriaQuery)
 				.setHint(HINT_CACHEABLE, true)
 				.getResultList();
-	}
-
-    @Override
-    public List<DadosBasicosDoSetor> findAllWithBasicData() {
-
-        var cb   =  entityManager.getCriteriaBuilder();
-        var cq   =  cb.createQuery(DadosBasicosDoSetor.class);
-        var root =  cq.from(Setor.class);
-
-        cq.select(cb.construct(DadosBasicosDoSetorDto.class, root.get(id),
-                                                             root.get(sigla),
-                                                             root.get(descricao)))
-          .orderBy(cb.asc(root.get(sigla)));
-
-        return entityManager
-                .createQuery(cq)
-                .setHint(HINT_CACHEABLE, true)
-                .getResultList();
-    }	
+	}	
 
 	@Override
-	public Optional<DadosParaListagemDeSetor> findById(Integer id) {
+	public Optional<Setor> findByIdInnerJoinFetchUnidadeAdministrativa(Integer id) {
 
 		try {
 
-			var cb   =  entityManager.getCriteriaBuilder();
-			var cq   =  cb.createQuery(DadosParaListagemDeSetor.class);
-			var root =  cq.from(Setor.class);
+	        CriteriaBuilder criteriaBuilder     =  entityManager.getCriteriaBuilder();
+	        CriteriaQuery<Setor> criteriaQuery  =  criteriaBuilder.createQuery(Setor.class);
+	        Root<Setor> setor                   =  criteriaQuery.from(Setor.class); 
 
-	        root
+	        setor
 	            .fetch(unidadeAdministrativa, JoinType.INNER);		
 
-	        cq.select(cb.construct(DadosParaListagemDeSetorDto.class, root));
-
-	        cq.where(cb.equal(root.get(Setor_.id), id));	        
+	        criteriaQuery.where(criteriaBuilder.equal(setor.get(Setor_.id), id));	        
 
 			return Optional
 					.ofNullable(entityManager
-									.createQuery(cq)
-									.setHint(HINT_CACHEABLE, true)
+									.createQuery(criteriaQuery)
 									.getSingleResult());
 
 		} catch (NoResultException e) { return Optional.empty(); }
-
-	}
-
-    @Override
-    public Optional<Setor> getReferenceById(Integer id) {
-
-        return Optional.ofNullable(entityManager.getReference(Setor.class, id));
-
-    }   	
-
-	@Override
-	public void delete(Integer id) {
-
-		entityManager.remove(entityManager.getReference(Setor.class, id));
 
 	}
 
@@ -151,7 +88,7 @@ public class SetorDaoImpl implements SetorDao {
 	}
 
 	@Override
-	public boolean existsBySigla(Integer id, String sigla) {
+	public boolean existsBySiglaAndNotById(String sigla, Integer id) {
 		try {
 			return entityManager
 						.createQuery("SELECT EXISTS(SELECT s FROM Setor s WHERE s.sigla = ?1 AND s.id != ?2)", Boolean.class)
@@ -162,7 +99,7 @@ public class SetorDaoImpl implements SetorDao {
 	}
 
 	@Override
-	public boolean existsByDescricao(Integer id, String descricao) {
+	public boolean existsByDescricaoAndNotById(String descricao, Integer id) {
 		try {
 			return entityManager
 						.createQuery("SELECT EXISTS(SELECT s FROM Setor s WHERE s.descricao = ?1 AND s.id != ?2)", Boolean.class)

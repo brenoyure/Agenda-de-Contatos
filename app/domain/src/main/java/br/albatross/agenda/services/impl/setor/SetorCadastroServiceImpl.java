@@ -1,12 +1,13 @@
 package br.albatross.agenda.services.impl.setor;
 
 import br.albatross.agenda.dao.spi.SetorDao;
+import br.albatross.agenda.domain.models.Setor;
+import br.albatross.agenda.dto.impl.setor.DadosParaListagemDeSetorDto;
 import br.albatross.agenda.dto.spi.setor.DadosParaAtualizacaoDeSetor;
 import br.albatross.agenda.dto.spi.setor.DadosParaCadastroDeNovoSetor;
 import br.albatross.agenda.dto.spi.setor.DadosParaListagemDeSetor;
 import br.albatross.agenda.exceptions.CadastroException;
 import br.albatross.agenda.exceptions.SetorExistenteException;
-import br.albatross.agenda.models.Setor;
 import br.albatross.agenda.services.spi.setores.SetorCadastroService;
 import br.albatross.agenda.services.spi.unidades.UnidadeConsultaService;
 import jakarta.enterprise.context.RequestScoped;
@@ -36,23 +37,23 @@ public class SetorCadastroServiceImpl implements SetorCadastroService {
             throw new SetorExistenteException("Já existe um Setor com a Descrição informada");
         }
 
-
         var unidadeReference = unidadeConsultaService.obterReferenciaPorId(dadosNovos.getUnidadeId());
         if (unidadeReference.isEmpty()) {
             throw new CadastroException("Unidade Administrativa com o Id informado não encontrada, Cadastro de Setor não realizado");
         }
 
 
-        var novoSetor = new Setor(dadosNovos, unidadeReference.get());
-        return dao.persist(novoSetor);
+        var novoSetor = new Setor(dadosNovos.getSigla(), dadosNovos.getDescricao(), unidadeReference.get());
+
+        return new DadosParaListagemDeSetorDto(dao.persist(novoSetor));
 
     }
 
     @Override
     public DadosParaListagemDeSetor atualizar(@Valid DadosParaAtualizacaoDeSetor dadosAtualizados) throws CadastroException {
 
-        boolean existeOutroSetorComASigla     = dao.existsBySigla(dadosAtualizados.getId(),    dadosAtualizados.getSigla());
-        boolean existeOutroSetorComADescricao = dao.existsByDescricao(dadosAtualizados.getId(),dadosAtualizados.getDescricao());
+        boolean existeOutroSetorComASigla     = dao.existsBySiglaAndNotById(dadosAtualizados.getSigla(), dadosAtualizados.getId());
+        boolean existeOutroSetorComADescricao = dao.existsByDescricaoAndNotById(dadosAtualizados.getDescricao(), dadosAtualizados.getId());
 
         if (existeOutroSetorComASigla) {
             throw new SetorExistenteException("Já existe outro Setor com a Sigla informada");
@@ -67,8 +68,9 @@ public class SetorCadastroServiceImpl implements SetorCadastroService {
             throw new CadastroException("Unidade Administrativa com o Id informado não encontrada, Atualização de Setor não realizado");
         }
 
-        var setorAtualizado = new Setor(dadosAtualizados, unidadeReference.get());
-        return dao.merge(setorAtualizado);
+        var setorAtualizado = new Setor(dadosAtualizados.getId(), dadosAtualizados.getSigla(), dadosAtualizados.getDescricao(), unidadeReference.get());
+
+        return new DadosParaListagemDeSetorDto(dao.merge(setorAtualizado));
 
     }
 
@@ -81,7 +83,7 @@ public class SetorCadastroServiceImpl implements SetorCadastroService {
             throw new CadastroException("O Setor possui Contatos associados. Exclusão Não Permitida");
         }
 
-        dao.delete(id);
+        dao.getReferenceById(Setor.class, id).ifPresent(dao::removeByReference);
 
     }
 

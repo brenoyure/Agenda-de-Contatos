@@ -1,6 +1,6 @@
 package br.albatross.agenda.security.models;
 
-import static jakarta.persistence.FetchType.LAZY;
+import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 import jakarta.persistence.Cacheable;
@@ -35,7 +35,7 @@ public class User {
 	@Column(length = 100 ,unique = false, nullable = false)
 	private String password;
 
-	@ManyToOne(fetch = LAZY)
+	@ManyToOne(fetch = EAGER)
 	@JoinColumn(name = "fk_role_id", nullable = false)
 	private Role role;
 

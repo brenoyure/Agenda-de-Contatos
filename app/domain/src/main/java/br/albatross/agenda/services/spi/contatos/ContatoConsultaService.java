@@ -3,8 +3,8 @@ package br.albatross.agenda.services.spi.contatos;
 import java.util.List;
 import java.util.Optional;
 
+import br.albatross.agenda.domain.models.Contato;
 import br.albatross.agenda.dto.spi.contato.DadosParaListagemDeContato;
-import br.albatross.agenda.models.Contato;
 
 public interface ContatoConsultaService {
 

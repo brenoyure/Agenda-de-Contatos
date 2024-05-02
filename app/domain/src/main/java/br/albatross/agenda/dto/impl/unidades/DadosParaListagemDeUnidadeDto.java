@@ -1,7 +1,7 @@
 package br.albatross.agenda.dto.impl.unidades;
 
+import br.albatross.agenda.domain.models.UnidadeAdministrativa;
 import br.albatross.agenda.dto.spi.unidades.DadosParaListagemDeUnidade;
-import br.albatross.agenda.models.UnidadeAdministrativa;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

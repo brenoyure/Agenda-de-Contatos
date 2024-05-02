@@ -17,7 +17,7 @@ public final class DadosParaListagemDoUsuarioDto implements Serializable {
 	private final DadosParaListagemDaRoleDto role;
 
 	public DadosParaListagemDoUsuarioDto(User userEntity) {
-		
+
 		this.id = userEntity.getId();
 		this.username = userEntity.getUsername();
 		this.role = new DadosParaListagemDaRoleDto(userEntity.getRole());

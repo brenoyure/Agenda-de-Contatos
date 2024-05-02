@@ -3,8 +3,8 @@ package br.albatross.agenda.services.spi.unidades;
 import java.util.List;
 import java.util.Optional;
 
+import br.albatross.agenda.domain.models.UnidadeAdministrativa;
 import br.albatross.agenda.dto.spi.unidades.DadosParaListagemDeUnidade;
-import br.albatross.agenda.models.UnidadeAdministrativa;
 
 public interface UnidadeConsultaService {
 
