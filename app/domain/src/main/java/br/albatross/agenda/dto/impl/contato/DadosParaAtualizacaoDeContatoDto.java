@@ -1,5 +1,6 @@
 package br.albatross.agenda.dto.impl.contato;
 
+import br.albatross.agenda.dto.spi.contato.DadosBasicosDoContato;
 import br.albatross.agenda.dto.spi.contato.DadosParaAtualizacaoDeContato;
 import br.albatross.agenda.dto.spi.contato.DadosParaListagemDeContato;
 import jakarta.validation.constraints.NotNull;
@@ -18,6 +19,11 @@ public class DadosParaAtualizacaoDeContatoDto extends DadosParaCadastroDeNovoCon
     @Positive(message = "{atualizacao.contato.id.positivo.obrigatorio}")
     private Long id;
 
+    public DadosParaAtualizacaoDeContatoDto(DadosBasicosDoContato dto) {
+        super(dto);
+        this.id = dto.getId();
+    }
+    
     public DadosParaAtualizacaoDeContatoDto(DadosParaListagemDeContato dto) {
         super(dto);
         this.id = dto.getId();

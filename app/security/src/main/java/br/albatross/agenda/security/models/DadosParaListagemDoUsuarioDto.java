@@ -4,9 +4,8 @@ import java.io.Serializable;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
-@Getter @Setter
+@Getter
 @EqualsAndHashCode(of = "id")
 public final class DadosParaListagemDoUsuarioDto implements Serializable {
 

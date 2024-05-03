@@ -11,7 +11,9 @@ import java.util.Optional;
 import br.albatross.agenda.dao.spi.ContatoDao;
 import br.albatross.agenda.domain.models.Contato;
 import br.albatross.agenda.domain.models.Contato_;
+
 import jakarta.enterprise.context.RequestScoped;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
@@ -25,25 +27,6 @@ public class ContatoDaoImpl extends DaoImpl<Contato, Long> implements ContatoDao
 
     @PersistenceContext
     private EntityManager entityManager;
-
-    @Override
-    public boolean existsByNomeAndNotById(String nome, Long id) {
-        return entityManager
-                .createQuery("SELECT EXISTS(SELECT c FROM Contato c WHERE c.nome = ?1 AND c.id != ?2)", Boolean.class)
-                .setParameter(1, nome)
-                .setParameter(2, id)
-                .setHint(HINT_CACHEABLE, true)
-                .getSingleResult();
-    }
-
-    @Override
-    public boolean existsByNome(String nome) {
-        return entityManager
-                .createQuery("SELECT EXISTS(SELECT c FROM Contato c WHERE c.nome = ?1)", Boolean.class)
-                .setParameter(1, nome)
-                .setHint(HINT_CACHEABLE, true)
-                .getSingleResult();
-    }
 
     @Override
     public Optional<Contato> findByIdLeftJoinFetchSetorAndAndar(Long id) {
@@ -89,5 +72,22 @@ public class ContatoDaoImpl extends DaoImpl<Contato, Long> implements ContatoDao
                 .setHint(HINT_CACHEABLE, true)
                 .getResultList();
     } 
+
+    @Override
+    public boolean existsByNomeAndNotById(String nome, Long id) {
+        return entityManager
+                .createQuery("SELECT EXISTS(SELECT c FROM Contato c WHERE c.nome = ?1 AND c.id != ?2)", Boolean.class)
+                .setParameter(1, nome)
+                .setParameter(2, id)
+                .getSingleResult();
+    }
+
+    @Override
+    public boolean existsByNome(String nome) {
+        return entityManager
+                .createQuery("SELECT EXISTS(SELECT c FROM Contato c WHERE c.nome = ?1)", Boolean.class)
+                .setParameter(1, nome)
+                .getSingleResult();
+    }
 
 }

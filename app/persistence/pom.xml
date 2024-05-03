@@ -9,4 +9,21 @@
         <groupId>br.albatross</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
+
+    <dependencies>
+
+        <dependency>
+
+          <groupId>org.hibernate.orm</groupId>
+
+          <artifactId>hibernate-core</artifactId>
+
+          <version>6.4.1.Final</version>
+
+          <scope>provided</scope>
+
+        </dependency>
+
+    </dependencies>
+
 </project>

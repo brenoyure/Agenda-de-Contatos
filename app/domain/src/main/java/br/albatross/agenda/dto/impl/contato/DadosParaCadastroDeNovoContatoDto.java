@@ -1,5 +1,6 @@
 package br.albatross.agenda.dto.impl.contato;
 
+import br.albatross.agenda.dto.spi.contato.DadosBasicosDoContato;
 import br.albatross.agenda.dto.spi.contato.DadosParaCadastroDeNovoContato;
 import br.albatross.agenda.dto.spi.contato.DadosParaListagemDeContato;
 import jakarta.validation.constraints.NotBlank;
@@ -30,6 +31,13 @@ public class DadosParaCadastroDeNovoContatoDto implements DadosParaCadastroDeNov
     private Integer andarId;
 
     public DadosParaCadastroDeNovoContatoDto(DadosParaListagemDeContato dto) {
+        this.nome = dto.getNome();
+        this.numero = dto.getNumero();
+        this.setorId = dto.getSetor() == null ? null : dto.getSetor().getId();
+        this.andarId = dto.getAndar() == null ? null : dto.getAndar().getId();
+    }
+
+    public DadosParaCadastroDeNovoContatoDto(DadosBasicosDoContato dto) {
         this.nome = dto.getNome();
         this.numero = dto.getNumero();
         this.setorId = dto.getSetor() == null ? null : dto.getSetor().getId();

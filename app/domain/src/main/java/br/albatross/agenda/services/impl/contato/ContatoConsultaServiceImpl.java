@@ -7,7 +7,9 @@ import java.util.Optional;
 
 import br.albatross.agenda.dao.spi.ContatoDao;
 import br.albatross.agenda.domain.models.Contato;
+import br.albatross.agenda.dto.impl.contato.DadosBasicosDoContatoDto;
 import br.albatross.agenda.dto.impl.contato.DadosParaListagemDeContatoDto;
+import br.albatross.agenda.dto.spi.contato.DadosBasicosDoContato;
 import br.albatross.agenda.dto.spi.contato.DadosParaListagemDeContato;
 import br.albatross.agenda.services.spi.contatos.ContatoConsultaService;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -54,11 +56,11 @@ public class ContatoConsultaServiceImpl implements ContatoConsultaService {
     }
 
     @Override
-    public Optional<DadosParaListagemDeContato> buscarPorId(Long id) {
+    public Optional<DadosBasicosDoContato> buscarPorId(Long id) {
 
         return dao
                 .findByIdLeftJoinFetchSetorAndAndar(id)
-                .map(DadosParaListagemDeContatoDto::new);
+                .map(DadosBasicosDoContatoDto::new);
 
     }
 

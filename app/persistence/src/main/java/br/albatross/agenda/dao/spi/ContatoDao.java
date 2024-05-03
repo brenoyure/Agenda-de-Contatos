@@ -7,11 +7,10 @@ import br.albatross.agenda.domain.models.Contato;
 
 public interface ContatoDao extends Dao<Contato, Long> {
 
+    Optional<Contato> findByIdLeftJoinFetchSetorAndAndar(Long id);
+    List<Contato> findAllLeftJoinFetchSetorAndUnidadeAdministrativaAndAndar();    
+
     boolean existsByNome(String nome);
     boolean existsByNomeAndNotById(String nome, Long id);
-
-    Optional<Contato> findByIdLeftJoinFetchSetorAndAndar(Long id);
-
-    List<Contato> findAllLeftJoinFetchSetorAndUnidadeAdministrativaAndAndar();
     
 }

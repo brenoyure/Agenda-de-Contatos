@@ -1,10 +1,10 @@
 package br.albatross.agenda.dao.impl;
 
-import static org.hibernate.jpa.HibernateHints.HINT_CACHEABLE;
-
 import br.albatross.agenda.dao.spi.UnidadeAdministrativaDao;
 import br.albatross.agenda.domain.models.UnidadeAdministrativa;
+
 import jakarta.enterprise.context.RequestScoped;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
@@ -20,7 +20,6 @@ public class UnidadeAdministrativaDaoImpl extends DaoImpl<UnidadeAdministrativa,
 			return entityManager
 						.createQuery("SELECT EXISTS(SELECT u FROM UnidadeAdministrativa u WHERE u.sigla = ?1)", Boolean.class)
 						.setParameter(1, sigla)
-						.setHint(HINT_CACHEABLE, true)
 						.getSingleResult();
 		} catch (NoResultException e) { return false; }
 	}	

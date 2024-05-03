@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import br.albatross.agenda.security.daos.spi.UsersDao;
 import br.albatross.agenda.security.models.DadosParaListagemDoUsuarioDto;
-import br.albatross.agenda.security.models.User;
+
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 
@@ -18,8 +18,9 @@ public class UsuarioListagemService {
 	private UsersDao dao;
 
 	public List<DadosParaListagemDoUsuarioDto> listar() {
+
 		return dao
-		        .findAll(User.class)
+		        .findAll()
 		        .stream()
 		        .map(DadosParaListagemDoUsuarioDto::new)
 		        .collect(toList());
@@ -28,7 +29,7 @@ public class UsuarioListagemService {
 	public Optional<DadosParaListagemDoUsuarioDto> buscarPorId(int id) {
 
 	    return dao
-		        .findById(User.class, id)
+		        .findById(id)
 		        .map(DadosParaListagemDoUsuarioDto::new);
 
 	}
